@@ -12,6 +12,7 @@
     {"id":{"name":"spr_player_idle","path":"sprites/spr_player_idle/spr_player_idle.yy",},"order":4,},
     {"id":{"name":"scr_enums","path":"scripts/scr_enums/scr_enums.yy",},"order":1,},
     {"id":{"name":"obj_createTrainPiece","path":"objects/obj_createTrainPiece/obj_createTrainPiece.yy",},"order":0,},
+    {"id":{"name":"obj_measuringTool","path":"objects/obj_measuringTool/obj_measuringTool.yy",},"order":5,},
     {"id":{"name":"spr_trainWheels","path":"sprites/spr_trainWheels/spr_trainWheels.yy",},"order":2,},
     {"id":{"name":"spr_trainBackground","path":"sprites/spr_trainBackground/spr_trainBackground.yy",},"order":9,},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":3,},

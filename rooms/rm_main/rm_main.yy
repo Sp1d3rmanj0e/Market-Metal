@@ -22,6 +22,7 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_21D8A697","properties":[],"isDnd":false,"objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":935.0,"y":244.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_7BB29B81","properties":[],"isDnd":false,"objectId":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":657.0,"y":1154.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_2085CD14","properties":[],"isDnd":false,"objectId":{"name":"obj_cameraManager","path":"objects/obj_cameraManager/obj_cameraManager.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":626.0,"y":4.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_4FE72CCE","properties":[],"isDnd":false,"objectId":{"name":"obj_measuringTool","path":"objects/obj_measuringTool/obj_measuringTool.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":660.0,"y":300.0,},
       ],"visible":true,"depth":0,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":20,"gridY":20,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRAssetLayer","resourceVersion":"1.0","name":"BackgroundSprites","assets":[
         {"resourceType":"GMRSpriteGraphic","resourceVersion":"1.0","name":"graphic_4DF229CF","spriteId":{"name":"spr_mapBackground","path":"sprites/spr_mapBackground/spr_mapBackground.yy",},"headPosition":0.0,"rotation":0.0,"scaleX":20.0,"scaleY":11.25,"animationSpeed":1.0,"colour":4294967295,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":0.0,"y":720.0,},
@@ -38,6 +39,7 @@
     {"name":"inst_21D8A697","path":"rooms/rm_main/rm_main.yy",},
     {"name":"inst_7BB29B81","path":"rooms/rm_main/rm_main.yy",},
     {"name":"inst_2085CD14","path":"rooms/rm_main/rm_main.yy",},
+    {"name":"inst_4FE72CCE","path":"rooms/rm_main/rm_main.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,

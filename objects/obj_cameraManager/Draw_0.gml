@@ -1,6 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// Get camera dimensions
 var _miniCamX	   = camera_get_view_x	   (view_get_camera(VIEW.MINI));
 var _miniCamY	   = camera_get_view_y	   (view_get_camera(VIEW.MINI));
 var _miniCamWidth  = camera_get_view_width (view_get_camera(VIEW.MINI));
@@ -14,17 +15,20 @@ _miniCamX + _miniCamWidth,
 _miniCamY + _miniCamHeight)
 ) {
 	
-	draw_text(mouse_x, mouse_y, "===================");
+	draw_set_color(c_white);
+	draw_set_alpha(0.25);
 	
 	// Draw outline of camera to show it is clickable
-	draw_rectangle_width(
+	draw_rectangle(
 	_miniCamX, _miniCamY, 
 	_miniCamX + _miniCamWidth, 
 	_miniCamY + _miniCamHeight, 
-	50, c_white
-	);
-}
-else
-{
-	draw_text(mouse_x, mouse_y-50, "not in");
+	false);
+	
+	resetDraw();
+	
+	// If clicked, flip cams
+	if (mouse_check_button_pressed(mb_left)) {
+		flipCams();
+	}
 }
