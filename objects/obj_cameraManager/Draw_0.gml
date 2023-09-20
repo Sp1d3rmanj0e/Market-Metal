@@ -1,5 +1,4 @@
-/// @description Insert description here
-// You can write your code in this editor
+/// @description Click to flip cams
 
 // Get camera dimensions
 var _miniCamX	   = camera_get_view_x	   (view_get_camera(VIEW.MINI));

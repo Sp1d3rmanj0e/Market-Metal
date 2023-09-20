@@ -4,5 +4,5 @@
 // Draw the cart
 draw_self();
 
-// Draw the floor
+// Draw the wheels
 draw_sprite(spr_trainWheels, global.wheelFrame, x, y)

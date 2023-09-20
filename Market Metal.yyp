@@ -3,6 +3,7 @@
   "resourceVersion": "1.6",
   "name": "Market Metal",
   "resources": [
+    {"id":{"name":"spr_tracks","path":"sprites/spr_tracks/spr_tracks.yy",},"order":10,},
     {"id":{"name":"obj_cameraManager","path":"objects/obj_cameraManager/obj_cameraManager.yy",},"order":4,},
     {"id":{"name":"spr_mapBackground","path":"sprites/spr_mapBackground/spr_mapBackground.yy",},"order":8,},
     {"id":{"name":"obj_wheelAnimator","path":"objects/obj_wheelAnimator/obj_wheelAnimator.yy",},"order":2,},
