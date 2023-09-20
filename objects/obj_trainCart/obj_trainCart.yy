@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_trainCart",
   "spriteId": {
-    "name": "spr_trainCartMulti",
-    "path": "sprites/spr_trainCartMulti/spr_trainCartMulti.yy",
+    "name": "spr_trainCartFront",
+    "path": "sprites/spr_trainCartFront/spr_trainCartFront.yy",
   },
   "solid": false,
   "visible": true,

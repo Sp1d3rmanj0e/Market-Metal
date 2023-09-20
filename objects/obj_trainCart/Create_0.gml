@@ -6,3 +6,4 @@ if (!instance_exists(obj_wheelAnimator)) instance_create_layer(0, 0, "Instances"
 
 // Draw the engine if it's the first cart in the set
 if (trainNumber == 1) sprite_index = spr_trainCartFront;
+else sprite_index = spr_trainCartMulti;
