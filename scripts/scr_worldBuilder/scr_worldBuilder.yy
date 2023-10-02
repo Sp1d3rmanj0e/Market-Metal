@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_generalFunctions",
+  "name": "scr_worldBuilder",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Scripts",
-    "path": "folders/Scripts.yy",
+    "name": "Procedural Generation",
+    "path": "folders/Scripts/Procedural Generation.yy",
   },
 }
