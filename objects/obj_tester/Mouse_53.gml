@@ -1,5 +1,4 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-var _tilemap = layer_tilemap_get_id("ts_biomes");
-reload_biomes(global.seed, 0, room_height/2, room_width, room_height/2, 0, 0, 64, _tilemap);
+load_biomes(global.seed,mouse_x, mouse_y, 128, 128, 0, 0, 128, tilemap);

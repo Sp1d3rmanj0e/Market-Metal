@@ -26,7 +26,7 @@
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},"order":3,},
     {"id":{"name":"scr_simplerlFunctions","path":"scripts/scr_simplerlFunctions/scr_simplerlFunctions.yy",},"order":2,},
     {"id":{"name":"obj_trainCart","path":"objects/obj_trainCart/obj_trainCart.yy",},"order":1,},
-    {"id":{"name":"spr_biomes_tile11","path":"sprites/spr_biomes_tile11/spr_biomes_tile11.yy",},"order":12,},
+    {"id":{"name":"spr_biomes_tile_larger","path":"sprites/spr_biomes_tile_larger/spr_biomes_tile_larger.yy",},"order":12,},
     {"id":{"name":"spr_trainCartFront","path":"sprites/spr_trainCartFront/spr_trainCartFront.yy",},"order":1,},
     {"id":{"name":"spr_trainCartMulti","path":"sprites/spr_trainCartMulti/spr_trainCartMulti.yy",},"order":3,},
     {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},"order":0,},

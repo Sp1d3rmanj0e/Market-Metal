@@ -14,7 +14,7 @@ function reload_world() {
 /// @param _tileSize - the size of the tileset used
 /// @param _tilemap  - the id of the tilemap to execute this function on
 /// @param _scale    - the zoom of the noise map.  The larger the zoom, the larger the biomes
-function reload_biomes(_seed, _tilemapX, _tilemapY, _tilemapW, _tilemapH, _trainX, _trainY, _tileSize, _tilemap, _scale = BIOME_SCALE) {
+function load_biomes(_seed, _tilemapX, _tilemapY, _tilemapW, _tilemapH, _trainX, _trainY, _tileSize, _tilemap, _scale = BIOME_SCALE) {
 	
 	// Loop through each tile location in the specified range
 	for (var _x = _tilemapX; _x < _tilemapX + _tilemapW; _x+= _tileSize) {
