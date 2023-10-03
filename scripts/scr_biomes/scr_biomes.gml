@@ -5,7 +5,7 @@ enum BIOME {
 	NUM_BIOMES = 20
 }
 
-#macro BIOME_SCALE 0.5
+#macro BIOME_SCALE 150
 
 // Easily and simply adds all the biome data into a single map
 /// @param _num - the number that corresponds to a spot on the tileset

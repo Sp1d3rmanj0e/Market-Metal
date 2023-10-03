@@ -33,7 +33,7 @@ function reload_biomes(_seed, _tilemapX, _tilemapY, _tilemapW, _tilemapH, _train
 		var _tileNum = ds_map_find_value(_biome, "tNum");
 		
 		// Set the tile
-		tilemap_set_at_pixel(_tilemap,_tileNum, _tilemapX, _tilemapY);
+		tilemap_set_at_pixel(_tilemap,_tileNum, _x, _y);
 		
 	}}
 }
