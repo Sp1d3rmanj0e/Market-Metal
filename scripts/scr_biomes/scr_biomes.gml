@@ -22,7 +22,7 @@ enum BIOME {
 /// @returns a ds_map() of all of these data points
 function create_biome_data(_num = -1, _name = "null", _color = c_black, _resources = [], _structures = [], _events = [], _difficulty = 1) {
 	var _map = ds_map_create();
-	ds_map_add(_map, "num", _num)
+	ds_map_add(_map, "tNum", _num)
 	ds_map_add(_map, "name", _name);
 	ds_map_add(_map, "color", _color);
 	ds_map_add(_map, "resources", _resources);
@@ -80,46 +80,28 @@ global.biomes =
  *
  * According to the biomes array, it would return Broken_City
  */
-function get_biome(_humidity, _inlandness) {
+function get_biome_map(_humidity, _inlandness) {
 	
-	var _humidScale  = clamp(round(_humidity * 4), 0, 4);
+	var _humidScale  = clamp(round(_humidity * (BIOME.HUMID_LEVELS-1)), 0,  (BIOME.HUMID_LEVELS-1));
 	
-	var _inlandScale = clamp(round(_inlandness * 3), 0, 3);
+	var _inlandScale = clamp(round(_inlandness * (BIOME.INLAND_LEVELS-1)), 0, (BIOME.INLAND_LEVELS-1));
 	
-	return global.biomes[_inlandScale][_humidScale];
+	return global.biomes[_inlandScale][_humidScale][0];
 }
 
-/// @param _value - the value to clamp between 0 and 1
-/// @param _center - a value between 0 and 1.  When 0, clamps to 0.5.  When 1, does not clamp at all
-function clamp_center(_value, _center) {
-	clamp(_value,lerp(0, 0.5, _center),lerp(1, 0.5, _center));
-}
-
-// Increases the bias towards the centermost biomes as _center increases in value
-// This function was designed to garuantee that the early biomes will spawn near 
-// easier biomes and get harder as the player progresses
-// If center = 1, garuanteed be 0.5, 0.5
-// If center = 0, could be anywhere from 0-1
-function get_biome_distance(_humidity, _inlandness, _center) {
-	_humidity	= clamp_center(_humidity, _center);
-	_inlandness = clamp_center(_inlandness, _center);
-	
-	return get_biome(_humidity, _inlandness);
-}
-
-// Returns the inlandness of a coordinate, biased by it's centeredness
+// Simplifies the noise function to already take into account the scale
+// of the map.  If the _scale value is larger, the map will have larger biomes (and V/V)
 function noise_scale(_seed, _x, _y, _scale = BIOME_SCALE) {
 	return noise_octave(_seed, _x/_scale, _y/_scale);
 }
 
 /// @param _seed - the seed of the map the player is on
-/// @param _tileX - the x location of the requested tile
-/// @param _tileY - the y location of the requested tile
-/// @param _center - a scale from 0-1, with 0 allowing for the hardest biomes
-//					 and 1 allowing only the easiest biomes
+/// @param _x - the x location of the requested spot on the map
+/// @param _y - the y location of the requested spot on the map
+/// @param _scale - OPTIONAL - larger scale = more zoomed in on the map = larger biomes
 /// @returns a ds_map() of the biome
-function get_biome_at_tile_distance(_seed, _tileX, _tileY, _center) {
-	var _inlandness = noise_scale(_seed, _tileX, _tileY);
-	var _humidity	= noise_scale(_seed+1, _tileX, _tileY);
-	get_biome_distance(_inlandness, _humidity, _center);
+function get_biome_at(_seed, _x, _y, _scale = BIOME_SCALE) {
+	var _inlandness = noise_scale(_seed, _x, _y, _scale);
+	var _humidity	= noise_scale(_seed+1, _x, _y, _scale);
+	return get_biome_map(_humidity, _inlandness);
 }
