@@ -14,11 +14,12 @@ function draw_biomes(_seed, _leftX, _topY, _width, _height, _trainX, _trainY, _b
 	for (var _x = _leftX; _x < _leftX + _width; _x+=_tileSize) {
 	for (var _y = _topY; _y < _topY + _height; _y+=_tileSize) {
 		
+		// Get the biome color
 		var _biomeMap = get_biome_at(_seed, (_x + _trainX)/_tileSize, (_y + _trainY)/_tileSize, _scale);
 		var _color = ds_map_find_value(_biomeMap, "color");
-		
 		draw_set_color(_color);
 		
+		// Biome blending + Drawing
 		for (var _b = 0; _b < _blend; _b++) {
 		
 			draw_set_alpha(1/power(2,_b)); // 1 = 1/2^0 = 1; 2 = 1/2^1 = 0.5; 3 = 1/2^2 = 0.25;

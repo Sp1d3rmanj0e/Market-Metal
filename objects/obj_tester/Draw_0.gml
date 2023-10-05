@@ -1,1 +1,1 @@
-draw_biomes(global.seed, 0, 480, room_width, room_height-480, X, Y, 4, 100, zoom);
+draw_biomes(global.seed, 0, 480, room_width, room_height-480, X, Y, 4, 100*zoom, 500/zoom);
