@@ -1,4 +1,4 @@
-#macro OCTAVES 5
+#macro OCTAVES 2
 
 // Returns a consistent random number between 0 and 1 based on the x and y location
 function generateVector(_seed, _x, _y) {
