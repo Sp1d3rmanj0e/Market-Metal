@@ -1,4 +1,14 @@
-function draw_biomes(_leftX, _topY, _width, _height, _trainX, _trainY, _seed, _blend = 2, _tileSize = 128, _scale = BIOME_SCALE) {
+/// @param _seed - the seed used to generate the world
+/// @param _leftX - the leftmost border to draw the biomes
+/// @param _topY - the topmost border to draw the biomes
+/// @param _width - the width of the biomes to draw
+/// @param _height - the height of the biomes to draw
+/// @param _trainX - the train offset X distance from 0 (moves the map)
+/// @param _trainY - the train offset Y distance from 0 (moves the map)
+/// @param _blend - blends the colors of the nearby biomes
+/// @param _tileSize - how big each tile is when drawing
+/// @param _scale - the "zoom" or how big biomes are
+function draw_biomes(_seed, _leftX, _topY, _width, _height, _trainX, _trainY, _blend = 2, _tileSize = 128, _scale = BIOME_SCALE) {
 	
 	// Loop through every space within the set range
 	for (var _x = _leftX; _x < _leftX + _width; _x+=_tileSize) {
