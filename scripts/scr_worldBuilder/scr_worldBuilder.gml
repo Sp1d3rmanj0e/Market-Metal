@@ -7,7 +7,7 @@
 /// @param _blend - blends the colors of the nearby biomes
 /// @param _tileSize - how big each tile is when drawing
 /// @param _scale - the "zoom" or how big biomes are
-function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2, _tileSize = 32, _scale = 20000) {
+function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2, _tileSize = 128, _scale = 50000) {
 	
 	// This for loop shows the screen in which to display the biomes within it
 	for (var _x = 0; _x < _width; _x+=_tileSize) {
@@ -31,9 +31,9 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2
 			// dissipating as it gets further from the original tile
 			draw_rectangle(
 			_x-_tileSize*_b, 
-			max(_y-_tileSize*_b, _topY), 
+			max((_y+_topY)-_tileSize*_b, _topY), 
 			_x+_tileSize*(_b+1), 
-			_y+_tileSize*(_b+1), false);
+			_y+_topY+_tileSize*(_b+1), false);
 			draw_set_alpha(1);
 		}
 	}}
