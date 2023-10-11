@@ -17,6 +17,10 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2
 		var _tileX = _trainX + _x;
 		var _tileY = _trainY + _y;
 		
+		// Lock the coordinates on the tile grid
+		_tileX -= _tileX mod _tileSize;
+		_tileY -= _tileY mod _tileSize;
+		
 		// Get and set the biome color
 		var _biomeMap = get_biome_at(_seed, _tileX, _tileY, _scale);
 		var _color = ds_map_find_value(_biomeMap, "color");
@@ -37,4 +41,9 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2
 			draw_set_alpha(1);
 		}
 	}}
+}
+
+function generate_track_section(_seed, _startX, _startY, _tileSize) {
+	
+	
 }
