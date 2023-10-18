@@ -1,4 +1,4 @@
-#macro OCTAVES 5
+#macro OCTAVES 2
 
 // Returns a consistent random number between 0 and 1 based on the x and y location
 function generateVector(_seed, _x, _y) {
@@ -41,7 +41,7 @@ function noise(_seed, _x, _y) {
     return _point;
 }
 
-function noise_octave(_seed, _x, _y, _octaves = 1) {
+function noise_octave(_seed, _x, _y, _octaves = OCTAVES) {
 	
 	// Gets the original value with no octaves
 	var _point = noise(_seed, _x, _y);
