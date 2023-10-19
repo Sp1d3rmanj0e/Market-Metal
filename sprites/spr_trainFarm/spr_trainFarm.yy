@@ -82,7 +82,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "Train",
-    "path": "folders/Sprites/Train.yy",
+    "name": "Market Metal",
+    "path": "Market Metal.yyp",
   },
 }
