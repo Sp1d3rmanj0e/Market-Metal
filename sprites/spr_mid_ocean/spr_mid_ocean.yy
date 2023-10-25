@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "biomes",
-    "path": "folders/Sprites/biomes.yy",
+    "name": "map tiles",
+    "path": "folders/Sprites/biomes/map tiles.yy",
   },
 }
