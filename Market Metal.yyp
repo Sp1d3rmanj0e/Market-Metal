@@ -13,6 +13,7 @@
     {"id":{"name":"spr_logo_Backup_No_Smoke","path":"sprites/spr_logo_Backup_No_Smoke/spr_logo_Backup_No_Smoke.yy",},"order":1,},
     {"id":{"name":"spr_createTrainPiece","path":"sprites/spr_createTrainPiece/spr_createTrainPiece.yy",},"order":0,},
     {"id":{"name":"scr_globalVars","path":"scripts/scr_globalVars/scr_globalVars.yy",},"order":0,},
+    {"id":{"name":"scr_cameras","path":"scripts/scr_cameras/scr_cameras.yy",},"order":6,},
     {"id":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},"order":1,},
     {"id":{"name":"spr_farm_platform","path":"sprites/spr_farm_platform/spr_farm_platform.yy",},"order":0,},
     {"id":{"name":"spr_player_idle","path":"sprites/spr_player_idle/spr_player_idle.yy",},"order":4,},

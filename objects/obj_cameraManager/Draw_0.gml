@@ -1,4 +1,12 @@
 /// @description Click to flip cams
+	if (map_open) {
+		var _workingCamera = view_get_camera(VIEW.MAIN);
+		var _newCamWidth = 2560 + map_zoom * (2560/1440 * 300);
+		var _newCamHeight = 1440 + map_zoom * 300
+		
+		camera_set_view_size(_workingCamera, _newCamWidth, _newCamHeight);
+		log(string(map_zoom) +"<<<<<<<<<<<<<<<<<<<<<<");
+	}
 
 // Get camera dimensions
 var _miniCamX	   = camera_get_view_x	   (view_get_camera(VIEW.MINI));

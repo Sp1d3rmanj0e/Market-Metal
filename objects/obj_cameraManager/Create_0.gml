@@ -2,6 +2,8 @@
 
 map_open = false;
 
+map_zoom = 0;
+
 train_cam = view_camera[0];
 map_cam = view_camera[1];
 
