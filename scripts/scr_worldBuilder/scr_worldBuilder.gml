@@ -43,7 +43,67 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2
 	}}
 }
 
-function generate_track_section(_seed, _startX, _startY, _tileSize) {
+function draw_tracks(_seed, _xPos, _yPos, _tileSize, _list) {
 	
+	draw_set_color(c_white);
+
+	var X = -_xPos;
+	var Y = -_yPos;
+	var curAngle = 0;
+	var TSIZE = 8;
+
+	var prevX = X;
+	var prevY = Y;
+
+
+	draw_circle(X, Y, 5, true);
+
+	for (var i = 0; i < ds_list_size(_list); i++) {
 	
+		// Get new track information
+		var _array = ds_list_find_value(_list, i);
+		var _length = _array[0];
+		var _angle = _array[1];
+	
+		draw_text(X, Y+40, "Len: " + string(_length));
+		draw_text(X, Y+60, "Angle: " + string(_angle));
+	
+		// Get angle change per track piece to end with the designated angle change
+		var _angleChangePerTrack = _angle/_length;
+		draw_text(X, Y + 80, "CPT: " + string(_angleChangePerTrack));
+	
+		// Flip the track if the track would go backwards
+		if (curAngle + _angle > 90) or (curAngle + _angle < -90) {
+			_angleChangePerTrack *= -1;
+		}
+	
+		for (var j = 0; j < _length; j++) {
+	
+			// Change the angle by the amount designated
+			curAngle += _angleChangePerTrack;
+		
+			// Find the new end point of the track
+			var _xChange = lengthdir_x(TSIZE, curAngle);
+			var _yChange = lengthdir_y(TSIZE, curAngle);
+		
+			// Shift by the x and y change
+			X += _xChange * TSIZE;
+			Y += _yChange * TSIZE;
+		
+			// Get the track sprite based on the angle being drawn
+			var _trackSprite = spr_25;
+		
+			var trackScale;
+			if (_angleChangePerTrack == 0) or (sign(_angleChangePerTrack)) trackScale = 1;
+			else trackScale = -1;
+		
+			// Draw a track
+			draw_sprite_ext(_trackSprite, 0, X, Y, trackScale, 1, curAngle + 90, c_white, 1);
+	
+			prevX = X;
+			prevY = Y;
+		}
+	}
+	
+	draw_set_color(-1);
 }
