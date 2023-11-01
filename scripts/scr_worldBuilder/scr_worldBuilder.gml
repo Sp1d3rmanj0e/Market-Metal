@@ -56,7 +56,7 @@ function draw_tracks(_seed, _xPos, _yPos, _tileSize, _list) {
 	var prevY = Y;
 
 
-	draw_circle(X, Y, 5, true);
+	//draw_circle(X, Y, 5, true);
 
 	for (var i = 0; i < ds_list_size(_list); i++) {
 	
@@ -64,9 +64,6 @@ function draw_tracks(_seed, _xPos, _yPos, _tileSize, _list) {
 		var _array = ds_list_find_value(_list, i);
 		var _length = _array[0];
 		var _angle = _array[1];
-	
-		draw_text(X, Y+40, "Len: " + string(_length));
-		draw_text(X, Y+60, "Angle: " + string(_angle));
 	
 		// Get angle change per track piece to end with the designated angle change
 		var _angleChangePerTrack = _angle/_length;

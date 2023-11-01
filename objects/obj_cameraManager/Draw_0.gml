@@ -1,12 +1,15 @@
 /// @description Click to flip cams
-	if (map_open) {
-		var _workingCamera = view_get_camera(VIEW.MAIN);
-		var _newCamWidth = 2560 + map_zoom * (2560/1440 * 300);
-		var _newCamHeight = 1440 + map_zoom * 300
+if (map_open) {
+	var _workingCamera = view_get_camera(VIEW.MAIN);
+	var _newCamWidth = 2560 + map_zoom * (2560/1440 * 300);
+	var _newCamHeight = 1440 + map_zoom * 300
 		
-		camera_set_view_size(_workingCamera, _newCamWidth, _newCamHeight);
-		log(string(map_zoom) +"<<<<<<<<<<<<<<<<<<<<<<");
-	}
+	camera_set_view_size(_workingCamera, _newCamWidth, _newCamHeight);
+	camera_set_view_pos(_workingCamera, 0, 360 + (room_height-360)/2 - _newCamHeight/2)
+	log(string(map_zoom) +"<<<<<<<<<<<<<<<<<<<<<<");
+}
+
+#region flipping camera
 
 // Get camera dimensions
 var _miniCamX	   = camera_get_view_x	   (view_get_camera(VIEW.MINI));
@@ -39,3 +42,4 @@ _miniCamY + _miniCamHeight)
 		flipCams();
 	}
 }
+#endregion flipping camera
