@@ -2,5 +2,5 @@
 // You can write your code in this editor
 
 if (map_open) {
-	map_zoom = max(0, map_zoom-1);
+	target_zoom = max(0, target_zoom-1);
 }

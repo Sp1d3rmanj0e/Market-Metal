@@ -1,4 +1,4 @@
-/// @description Click to flip cams
+/// @description Click to flip cams and scrolling
 if (map_open) {
 	var _workingCamera = view_get_camera(VIEW.MAIN);
 	var _newCamWidth = 2560 + map_zoom * (2560/1440 * 300);
