@@ -88,7 +88,7 @@ function draw_tracks(_seed, _xPos, _yPos, _tileSize, _list) {
 			Y += _yChange * TSIZE;
 		
 			// Get the track sprite based on the angle being drawn
-			var _trackSprite = spr_25;
+			var _trackSprite = spr_track_forward;
 		
 			var trackScale;
 			if (_angleChangePerTrack == 0) or (sign(_angleChangePerTrack)) trackScale = 1;
