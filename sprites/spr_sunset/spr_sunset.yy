@@ -28,9 +28,7 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"73732d80-c72c-497f-8f8d-e699b5fe3d53",},
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"c54b9a4e-58f9-46bd-b134-2222218266b1",},
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"23e08f5d-c1cf-4bdf-bc57-86216957a0ca",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"a1a6d6fe-e5bc-49e3-b2de-3aa11f53280d",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -42,14 +40,12 @@
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,
-    "length": 3.0,
+    "length": 1.0,
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"fee7aafa-8935-4413-b192-0c5d1f7a42fc","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"73732d80-c72c-497f-8f8d-e699b5fe3d53","path":"sprites/spr_sunset/spr_sunset.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-            {"id":"7f357be2-10f7-40cc-bead-fce6f774bd8c","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"c54b9a4e-58f9-46bd-b134-2222218266b1","path":"sprites/spr_sunset/spr_sunset.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
-            {"id":"95dece3a-c925-46f5-9330-0f5fae440db0","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"23e08f5d-c1cf-4bdf-bc57-86216957a0ca","path":"sprites/spr_sunset/spr_sunset.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"2387f2b2-b8cc-4c74-b7af-23a212da6610","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"a1a6d6fe-e5bc-49e3-b2de-3aa11f53280d","path":"sprites/spr_sunset/spr_sunset.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
