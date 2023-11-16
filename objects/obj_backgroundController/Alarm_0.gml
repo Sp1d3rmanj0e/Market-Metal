@@ -27,4 +27,4 @@ if (round(time) - time == 0) {
 	previous_background = _curBackground;
 	current_background = _newBackground;
 }
-alarm[0] = room_speed/4;
+alarm[0] = room_speed/2;

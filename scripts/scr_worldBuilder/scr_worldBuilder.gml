@@ -21,25 +21,18 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2
 		_tileX -= _tileX mod _tileSize;
 		_tileY -= _tileY mod _tileSize;
 		
-		// Get and set the biome color
+		// Get and set the biome sprite
 		var _biomeMap = get_biome_at(_seed, _tileX, _tileY, _scale);
-		var _color = ds_map_find_value(_biomeMap, "color");
-		draw_set_color(_color);
+		var _biomeSprite = ds_map_find_value(_biomeMap, "sprite");
 		
 		// Loop for every blend intensity level
-		for (var _b = 0; _b < _blend; _b++) {
-		
-			draw_set_alpha(1/power(2,_b)); // 1 = 1/2^0 = 1; 2 = 1/2^1 = 0.5; 3 = 1/2^2 = 0.25;
+		// <<<<<<<<<<<<<<<<<< BLEND IS UNUSED AT THE MOMENT
+		//for (var _b = 0; _b < _blend; _b++) {
 			
-			// Draws similarly colored tiles with the alpha 
-			// dissipating as it gets further from the original tile
-			draw_rectangle(
-			_x-_tileSize*_b, 
-			max((_y+_topY)-_tileSize*_b, _topY), 
-			_x+_tileSize*(_b+1), 
-			_y+_topY+_tileSize*(_b+1), false);
-			draw_set_alpha(1);
-		}
+			
+		//}
+		
+		draw_sprite_ext(_biomeSprite, 0, _x, _y+_topY, 1, 1, 0, c_white, 1)	
 	}}
 }
 

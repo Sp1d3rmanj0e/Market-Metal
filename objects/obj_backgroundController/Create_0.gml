@@ -5,7 +5,7 @@ time = 16.50; // Time is in military.  Base 60.  Decimals represent the minutes
 
 crossfade = 1;
 
-alarm[0] = room_speed/4;
+alarm[0] = room_speed/2;
 
 aurora_borealis = false;
 
