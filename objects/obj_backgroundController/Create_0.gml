@@ -1,11 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-time = 9; // Time is in military.  Base 60.  Decimals represent the minutes
+time = 16.50; // Time is in military.  Base 60.  Decimals represent the minutes
 
 crossfade = 1;
 
-alarm[0] = room_speed;
+alarm[0] = room_speed/4;
 
 aurora_borealis = false;
 
