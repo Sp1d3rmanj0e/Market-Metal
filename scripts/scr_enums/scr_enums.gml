@@ -3,3 +3,7 @@ enum VIEW {
 	MAIN = 0,
 	MINI = 1
 }
+
+#macro SIDE_VIEW_HEIGHT 360
+#macro MAP_VIEW_HEIGHT 2792
+#macro MAP_VIEW_Y 380

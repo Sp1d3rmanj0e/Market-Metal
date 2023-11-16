@@ -1,3 +1,3 @@
-/// @description Press to Flip Cams
+/// @description Flip Cams
 
 flipCams();

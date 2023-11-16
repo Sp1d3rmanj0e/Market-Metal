@@ -67,7 +67,6 @@ function draw_tracks(_seed, _xPos, _yPos, _tileSize, _list) {
 	
 		// Get angle change per track piece to end with the designated angle change
 		var _angleChangePerTrack = _angle/_length;
-		draw_text(X, Y + 80, "CPT: " + string(_angleChangePerTrack));
 	
 		// Flip the track if the track would go backwards
 		if (curAngle + _angle > 90) or (curAngle + _angle < -90) {
@@ -88,14 +87,17 @@ function draw_tracks(_seed, _xPos, _yPos, _tileSize, _list) {
 			Y += _yChange * TSIZE;
 		
 			// Get the track sprite based on the angle being drawn
-			var _trackSprite = spr_25;
+			var _trackSprite = spr_track_forward;
 		
 			var trackScale;
 			if (_angleChangePerTrack == 0) or (sign(_angleChangePerTrack)) trackScale = 1;
 			else trackScale = -1;
-		
-			// Draw a track
-			draw_sprite_ext(_trackSprite, 0, X, Y, trackScale, 1, curAngle + 90, c_white, 1);
+			
+			// Draw a track (Only if it doesn't break into the other camera)
+			var _trackWidth = 74 // sprite_get_width(spr_track_forward)
+			if (Y > MAP_VIEW_Y + _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
+				draw_sprite_ext(_trackSprite, 0, X, Y, trackScale, 1, curAngle + 90, c_white, 1);
+			}
 	
 			prevX = X;
 			prevY = Y;
