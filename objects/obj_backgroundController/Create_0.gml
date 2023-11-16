@@ -25,6 +25,7 @@ new_bg = BG.DAY;
 crossfade_old = 0;
 crossfade_new = 1
 
+
 function get_background() {
 /**
  * The times are as follows:

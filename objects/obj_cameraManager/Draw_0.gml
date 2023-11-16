@@ -1,12 +1,15 @@
 /// @description Click to flip cams and scrolling
 if (map_open) {
 	var _workingCamera = view_get_camera(VIEW.MAIN);
+	
+	// Scroll both cameras equal to their aspect ratio (2560 width X 1440 height)
+	// The scroll magnitude is 300 high per scroll and the respective ratio wide
 	var _newCamWidth = 2560 + map_zoom * (2560/1440 * 300);
 	var _newCamHeight = 1440 + map_zoom * 300
 		
+	// Update the samera cettings accordingly
 	camera_set_view_size(_workingCamera, _newCamWidth, _newCamHeight);
-	camera_set_view_pos(_workingCamera, 0, 360 + (room_height-360)/2 - _newCamHeight/2)
-	log(string(map_zoom) +"<<<<<<<<<<<<<<<<<<<<<<");
+	camera_set_view_pos(_workingCamera, 0, MAP_VIEW_Y + MAP_VIEW_HEIGHT/2 - _newCamHeight/2);
 }
 
 #region flipping camera
