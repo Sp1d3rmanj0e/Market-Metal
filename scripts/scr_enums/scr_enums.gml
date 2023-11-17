@@ -6,4 +6,4 @@ enum VIEW {
 
 #macro SIDE_VIEW_HEIGHT 360
 #macro MAP_VIEW_HEIGHT 2792
-#macro MAP_VIEW_Y 380
+#macro MAP_VIEW_Y 552

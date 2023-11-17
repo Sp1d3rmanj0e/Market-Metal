@@ -1,9 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-time = 9; // Time is in military.  Base 60.  Decimals represent the minutes
+time = 16.50; // Time is in military.  Base 60.  Decimals represent the minutes
 
-alarm[0] = room_speed;
+crossfade = 1;
+
+alarm[0] = room_speed/2;
 
 aurora_borealis = false;
 
@@ -20,31 +22,32 @@ enum BG {
 	AURORA	= 4
 }
 
-old_bg = BG.SUNRISE
-new_bg = BG.DAY;
-crossfade_old = 0;
-crossfade_new = 1
+previous_background = BG.SUNRISE
+current_background = BG.DAY
 
-
-function get_background() {
-/**
- * The times are as follows:
- * 3 - 7 Sunrise
- * 7 - 18 Day
- * 18 - 22 Sunset
- * 22 - 3 Night/Aurora Borealis
- */
- 
- if (time > 3 and time <= 7) {
-	 
- }
- if (time > 7 and time <= 18) {
-	 
- }
- if (time > 18 and time <= 22) {
-	 
- }
- if (time > 22 or time <= 3) {
-	 
- }
-}
+backgrounds_time_of_day = [
+BG.NIGHT,	// 0
+BG.NIGHT,	// 1
+BG.NIGHT,	// 2
+BG.SUNRISE,	// 3
+BG.SUNRISE,	// 4
+BG.SUNRISE,	// 5
+BG.SUNRISE,	// 6
+BG.DAY,		// 7
+BG.DAY,		// 8
+BG.DAY,		// 9
+BG.DAY,		// 10
+BG.DAY,		// 11
+BG.DAY,		// 12
+BG.DAY,		// 13
+BG.DAY,		// 14
+BG.DAY,		// 15
+BG.DAY,		// 16
+BG.DAY,		// 17
+BG.SUNSET,	// 18
+BG.SUNSET,	// 19
+BG.SUNSET,	// 20
+BG.SUNSET,	// 21
+BG.NIGHT,	// 22
+BG.NIGHT	// 23
+]
