@@ -16,6 +16,10 @@ function create_tracks(_seed, _xPos, _yPos){
 	// Get how many tracks to generate
 	var _numTracksGenerated = irandom_range(50, 150);
 	
+	// Store the current track information
+	// We do this to prevent tracks from moving backwards
+	var _curAngle = 0;
+	
 	// Create a list of all upcoming tracks
 	for (var loop = 0; loop < _numTracksGenerated; loop++) {
 
@@ -40,6 +44,15 @@ function create_tracks(_seed, _xPos, _yPos){
 
 		// Prevent sharp 90 degree turns with this manual filter
 		if (_trackData[0] == 3) && (_trackData[1] == 90) _trackData[0] = 4;
+		
+		// Calculate the new angle after this track were to finish
+		// If the angle would end up going backwards, flip it so that it faces the other direction
+		if (_curAngle +  _trackData[1] > 90) or (_curAngle + _trackData[1] < -90) {
+			_trackData[1] = _trackData[1] * -1;
+		}
+		
+		// Update the new angle
+		_curAngle += _trackData[1];
 		
 		// Add the track to the list of tracks
 		ds_list_add(_tracksList, _trackData);

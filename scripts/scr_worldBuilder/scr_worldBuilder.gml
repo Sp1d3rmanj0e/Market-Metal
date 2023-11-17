@@ -36,66 +36,72 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _blend = 2
 	}}
 }
 
-function draw_tracks(_seed, _xPos, _yPos, _tileSize, _list) {
+function draw_tracks(_xPos, _yPos, _list, _trainDistance = 500, _trackSize = 64) {
 	
 	draw_set_color(c_white);
-
-	var X = -_xPos;
-	var Y = -_yPos;
-	var curAngle = 0;
-	var TSIZE = 8;
-
-	var prevX = X;
-	var prevY = Y;
-
-
-	//draw_circle(X, Y, 5, true);
-
-	for (var i = 0; i < ds_list_size(_list); i++) {
 	
-		// Get new track information
-		var _array = ds_list_find_value(_list, i);
-		var _length = _array[0];
-		var _angle = _array[1];
+	for (var loop = 0; loop < 2; loop++) {
 	
-		// Get angle change per track piece to end with the designated angle change
-		var _angleChangePerTrack = _angle/_length;
-	
-		// Flip the track if the track would go backwards
-		if (curAngle + _angle > 90) or (curAngle + _angle < -90) {
-			_angleChangePerTrack *= -1;
-		}
-	
-		for (var j = 0; j < _length; j++) {
-	
-			// Change the angle by the amount designated
-			curAngle += _angleChangePerTrack;
+		var X = -_xPos;
+		var Y = -_yPos;
+		var curAngle = 0;
+		var _totalDistance = 0
+		var prevX = X;
+		var prevY = Y;
 		
-			// Find the new end point of the track
-			var _xChange = lengthdir_x(TSIZE, curAngle);
-			var _yChange = lengthdir_y(TSIZE, curAngle);
+		var storeX = 0;
+		var storeY = 0;
 		
-			// Shift by the x and y change
-			X += _xChange * TSIZE;
-			Y += _yChange * TSIZE;
+		for (var i = 0; i < ds_list_size(_list); i++) {
+	
+			// Get new track information
+			var _array = ds_list_find_value(_list, i);
+			var _length = _array[0];
+			var _angle = _array[1];
 		
-			// Get the track sprite based on the angle being drawn
-			var _trackSprite = spr_track_forward;
+			// Get angle change per track piece to end with the designated angle change
+			var _angleChangePerTrack = _angle/_length;
+	
+			for (var j = 0; j < _length; j++) {
+				_totalDistance++;
+				
+				// Change the angle by the amount designated
+				curAngle += _angleChangePerTrack;
 		
-			var trackScale;
-			if (_angleChangePerTrack == 0) or (sign(_angleChangePerTrack)) trackScale = 1;
-			else trackScale = -1;
+				// Find the new end point of the track
+				var _xChange = lengthdir_x(_trackSize, curAngle);
+				var _yChange = lengthdir_y(_trackSize, curAngle);
+		
+				// Shift by the x and y change
+				X += _xChange;
+				Y += _yChange;
+		
+				// Get the track sprite based on the angle being drawn
+				var _trackSprite = spr_track_forward;
+		
+				var trackScale;
+				if (_angleChangePerTrack == 0) or (sign(_angleChangePerTrack)) trackScale = 1;
+				else trackScale = -1;
 			
-			// Draw a track (Only if it doesn't break into the other camera)
-			var _trackWidth = 74 // sprite_get_width(spr_track_forward)
-			if (Y > MAP_VIEW_Y + _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
-				draw_sprite_ext(_trackSprite, 0, X, Y, trackScale, 1, curAngle + 90, c_white, 1);
-			}
+				// Draw a track (Only if it doesn't break into the other camera)
+				var _trackWidth = 74 // sprite_get_width(spr_track_forward)
+				if (Y > MAP_VIEW_Y + _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
+					
+					// On the first loop, draw all of the tracks
+					// On the second loop, draw the train's position
+					if (loop == 0)
+						draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
+					else if (floor(_trainDistance/_trackSize) == _totalDistance) {
+						storeX = X;
+						storeY = Y;
+					} else if (floor((_trainDistance + _trackSize)/_trackSize) == _totalDistance) {
+						draw_sprite_ext(spr_car_top_engine, 0 , storeX, storeY, 4, 4, curAngle, c_white, 1);
+					}
+				}
 	
-			prevX = X;
-			prevY = Y;
+				prevX = X;
+				prevY = Y;
+			}
 		}
 	}
-	
-	draw_set_color(-1);
 }
