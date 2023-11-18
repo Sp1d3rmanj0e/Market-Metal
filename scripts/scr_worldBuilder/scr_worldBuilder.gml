@@ -60,8 +60,6 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize 
 
 function draw_tracks(_xPos, _yPos, _list, _trainDistance = 500, _trackSize = 64) {
 	
-	draw_set_color(c_white);
-	
 	for (var loop = 0; loop < 2; loop++) {
 	
 		var X = -_xPos;
@@ -71,6 +69,12 @@ function draw_tracks(_xPos, _yPos, _list, _trainDistance = 500, _trackSize = 64)
 		var prevX = X;
 		var prevY = Y;
 		
+		// Stores the location of the train
+		
+		// We store the train's X and Y because in order to best draw the train, we want to draw it
+		// facing the next track's angle, which we can get after another loop 
+		// (which is past where the train should be drawn).  After we get that
+		// data, we then draw the train using these coordinates
 		var storeX = 0;
 		var storeY = 0;
 		
@@ -98,10 +102,6 @@ function draw_tracks(_xPos, _yPos, _list, _trainDistance = 500, _trackSize = 64)
 				X += _xChange;
 				Y += _yChange;
 				
-				// Lock the coordinates on the tile grid (Doesn't work??)
-				//_xPos -= _xPos mod _trackSize;
-				//_yPos -= _yPos mod _trackSize;
-				
 				// Get the track sprite based on the angle being drawn
 				var _trackSprite = spr_track_forward;
 		
@@ -115,12 +115,16 @@ function draw_tracks(_xPos, _yPos, _list, _trainDistance = 500, _trackSize = 64)
 					
 					// On the first loop, draw all of the tracks
 					// On the second loop, draw the train's position
-					if (loop == 0)
+					if (loop == 0) {
 						draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
-					else if (floor(_trainDistance/_trackSize) == _totalDistance) {
+					} else if (floor(_trainDistance/_trackSize) == _totalDistance) {
+						
 						storeX = X;
 						storeY = Y;
 					} else if (floor((_trainDistance + _trackSize)/_trackSize) == _totalDistance) {
+						var _distanceFromLastNode = _trainDistance mod _trackSize;
+						storeX += lengthdir_x(_distanceFromLastNode, curAngle);
+						storeY += lengthdir_y(_distanceFromLastNode, curAngle);
 						draw_sprite_ext(spr_car_top_engine, 0 , storeX, storeY, 4, 4, curAngle, c_white, 1);
 					}
 				}
