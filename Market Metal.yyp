@@ -17,16 +17,11 @@
     {"id":{"name":"spr_water_tower","path":"sprites/spr_water_tower/spr_water_tower.yy",},"order":10,},
     {"id":{"name":"spr_copper_ore","path":"sprites/spr_copper_ore/spr_copper_ore.yy",},"order":0,},
     {"id":{"name":"spr_gold_ore","path":"sprites/spr_gold_ore/spr_gold_ore.yy",},"order":3,},
-    {"id":{"name":"spr_aurora_borealis","path":"sprites/spr_aurora_borealis/spr_aurora_borealis.yy",},"order":6,},
+    {"id":{"name":"spr_aurora_borealis","path":"sprites/spr_aurora_borealis/spr_aurora_borealis.yy",},"order":2,},
     {"id":{"name":"spr_swamp","path":"sprites/spr_swamp/spr_swamp.yy",},"order":17,},
     {"id":{"name":"spr_swamp_tree","path":"sprites/spr_swamp_tree/spr_swamp_tree.yy",},"order":2,},
     {"id":{"name":"obj_wheelAnimator","path":"objects/obj_wheelAnimator/obj_wheelAnimator.yy",},"order":2,},
-<<<<<<< HEAD
-    {"id":{"name":"Sprite50","path":"sprites/Sprite50/Sprite50.yy",},"order":15,},
-=======
     {"id":{"name":"Sprite50","path":"sprites/Sprite50/Sprite50.yy",},"order":14,},
-    {"id":{"name":"spr_aurora_borealis","path":"sprites/spr_aurora_borealis/spr_aurora_borealis.yy",},"order":2,},
->>>>>>> dfbf5a31edf5003e90a33a3cd7cf7876117de70a
     {"id":{"name":"spr_heavy_mountains","path":"sprites/spr_heavy_mountains/spr_heavy_mountains.yy",},"order":6,},
     {"id":{"name":"spr_city","path":"sprites/spr_city/spr_city.yy",},"order":2,},
     {"id":{"name":"spr_river","path":"sprites/spr_river/spr_river.yy",},"order":13,},
@@ -102,12 +97,9 @@
     {"id":{"name":"spr_maple_leaves","path":"sprites/spr_maple_leaves/spr_maple_leaves.yy",},"order":5,},
     {"id":{"name":"spr_beach","path":"sprites/spr_beach/spr_beach.yy",},"order":0,},
     {"id":{"name":"spr_light_mountain_bg","path":"sprites/spr_light_mountain_bg/spr_light_mountain_bg.yy",},"order":0,},
-<<<<<<< HEAD
     {"id":{"name":"biome_map","path":"sprites/biome_map/biome_map.yy",},"order":20,},
-=======
     {"id":{"name":"spr_car_top_passenger","path":"sprites/spr_car_top_passenger/spr_car_top_passenger.yy",},"order":2,},
     {"id":{"name":"spr_error","path":"sprites/spr_error/spr_error.yy",},"order":20,},
->>>>>>> dfbf5a31edf5003e90a33a3cd7cf7876117de70a
     {"id":{"name":"obj_trainCart","path":"objects/obj_trainCart/obj_trainCart.yy",},"order":1,},
     {"id":{"name":"spr_trainCartFront","path":"sprites/spr_trainCartFront/spr_trainCartFront.yy",},"order":1,},
     {"id":{"name":"spr_logo_CORRECT_No_Scale","path":"sprites/spr_logo_CORRECT_No_Scale/spr_logo_CORRECT_No_Scale.yy",},"order":3,},
@@ -125,6 +117,12 @@
     {"name":"operagx","path":"options/operagx/options_operagx.yy",},
     {"name":"Android","path":"options/android/options_android.yy",},
     {"name":"iOS","path":"options/ios/options_ios.yy",},
+    {"name":"HTML5","path":"options/html5/options_html5.yy",},
+    {"name":"PlayStation 4","path":"options/ps4/options_ps4.yy",},
+    {"name":"PlayStation 5","path":"options/ps5/options_ps5.yy",},
+    {"name":"Switch","path":"options/switch/options_switch.yy",},
+    {"name":"tvOS","path":"options/tvos/options_tvos.yy",},
+    {"name":"Xbox Series XS","path":"options/xboxseriesxs/options_xboxseriesxs.yy",},
   ],
   "defaultScriptType": 1,
   "isEcma": false,
