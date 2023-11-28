@@ -162,3 +162,16 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	
 	draw_sprite_ext(_cartSprite, 0, _trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
 }
+
+function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDistance = 0, _trackSize = 64) {
+	
+	var _cartDistance = _frontTrainDistance;
+	
+	for (var i = 0; i < array_length(_carts); i++) {
+		var _cartTopSprite = _carts[i][0];
+		var _cartTopLength = _carts[i][1];
+		
+		draw_train_cart(_vectors, _cartDistance, _cartTopSprite);
+		_cartDistance -= _cartTopLength;
+	}
+}
