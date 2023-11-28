@@ -87,6 +87,7 @@
     {"id":{"name":"spr_25","path":"sprites/spr_25/spr_25.yy",},"order":1,},
     {"id":{"name":"spr_snow","path":"sprites/spr_snow/spr_snow.yy",},"order":16,},
     {"id":{"name":"Sprite47","path":"sprites/Sprite47/Sprite47.yy",},"order":12,},
+    {"id":{"name":"spr_cloud2","path":"sprites/spr_cloud2/spr_cloud2.yy",},"order":6,},
     {"id":{"name":"spr_cloud1","path":"sprites/spr_cloud1/spr_cloud1.yy",},"order":3,},
     {"id":{"name":"spr_palm_tree","path":"sprites/spr_palm_tree/spr_palm_tree.yy",},"order":5,},
     {"id":{"name":"spr_maple_tree","path":"sprites/spr_maple_tree/spr_maple_tree.yy",},"order":1,},
