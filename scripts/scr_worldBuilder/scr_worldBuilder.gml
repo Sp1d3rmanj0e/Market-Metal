@@ -137,7 +137,7 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	var _vectorsLength = array_length(_vectors);
 	
 	// Find which vectors to get data from based on the train's location
-	var _floorVectorLoc = floor(_trainDistance/_trackSize); // Used to retrieve base X and Y location and angle
+	var _floorVectorLoc = max(floor(_trainDistance/_trackSize), 0); // Used to retrieve base X and Y location and angle
 	var _ceilVectorLoc = min(_floorVectorLoc+1, _vectorsLength-1); // Used to get the angle the train is turning into
 	
 	// Get the X, Y, and angle of the nearest track vectors
@@ -165,13 +165,52 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 
 function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDistance = 0, _trackSize = 64) {
 	
+	var _trainScale = 4;
+	
+	// Create a mutable variable to calculate the distances of every cart
 	var _cartDistance = _frontTrainDistance;
 	
+	// Loop for every cart
 	for (var i = 0; i < array_length(_carts); i++) {
-		var _cartTopSprite = _carts[i][0];
-		var _cartTopLength = _carts[i][1];
 		
+		// Get the cart sprite and width
+		var _cartData = get_cart_data(_carts[i]);
+		
+		// Extract cart sprite and width
+		var _cartTopSprite = _cartData[0];
+		var _cartTopLength = _cartData[1];
+		
+		// The first cart in the train should not subtract it's width
+		// as it doesn't need to adjust for any carts in front of it
+		if (i != 0)
+			 // We subtract 25% of the current cart's width to account for the 
+			 // distance between the origin and the front of the cart
+			_cartDistance -= _cartTopLength * (0.25 * _trainScale);
+		
+		// Draw the cart
 		draw_train_cart(_vectors, _cartDistance, _cartTopSprite);
-		_cartDistance -= _cartTopLength;
+		
+		// Move backwards equal to half the width of the cart
+		
+		// We subtract 75% of the front cart's width to account for the
+		// distance between the origin and the back of the cart in front
+		_cartDistance -= _cartTopLength * (0.75 * _trainScale);
+		
+		// Add spacing between each cart
+		_cartDistance -= 5;
+		
+		/** How the origin calculations work:
+		
+		         25% current cart width
+				  |     75% front cart width   
+		         <--> <-------->
+		[           ] [           ]
+		[== == ==X==] [== == ==X==]
+		[        ^  ] [        ^  ]
+		         ^             Origin (3/4ths in on the front cart)
+		         Origin (3/4ths in on current cart)
+				 
+		Totals to the full distance between the front cart's origin and the current cart's origin
+		*/
 	}
 }

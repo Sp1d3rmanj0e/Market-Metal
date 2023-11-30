@@ -9,10 +9,26 @@ enum VIEW {
 #macro MAP_VIEW_Y 552
 
 enum CARTS {
-	ENGINE = [spr_car_top_engine, sprite_get_width(spr_car_top_engine)],
-	COAL = [spr_car_top_coal, sprite_get_width(spr_car_top_coal)],
-	FARM = [spr_car_top_farm, sprite_get_width(spr_car_top_farm)],
-	PASS = [spr_car_top_passenger, sprite_get_width(spr_car_top_passenger)],
-	STORAGE = [spr_car_top_storage, sprite_get_width(spr_car_top_storage)],
-	UTIL = [spr_car_top_utility, sprite_get_width(spr_car_top_utility)]
+	ENGINE,
+	COAL,
+	FARM,
+	PASS,
+	STORAGE,
+	UTIL
+}
+
+// Returns both the sprite and width of a cart enum
+function get_cart_data(_cart) {
+	
+	switch(_cart) {
+		case CARTS.ENGINE:		return [spr_car_top_engine, sprite_get_width(spr_car_top_engine)]
+		case CARTS.COAL:		return [spr_car_top_coal, sprite_get_width(spr_car_top_coal)]
+		case CARTS.FARM:		return [spr_car_top_farm, sprite_get_width(spr_car_top_farm)]
+		case CARTS.PASS:		return [spr_car_top_passenger, sprite_get_width(spr_car_top_passenger)]
+		case CARTS.STORAGE:		return [spr_car_top_storage, sprite_get_width(spr_car_top_storage)]
+		case CARTS.UTIL:		return [spr_car_top_utility, sprite_get_width(spr_car_top_utility)]
+	}
+	
+	// Error Return
+	return [spr_car_top_engine, sprite_get_width(spr_car_top_engine)]
 }
