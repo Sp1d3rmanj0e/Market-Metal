@@ -160,7 +160,10 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	var _trainX = _baseX + lengthdir_x(_distanceFromBaseVector, _trainAngle);
 	var _trainY = _baseY + lengthdir_y(_distanceFromBaseVector, _trainAngle);
 	
-	draw_sprite_ext(_cartSprite, 0, _trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
+	var _trackWidth = 74;
+	if (_trainY > MAP_VIEW_Y + _trackWidth) and (_trainX < camera_get_view_width(get_map_camera()) + _trackWidth) {
+		draw_sprite_ext(_cartSprite, 0, _trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
+	}
 }
 
 function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDistance = 0, _trackSize = 64) {
