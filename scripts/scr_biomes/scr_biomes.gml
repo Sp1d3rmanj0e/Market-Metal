@@ -20,11 +20,12 @@ enum BIOME {
 //					 that can occur in the biome
 /// @param _difficulty - a number that tells the game what difficulty of enemies to spawn in that biome
 /// @returns a ds_map() of all of these data points
-function create_biome_data(_num = -1, _name = "null", _color = c_black, _resources = [], _structures = [], _events = [], _difficulty = 1) {
+function create_biome_data(_num = -1, _name = "null", _color = c_black, _sprite = spr_error, _resources = [], _structures = [], _events = [], _difficulty = 1) {
 	var _map = ds_map_create();
 	ds_map_add(_map, "tNum", _num)
 	ds_map_add(_map, "name", _name);
 	ds_map_add(_map, "color", _color);
+	ds_map_add(_map, "sprite", _sprite);
 	ds_map_add(_map, "resources", _resources);
 	ds_map_add(_map, "structures", _structures);
 	ds_map_add(_map, "events", _events);
@@ -36,27 +37,27 @@ function create_biome_data(_num = -1, _name = "null", _color = c_black, _resourc
 function load_biomes_into_memory() {
 
 #region biome creation
-Deep_Ocean		  = create_biome_data(1,  "Deep Ocean",			c_navy,				 , , , 3);
-Mid_Ocean		  = create_biome_data(2,  "Mid Ocean",			c_blue,				 , , , 2);
-Shallow_Ocean	  = create_biome_data(3,  "Shallow Ocean",		rgb(1, 171, 239),	 , , , 1);
-River			  = create_biome_data(4,  "River",				c_aqua,				 , , , 1);
-Beach			  = create_biome_data(5,  "Beach",				rgb(224, 228, 87),	 , , , 1);
-Burnt_Forest	  = create_biome_data(7,  "Burnt Forest",		c_red,				 , , , 2);
-Plains			  = create_biome_data(8,  "Plains",				rgb(236, 238, 143),	 , , , 2);
-Forest			  = create_biome_data(9,  "Forest",				c_green,			 , , , 2);
-Maple_Forest	  = create_biome_data(10, "Maple Forest",		rgb(165,57,5),		 , , , 1);
-Swamp			  = create_biome_data(11, "Swamp", 				rgb(191,108,30),	 , , , 1);
-Light_Mountains	  = create_biome_data(13, "Light Mountains",	c_gray,				 , , , 1);
-Broken_City		  = create_biome_data(14, "Broken City",		c_fuchsia,			 , , , 1);
-//Tundra		  = create_biome_data(14, "Tundra",				rgb(100,199,189),	 , , , 1);
-Old_Growth_Forest = create_biome_data(15, "Old Growth Forest",	c_maroon,			 , , , 1);
-Snow			  = create_biome_data(16, "Snow",				rgb(75,166,232),	 , , , 1);
-Tropical_Forest	  = create_biome_data(17, "Tropical Forest",	rgb(154,211,68),	 , , , 1);
-Salt_Flats		  = create_biome_data(19, "Salt Flats",			rgb(154,211,68),     , , , 1);
-Desert			  = create_biome_data(20, "Desert",				c_yellow,			 , , , 1);
-Mesa			  = create_biome_data(21, "Mesa",				rgb(245,159,47),	 , , , 1);
-Broken_Theme_Park = create_biome_data(22, "Broken Theme Park",	rgb(235,107,32),	 , , , 1);
-Heavy_Mountains	  = create_biome_data(23, "Heavy Mountains",	c_dkgray,			 , , , 1);
+Deep_Ocean		  = create_biome_data(1,  "Deep Ocean",			c_navy,				 spr_deep_ocean			, , , 3);
+Mid_Ocean		  = create_biome_data(2,  "Mid Ocean",			c_blue,				 spr_mid_ocean			, , , 2);
+Shallow_Ocean	  = create_biome_data(3,  "Shallow Ocean",		rgb(1, 171, 239),	 spr_shallow_ocean		, , , 1);
+River			  = create_biome_data(4,  "River",				c_aqua,				 spr_river				, , , 1);
+Beach			  = create_biome_data(5,  "Beach",				rgb(224, 228, 87),	 spr_beach				, , , 1);
+Burnt_Forest	  = create_biome_data(7,  "Burnt Forest",		c_red,				 spr_burnt_forest		, , , 2);
+Plains			  = create_biome_data(8,  "Plains",				rgb(236, 238, 143),	 spr_plains				, , , 2);
+Forest			  = create_biome_data(9,  "Forest",				c_green,			 spr_forest				, , , 2);
+Maple_Forest	  = create_biome_data(10, "Maple Forest",		rgb(165,57,5),		 spr_maple_forest		, , , 1);
+Swamp			  = create_biome_data(11, "Swamp", 				rgb(191,108,30),	 spr_swamp				, , , 1);
+Light_Mountains	  = create_biome_data(13, "Light Mountains",	c_gray,				 spr_light_mountains	, , , 1);
+Broken_City		  = create_biome_data(14, "Broken City",		c_fuchsia,			 spr_city				, , , 1);
+//Tundra		  = create_biome_data(14, "Tundra",				rgb(100,199,189),	 spr_					, , , 1);
+Old_Growth_Forest = create_biome_data(15, "Old Growth Forest",	c_maroon,			 spr_old_growth_forest	, , , 1);
+Snow			  = create_biome_data(16, "Snow",				rgb(75,166,232),	 spr_snow				, , , 1);
+Tropical_Forest	  = create_biome_data(17, "Tropical Forest",	rgb(154,211,68),	 spr_tropical_forest	, , , 1);
+Salt_Flats		  = create_biome_data(19, "Salt Flats",			rgb(154,211,68),     spr_salt_flats			, , , 1);
+Desert			  = create_biome_data(20, "Desert",				c_yellow,			 spr_desert				, , , 1);
+Mesa			  = create_biome_data(21, "Mesa",				rgb(245,159,47),	 spr_mesa				, , , 1);
+Broken_Theme_Park = create_biome_data(22, "Broken Theme Park",	rgb(235,107,32),	 spr_theme_park			, , , 1);
+Heavy_Mountains	  = create_biome_data(23, "Heavy Mountains",	c_dkgray,			 spr_heavy_mountains	, , , 1);
 #endregion biome creation
 
 // A 2D Lookup Table based on humidity and inlandness.
