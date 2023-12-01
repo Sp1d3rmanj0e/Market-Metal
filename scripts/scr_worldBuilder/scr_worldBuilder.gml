@@ -58,80 +58,162 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize 
 	}}
 }
 
-function draw_tracks(_xPos, _yPos, _list, _trainDistance = 500, _trackSize = 64) {
+// Draw the tracks on the map 
+// Returns an array with equidistant vectors representing an X and Y location and the angle it is facing
+function draw_tracks(_xPos, _yPos, _list, _trackSize = 64) {
 	
-	for (var loop = 0; loop < 2; loop++) {
+	// Store each node/vector (X, Y, angle) into an array so that we can accurately draw trains on the track
+	// while also maintaining clean and fast code
+	var _vectors = [];
+
+	var X = -_xPos;
+	var Y = -_yPos;
+	var curAngle = 0;
+	var _totalDistance = 0
+	var prevX = X;
+	var prevY = Y;
+		
+	// Stores the location of the train
+		
+	// We store the train's X and Y because in order to best draw the train, we want to draw it
+	// facing the next track's angle, which we can get after another loop 
+	// (which is past where the train should be drawn).  After we get that
+	// data, we then draw the train using these coordinates
+		
+	for (var i = 0; i < ds_list_size(_list); i++) {
 	
-		var X = -_xPos;
-		var Y = -_yPos;
-		var curAngle = 0;
-		var _totalDistance = 0
-		var prevX = X;
-		var prevY = Y;
+		// Get new track information
+		var _array = ds_list_find_value(_list, i);
+		var _length = _array[0];
+		var _angle = _array[1];
 		
-		// Stores the location of the train
-		
-		// We store the train's X and Y because in order to best draw the train, we want to draw it
-		// facing the next track's angle, which we can get after another loop 
-		// (which is past where the train should be drawn).  After we get that
-		// data, we then draw the train using these coordinates
-		var storeX = 0;
-		var storeY = 0;
-		
-		for (var i = 0; i < ds_list_size(_list); i++) {
+		// Get angle change per track piece to end with the designated angle change
+		var _angleChangePerTrack = _angle/_length;
 	
-			// Get new track information
-			var _array = ds_list_find_value(_list, i);
-			var _length = _array[0];
-			var _angle = _array[1];
-		
-			// Get angle change per track piece to end with the designated angle change
-			var _angleChangePerTrack = _angle/_length;
-	
-			for (var j = 0; j < _length; j++) {
-				_totalDistance++;
+		for (var j = 0; j < _length; j++) {
+			_totalDistance++;
 				
-				// Change the angle by the amount designated
-				curAngle += _angleChangePerTrack;
+			// Change the angle by the amount designated
+			curAngle += _angleChangePerTrack;
 		
-				// Find the new end point of the track
-				var _xChange = lengthdir_x(_trackSize, curAngle);
-				var _yChange = lengthdir_y(_trackSize, curAngle);
+			// Find the new end point of the track
+			var _xChange = lengthdir_x(_trackSize, curAngle);
+			var _yChange = lengthdir_y(_trackSize, curAngle);
 		
-				// Shift by the x and y change
-				X += _xChange;
-				Y += _yChange;
+			// Shift by the x and y change
+			X += _xChange;
+			Y += _yChange;
 				
-				// Get the track sprite based on the angle being drawn
-				var _trackSprite = spr_track_forward;
+			// Get the track sprite based on the angle being drawn
+			var _trackSprite = spr_track_forward;
 		
-				var trackScale;
-				if (_angleChangePerTrack == 0) or (sign(_angleChangePerTrack)) trackScale = 1;
-				else trackScale = -1;
+			var trackScale;
+			if (_angleChangePerTrack == 0) or (sign(_angleChangePerTrack)) trackScale = 1;
+			else trackScale = -1;
 			
-				// Draw a track (Only if it doesn't break into the other camera)
-				var _trackWidth = 74 // sprite_get_width(spr_track_forward)
-				if (Y > MAP_VIEW_Y + _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
+			// Draw a track (Only if it doesn't break into the other camera)
+			var _trackWidth = 74 // sprite_get_width(spr_track_forward)
+			if (Y > MAP_VIEW_Y + _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
 					
-					// On the first loop, draw all of the tracks
-					// On the second loop, draw the train's position
-					if (loop == 0) {
-						draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
-					} else if (floor(_trainDistance/_trackSize) == _totalDistance) {
-						
-						storeX = X;
-						storeY = Y;
-					} else if (floor((_trainDistance + _trackSize)/_trackSize) == _totalDistance) {
-						var _distanceFromLastNode = _trainDistance mod _trackSize;
-						storeX += lengthdir_x(_distanceFromLastNode, curAngle);
-						storeY += lengthdir_y(_distanceFromLastNode, curAngle);
-						draw_sprite_ext(spr_car_top_engine, 0 , storeX, storeY, 4, 4, curAngle, c_white, 1);
-					}
-				}
-	
-				prevX = X;
-				prevY = Y;
+				// Draw the tracks
+				draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
 			}
+			
+			// Store the vector in the vectors array
+			array_push(_vectors, [X, Y, curAngle]);
+	
+			prevX = X;
+			prevY = Y;
 		}
+	}
+	
+	return _vectors;
+}
+
+// Draw the train on the track using the vectors array generated with the draw_tracks() function
+function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite = spr_car_top_engine, _trackSize = 64) {
+	
+	// Find how many vectors there are (to prevent errors)
+	var _vectorsLength = array_length(_vectors);
+	
+	// Find which vectors to get data from based on the train's location
+	var _floorVectorLoc = max(floor(_trainDistance/_trackSize), 0); // Used to retrieve base X and Y location and angle
+	var _ceilVectorLoc = min(_floorVectorLoc+1, _vectorsLength-1); // Used to get the angle the train is turning into
+	
+	// Get the X, Y, and angle of the nearest track vectors
+	var _baseVector = _vectors[_floorVectorLoc];
+		var _baseX = _baseVector[0];
+		var _baseY = _baseVector[1];
+		var _baseAngle = _baseVector[2];
+		
+	var _nextVector = _vectors[_ceilVectorLoc];
+		var _nextAngle = _nextVector[2];
+	
+	// Get how far away the train is from its base vector
+	var _distanceFromBaseVector = _trainDistance mod _trackSize;
+	
+	// Lerp the angle of the train (to create a realistic turning animation)
+	var _trainAngle = lerp(_baseAngle, _nextAngle, _distanceFromBaseVector/_trackSize);
+	
+	// Get the X and Y location of the train based on
+	// how far it is away from the base vector and it's train Angle
+	var _trainX = _baseX + lengthdir_x(_distanceFromBaseVector, _trainAngle);
+	var _trainY = _baseY + lengthdir_y(_distanceFromBaseVector, _trainAngle);
+	
+	var _trackWidth = 74;
+	if (_trainY > MAP_VIEW_Y + _trackWidth) and (_trainX < camera_get_view_width(get_map_camera()) + _trackWidth) {
+		draw_sprite_ext(_cartSprite, 0, _trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
+	}
+}
+
+function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDistance = 0, _trackSize = 64) {
+	
+	var _trainScale = 4;
+	
+	// Create a mutable variable to calculate the distances of every cart
+	var _cartDistance = _frontTrainDistance;
+	
+	// Loop for every cart
+	for (var i = 0; i < array_length(_carts); i++) {
+		
+		// Get the cart sprite and width
+		var _cartData = get_cart_data(_carts[i]);
+		
+		// Extract cart sprite and width
+		var _cartTopSprite = _cartData[0];
+		var _cartTopLength = _cartData[1];
+		
+		// The first cart in the train should not subtract it's width
+		// as it doesn't need to adjust for any carts in front of it
+		if (i != 0)
+			 // We subtract 25% of the current cart's width to account for the 
+			 // distance between the origin and the front of the cart
+			_cartDistance -= _cartTopLength * (0.25 * _trainScale);
+		
+		// Draw the cart
+		draw_train_cart(_vectors, _cartDistance, _cartTopSprite);
+		
+		// Move backwards equal to half the width of the cart
+		
+		// We subtract 75% of the front cart's width to account for the
+		// distance between the origin and the back of the cart in front
+		_cartDistance -= _cartTopLength * (0.75 * _trainScale);
+		
+		// Add spacing between each cart
+		_cartDistance -= 5;
+		
+		/** How the origin calculations work:
+		
+		         25% current cart width
+				  |     75% front cart width   
+		         <--> <-------->
+		[           ] [           ]
+		[== == ==X==] [== == ==X==]
+		[        ^  ] [        ^  ]
+		         ^             Origin (3/4ths in on the front cart)
+		         Origin (3/4ths in on current cart)
+				 
+		Totals to the full distance between the front cart's origin and the current cart's origin
+		*/
 	}
 }
