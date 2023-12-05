@@ -1,7 +1,7 @@
 {
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
-  "name": "spr_skull",
+  "name": "spr_light_mountain_tracks",
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
@@ -10,15 +10,15 @@
   "edgeFiltering": false,
   "collisionTolerance": 0,
   "swfPrecision": 2.525,
-  "bbox_left": 4,
-  "bbox_right": 119,
-  "bbox_top": 19,
-  "bbox_bottom": 89,
+  "bbox_left": 0,
+  "bbox_right": 513,
+  "bbox_top": 78,
+  "bbox_bottom": 127,
   "HTile": false,
   "VTile": false,
   "For3D": false,
   "DynamicTexturePage": false,
-  "width": 128,
+  "width": 514,
   "height": 128,
   "textureGroupId": {
     "name": "Default",
@@ -28,12 +28,12 @@
   "gridX": 0,
   "gridY": 0,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"caab0da8-7c27-411f-97e2-d626e59d293d",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"454d0b28-7e23-4687-a5c2-92fc709b2a3d",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
     "resourceVersion": "1.4",
-    "name": "spr_skull",
+    "name": "spr_light_mountain_tracks",
     "timeUnits": 1,
     "playback": 1,
     "playbackSpeed": 30.0,
@@ -45,7 +45,7 @@
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
-            {"id":"77034985-7738-4640-9786-a89cec6be3aa","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"caab0da8-7c27-411f-97e2-d626e59d293d","path":"sprites/spr_skull/spr_skull.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"6ec0a0ba-c093-4a14-a64c-661eaee3fde8","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"454d0b28-7e23-4687-a5c2-92fc709b2a3d","path":"sprites/spr_light_mountain_tracks/spr_light_mountain_tracks.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
@@ -64,11 +64,12 @@
     "eventStubScript": null,
   },
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"37373a04-7658-4941-aef8-9e9d90805e94","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"b6157ff6-084b-47bc-bd7d-537842b04ddf","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default (2)",},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"11f45c5e-d112-49a2-85ee-668c5ae5fb0f","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"Layer 1",},
   ],
   "nineSlice": null,
   "parent": {
-    "name": "effects and other items",
-    "path": "folders/Sprites/effects and other items.yy",
+    "name": "Foreground Scenery",
+    "path": "folders/Sprites/biomes/Foreground Scenery.yy",
   },
 }
