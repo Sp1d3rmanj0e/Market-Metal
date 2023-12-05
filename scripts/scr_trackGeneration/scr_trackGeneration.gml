@@ -4,8 +4,9 @@
 
 /// @param _seed - the map seed
 /// @param _xPos and _yPos - these aren't the world X and Y coordinates, these signify how far from the starting track is
+/// @param _curAngle - Store the current track information | We do this to prevent tracks from moving backwards
 
-function create_tracks(_seed, _xPos, _yPos){
+function create_tracks(_seed, _xPos, _yPos, _curAngle = 0){
 	
 	// Create a list to store the track data
 	var _tracksList = ds_list_create();
@@ -15,10 +16,6 @@ function create_tracks(_seed, _xPos, _yPos){
 	
 	// Get how many tracks to generate
 	var _numTracksGenerated = irandom_range(50, 150);
-	
-	// Store the current track information
-	// We do this to prevent tracks from moving backwards
-	var _curAngle = 0;
 	
 	// Create a list of all upcoming tracks
 	for (var loop = 0; loop < _numTracksGenerated; loop++) {
@@ -32,14 +29,9 @@ function create_tracks(_seed, _xPos, _yPos){
 	
 		// 50% chance to be a straight line of track
 		if (irandom(100) > 50) {
-
 			_trackData[1] = 0;
-		
-		// 50% chance to be an angled piece of track
-		} else {
-	
-			_trackData[1] = choose(25, 30, 30, 45, 90) * choose(1, -1);
-	
+		} else { // 50% chance to be an angled piece of track
+			_trackData[1] = irandom_range(25, 90) * choose(1, -1);
 		}
 
 		// Prevent sharp 90 degree turns with this manual filter
@@ -59,4 +51,27 @@ function create_tracks(_seed, _xPos, _yPos){
 	}
 	
 	return _tracksList;
+}
+
+// Returns the [X, Y, Angle] data from the last point in a given list
+function get_end_list_vector(_list, _startAngle = 0, _trackSize = TRACK_SIZE) {
+	
+	var Len;
+	var X = 0;
+	var Y = 0;
+	var Angle = _startAngle;
+	var _dsList;
+	
+	var _listLen = ds_list_size(_list);
+	for (var i = 0; i < _listLen; i++) {
+		_dsList = ds_list_find_value(_list, i);
+		
+		Len = _dsList[0] * (_trackSize);
+		Angle += _dsList[1];
+		
+		X += lengthdir_x(Len, Angle);
+		Y += lengthdir_y(Len, Angle);
+	}
+	
+	return [X,Y,Angle];
 }
