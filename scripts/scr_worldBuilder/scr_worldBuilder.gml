@@ -127,7 +127,13 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _xTrackOffset = 0, _yTrackOffset
 		}
 	}
 	
-	return [_vectors,[X, Y, curAngle]];
+	var vector_map = ds_map_create();
+	ds_map_add(vector_map, "vectors", _vectors);
+	ds_map_add(vector_map, "endX", X);
+	ds_map_add(vector_map, "endY", Y);
+	ds_map_add(vector_map, "endAngle", curAngle);
+	
+	return vector_map;
 }
 
 // Draw the train on the track using the vectors array generated with the draw_tracks() function
@@ -137,7 +143,7 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	var _vectorsLength = array_length(_vectors);
 	
 	// Find which vectors to get data from based on the train's location
-	var _floorVectorLoc = max(floor(_trainDistance/_trackSize), 0); // Used to retrieve base X and Y location and angle
+	var _floorVectorLoc = clamp(floor(_trainDistance/_trackSize), 0, _vectorsLength-1); // Used to retrieve base X and Y location and angle
 	var _ceilVectorLoc = min(_floorVectorLoc+1, _vectorsLength-1); // Used to get the angle the train is turning into
 	
 	// Get the X, Y, and angle of the nearest track vectors
@@ -160,9 +166,15 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	var _trainX = _baseX + lengthdir_x(_distanceFromBaseVector, _trainAngle);
 	var _trainY = _baseY + lengthdir_y(_distanceFromBaseVector, _trainAngle);
 	
+	// Don't draw the train if it goes out of view bounds
 	var _trackWidth = 74;
 	if (_trainY > MAP_VIEW_Y + _trackWidth) and (_trainX < camera_get_view_width(get_map_camera()) + _trackWidth) {
 		draw_sprite_ext(_cartSprite, 0, _trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
+	}
+	
+	// If the train has reached the end, return true
+	if (_ceilVectorLoc+1 == _vectorsLength) {
+		return true;	
 	}
 }
 
