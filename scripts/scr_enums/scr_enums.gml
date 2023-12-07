@@ -19,6 +19,13 @@ enum CARTS {
 	UTIL
 }
 
+enum TRACK {
+	PREV = 0,
+	IGNORED = 1,
+	CUR = 2,
+	FUTURE = 3
+}
+
 // Returns both the sprite and width of a cart enum
 function get_cart_data(_cart) {
 	

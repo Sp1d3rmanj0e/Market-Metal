@@ -3,15 +3,30 @@ map_cam_x = 0;
 map_cam_y = 0;
 map_cam_move_speed = 43;
 
-list = create_tracks(global.seed, 0, 0, 50);
-vector = draw_tracks(0, 0, list, 0, 0);
+track_order = ds_map_create();
+ds_map_add(track_order, "PreviousTrack",noone);
+ds_map_add(track_order, "IgnoredTrack",	noone);
+ds_map_add(track_order, "CurrentTrack",	noone);
+ds_map_add(track_order, "FutureTrack1",	noone);
+ds_map_add(track_order, "FutureTrack2",	noone);
 
-//var _endListVector = get_end_list_vector(list); // Returns the [X, Y, Angle] data from the last point in a given list
-var _endListVector = vector[1]
-var _endListX = _endListVector[0];
-var _endListY = _endListVector[1];
-var _endListAngle = _endListVector[2];
+var _dataMap;
 
-future_trackList1 = create_tracks(global.seed,_endListX, _endListY, _endListAngle);
+// Add a default PreviousTrack 
+// (We manually add everything we need because the first one is supposed to be empty)
+_dataMap = ds_map_create();
+ds_map_add(_dataMap, "endX", 0);
+ds_map_add(_dataMap, "endY", 0);
+ds_map_add(_dataMap, "endAngle", 0);
+ds_map_add(_dataMap, "startX", 0);
+ds_map_add(_dataMap, "startY", 0);
+ds_map_replace(track_order, "PreviousTrack", _dataMap);
+
+// Get data for the starting track
+_dataMap = generate_track_data(0, 0, 0, global.seed);
+ds_map_replace(track_order, "CurrentTrack", _dataMap);
+
+// Generate the first 2 future tracks
+generate_next_track_options(track_order);
 
 trainPos = 0;
