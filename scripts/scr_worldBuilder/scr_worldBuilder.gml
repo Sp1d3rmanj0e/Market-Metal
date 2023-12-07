@@ -60,14 +60,14 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize 
 
 // Draw the tracks on the map 
 // Returns an array with equidistant vectors representing an X and Y location and the angle it is facing
-function draw_tracks(_xCamPos, _yCamPos, _list, _xTrackOffset = 0, _yTrackOffset = 0, _trackSize = TRACK_SIZE) {
+function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, _trackSize = TRACK_SIZE) {
 	
 	// Store each node/vector (X, Y, angle) into an array so that we can accurately draw trains on the track
 	// while also maintaining clean and fast code
 	var _vectors = [];
 
-	var X = -_xCamPos + _xTrackOffset;
-	var Y = -_yCamPos + _yTrackOffset;
+	var X = -_xCamPos + _startX;
+	var Y = -_yCamPos + _startY;
 	var curAngle = 0;
 	var _totalDistance = 0;
 	var prevX = X;
@@ -168,9 +168,12 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	
 	// Don't draw the train if it goes out of view bounds
 	var _trackWidth = 74;
+	
 	if (_trainY > MAP_VIEW_Y + _trackWidth) and (_trainX < camera_get_view_width(get_map_camera()) + _trackWidth) {
-		draw_sprite_ext(_cartSprite, 0, _trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
+		draw_sprite_ext(_cartSprite, 0,_trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
 	}
+	
+
 	
 	// If the train has reached the end, return true
 	if (_ceilVectorLoc+1 == _vectorsLength) {

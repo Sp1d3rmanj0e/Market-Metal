@@ -86,10 +86,12 @@ _endAngle	= ds_map_find_value(_curTrackMap, "endAngle");
 
 // Generate the first track option
 _dataMap = generate_track_data(_endX, _endY, _endAngle, _seed);
-ds_map_replace(_trackMap, "PotentialTrack1", _dataMap);
+ds_map_replace(_trackMap, "FutureTrack1", _dataMap);
+
+show_debug_message(_dataMap);
 
 // Generate the second track option
 _dataMap = generate_track_data(_endX, _endY, _endAngle, _seed*_endX/_endY);
-ds_map_replace(_trackMap, "PotentialTrack2", _dataMap);
+ds_map_replace(_trackMap, "FutureTrack2", _dataMap);
 
 }
