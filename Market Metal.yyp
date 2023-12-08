@@ -16,6 +16,7 @@
     {"id":{"name":"spr_food","path":"sprites/spr_food/spr_food.yy",},"order":2,},
     {"id":{"name":"spr_water_tower","path":"sprites/spr_water_tower/spr_water_tower.yy",},"order":10,},
     {"id":{"name":"spr_copper_ore","path":"sprites/spr_copper_ore/spr_copper_ore.yy",},"order":0,},
+    {"id":{"name":"obj_mouse_tracker","path":"objects/obj_mouse_tracker/obj_mouse_tracker.yy",},"order":9,},
     {"id":{"name":"spr_gold_ore","path":"sprites/spr_gold_ore/spr_gold_ore.yy",},"order":3,},
     {"id":{"name":"spr_swamp","path":"sprites/spr_swamp/spr_swamp.yy",},"order":17,},
     {"id":{"name":"spr_swamp_tree","path":"sprites/spr_swamp_tree/spr_swamp_tree.yy",},"order":2,},

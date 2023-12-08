@@ -60,7 +60,7 @@ function create_tracks(_seed, _xPos, _yPos, _curAngle){
 function generate_track_data (_startX = 0, _startY = 0, _startAngle = 0, _seed = global.seed) {
 	
 	var _list = create_tracks(_seed, _startX, _startY, _startAngle); // Xpos and Y pos are switched to ensure different tracks are generated
-	var _vectorMap = draw_tracks(0, 0, _list, 0, 0, _startAngle); // Generate a list of vector locations and get the end X, Y, and Angle
+	var _vectorMap = draw_tracks(0, 0, _list, _startX, _startY, _startAngle); // Generate a list of vector locations and get the end X, Y, and Angle
 	
 	ds_map_add(_vectorMap, "list", _list);
 	
@@ -87,8 +87,6 @@ _endAngle	= ds_map_find_value(_curTrackMap, "endAngle");
 // Generate the first track option
 _dataMap = generate_track_data(_endX, _endY, _endAngle, _seed);
 ds_map_replace(_trackMap, "FutureTrack1", _dataMap);
-
-show_debug_message(_dataMap);
 
 // Generate the second track option
 _dataMap = generate_track_data(_endX, _endY, _endAngle, _seed*_endX/_endY);

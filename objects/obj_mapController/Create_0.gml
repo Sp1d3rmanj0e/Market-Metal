@@ -20,6 +20,7 @@ ds_map_add(_dataMap, "endY", 0);
 ds_map_add(_dataMap, "endAngle", 0);
 ds_map_add(_dataMap, "startX", 0);
 ds_map_add(_dataMap, "startY", 0);
+ds_map_add(_dataMap, "startAngle", 0);
 ds_map_replace(track_order, "PreviousTrack", _dataMap);
 ds_map_replace(track_order, "IgnoredTrack", _dataMap);
 
@@ -50,7 +51,6 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	// We will do this by finding the end location of said PreviousTrack, and setting CurrentTrack's start 
 	// location to that
 	
-	/*
 	var _dataMap = ds_map_find_value(track_order, "PreviousTrack");
 	var _startX = ds_map_find_value(_dataMap, "endX");
 	var _startY = ds_map_find_value(_dataMap, "endY");
@@ -58,7 +58,6 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	_dataMap = ds_map_find_value(track_order, "CurrentTrack");
 	ds_map_add(_dataMap, "startX", _startX);
 	ds_map_add(_dataMap, "startY", _startY);
-	*/
 	
 	trainPos = 0;
 	
@@ -76,6 +75,13 @@ function generate_next_tracks(_whichTrackWasSelected) {
 		ds_map_replace(track_order, "CurrentTrack", ds_map_find_value(track_order, "FutureTrack2"));
 		ds_map_replace(track_order, "IgnoredTrack", ds_map_find_value(track_order, "FutureTrack1"));	
 	}
+	
+	var _trackMap = ds_map_find_value(track_order, "CurrentTrack");
+	var _CTEX = ds_map_find_value(_trackMap, "endX");
+	var _CTEY = ds_map_find_value(_trackMap, "endY");
+	_trackMap = ds_map_find_value(track_order, "FutureTrack1");
+	var _FT1EX = ds_map_find_value(_trackMap, "endX");
+	var _FT1EY = ds_map_find_value(_trackMap, "endY");
 	
 	// 2 Future Tracks >>> Generated
 	generate_next_track_options(track_order);

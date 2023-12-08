@@ -65,7 +65,6 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 	// Store each node/vector (X, Y, angle) into an array so that we can accurately draw trains on the track
 	// while also maintaining clean and fast code
 	var _vectors = [];
-
 	var X = -_xCamPos + _startX;
 	var Y = -_yCamPos + _startY;
 	var _totalDistance = 0;
@@ -116,6 +115,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 					
 				// Draw the tracks
 				draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
+				//draw_text_transformed(X + 10, Y + 10, "(" + string(map_cam_x + X) + ", " + string(map_cam_y + Y) + ")", 5, 5, 0);
 			}
 			
 			// Store the vector in the vectors array
@@ -131,7 +131,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 	ds_map_add(vector_map, "endX", X);
 	ds_map_add(vector_map, "endY", Y);
 	ds_map_add(vector_map, "endAngle", curAngle);
-	
+
 	return vector_map;
 }
 
