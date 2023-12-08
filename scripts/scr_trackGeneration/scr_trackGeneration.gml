@@ -8,7 +8,7 @@
 
 /// @returns _tracksList - a Ds_list containing a list of track lengths and angles
 
-function create_tracks(_seed, _xPos, _yPos, _curAngle = 0){
+function create_tracks(_seed, _xPos, _yPos, _curAngle){
 	
 	// Create a list to store the track data
 	var _tracksList = ds_list_create();
@@ -60,7 +60,7 @@ function create_tracks(_seed, _xPos, _yPos, _curAngle = 0){
 function generate_track_data (_startX = 0, _startY = 0, _startAngle = 0, _seed = global.seed) {
 	
 	var _list = create_tracks(_seed, _startX, _startY, _startAngle); // Xpos and Y pos are switched to ensure different tracks are generated
-	var _vectorMap = draw_tracks(0, 0, _list, 0, 0); // Generate a list of vector locations and get the end X, Y, and Angle
+	var _vectorMap = draw_tracks(0, 0, _list, 0, 0, _startAngle); // Generate a list of vector locations and get the end X, Y, and Angle
 	
 	ds_map_add(_vectorMap, "list", _list);
 	

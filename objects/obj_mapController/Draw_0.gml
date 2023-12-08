@@ -26,10 +26,7 @@ if (!is_undefined(_list))
 
 #endregion Draw the previous track
 
-// Draw the ignored track
-
-
-#region Draw the current track
+#region Draw the current and ignored track
 
 /**
  * What we're doing here is drawing the track that the train will actively be on
@@ -50,6 +47,9 @@ if (!is_undefined(_list))
 _trackMap = ds_map_find_value(track_order, "PreviousTrack");
 _endX = ds_map_find_value(_trackMap, "endX");
 _endY = ds_map_find_value(_trackMap, "endY");
+
+draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Prev Track: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
+
 //_endAngle = ds_map_find_value(_trackMap, "endAngle");
 
 // Get the current track list
@@ -58,12 +58,20 @@ _list = ds_map_find_value(_trackMap, "list");
 
 // Draw the current track
 _trainMap = draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY);
-_vectors = ds_map_find_value(_trainMap, "vectors");
+trainVectors = ds_map_find_value(_trainMap, "vectors"); // The train is drawn at the end in order 
+														// to draw over all of the tracks
+														
+draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Current Track: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
 
-// Draws the train based on the track vectors
-draw_train(_vectors, global.currentCarts, trainPos);
+// Get ignored track locations
+_trackMap = ds_map_find_value(track_order, "IgnoredTrack")
+_list = ds_map_find_value(_trackMap, "list");
 
-#endregion Draw the current track
+// Draw the ignored track
+if (!is_undefined(_list))
+	draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY)
+
+#endregion Draw the current and ignored track
 
 #region Draw the Future Tracks
 
@@ -76,6 +84,7 @@ _trackMap = ds_map_find_value(track_order, "CurrentTrack");
 // Get the end location of the previous track
 _endX = ds_map_find_value(_trackMap, "endX");
 _endY = ds_map_find_value(_trackMap, "endY");
+_endAngle = ds_map_find_value(_trackMap, "endAngle");
 
 // Get data for the first future track
 _trackMap = ds_map_find_value(track_order, "FutureTrack1");
@@ -83,13 +92,16 @@ _list = ds_map_find_value(_trackMap, "list");
 
 
 // Draw the first future track
-draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY);
+draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle);
 
 // Get data for the second future track
 _trackMap = ds_map_find_value(track_order, "FutureTrack2");
 _list = ds_map_find_value(_trackMap, "list");
 
 // Draw the second future track
-draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY);
+draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle);
 
 #endregion Draw the Future Tracks
+
+// Draws the train based on the track vectors
+draw_train(trainVectors, global.currentCarts, trainPos);
