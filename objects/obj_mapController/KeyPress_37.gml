@@ -1,4 +1,4 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-trainPos+= 100;
+generate_next_tracks(1);

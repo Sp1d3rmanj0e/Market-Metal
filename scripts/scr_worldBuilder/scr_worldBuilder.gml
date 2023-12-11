@@ -60,15 +60,13 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize 
 
 // Draw the tracks on the map 
 // Returns an array with equidistant vectors representing an X and Y location and the angle it is facing
-function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, _trackSize = TRACK_SIZE) {
+function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAngle = 0, _trackSize = TRACK_SIZE) {
 	
 	// Store each node/vector (X, Y, angle) into an array so that we can accurately draw trains on the track
 	// while also maintaining clean and fast code
 	var _vectors = [];
-
 	var X = -_xCamPos + _startX;
 	var Y = -_yCamPos + _startY;
-	var curAngle = 0;
 	var _totalDistance = 0;
 	var prevX = X;
 	var prevY = Y;
@@ -117,6 +115,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, _track
 					
 				// Draw the tracks
 				draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
+				//draw_text_transformed(X + 10, Y + 10, "(" + string(map_cam_x + X) + ", " + string(map_cam_y + Y) + ")", 5, 5, 0);
 			}
 			
 			// Store the vector in the vectors array
@@ -132,7 +131,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, _track
 	ds_map_add(vector_map, "endX", X);
 	ds_map_add(vector_map, "endY", Y);
 	ds_map_add(vector_map, "endAngle", curAngle);
-	
+
 	return vector_map;
 }
 
