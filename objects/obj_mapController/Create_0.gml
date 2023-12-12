@@ -55,6 +55,9 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	var _startX = ds_map_find_value(_dataMap, "endX");
 	var _startY = ds_map_find_value(_dataMap, "endY");
 	
+	// When the currentTrack becomes previous track, it needs a starting point 
+	// (as it is the first track in the sequence), so we give it the end point of 
+	// the previous previousTrack
 	_dataMap = ds_map_find_value(track_order, "CurrentTrack");
 	ds_map_add(_dataMap, "startX", _startX);
 	ds_map_add(_dataMap, "startY", _startY);
@@ -63,25 +66,37 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	
 	// PreviousTrack >>> Trash
 	// CurrentTrack >>> PreviousTrack
+	var _oldPreviousTrack = ds_map_find_value(track_order, "PreviousTrack");
+	ds_map_destroy(_oldPreviousTrack);
 	ds_map_replace(track_order, "PreviousTrack", ds_map_find_value(track_order, "CurrentTrack"));
 	
 	// IgnoredTrack >>> Trash
 	// FutureTrack >>> CurrentTrack
 	// FutureTrack >>> IgnoredTrack
+	var _oldIgnoredTrack;
 	if (_whichTrackWasSelected == 1) {
+		
+		// Set the new currentTrack map
 		ds_map_replace(track_order, "CurrentTrack", ds_map_find_value(track_order, "FutureTrack1"));
+		
+		// Destroy the previous ignoredTrack map
+		_oldIgnoredTrack = ds_map_find_value(track_order, "IgnoredTrack");
+		ds_map_destroy(_oldIgnoredTrack);
+		
+		// Set the new ignoredTrack map
 		ds_map_replace(track_order, "IgnoredTrack", ds_map_find_value(track_order, "FutureTrack2"));
 	} else {
+		
+		// Set the new currentTrack map
 		ds_map_replace(track_order, "CurrentTrack", ds_map_find_value(track_order, "FutureTrack2"));
+		
+		// Destroy the previous ignoredTrack map
+		_oldIgnoredTrack = ds_map_find_value(track_order, "IgnoredTrack");
+		ds_map_destroy(_oldIgnoredTrack);
+		
+		// Set the new ignoredTrack map
 		ds_map_replace(track_order, "IgnoredTrack", ds_map_find_value(track_order, "FutureTrack1"));	
 	}
-	
-	var _trackMap = ds_map_find_value(track_order, "CurrentTrack");
-	var _CTEX = ds_map_find_value(_trackMap, "endX");
-	var _CTEY = ds_map_find_value(_trackMap, "endY");
-	_trackMap = ds_map_find_value(track_order, "FutureTrack1");
-	var _FT1EX = ds_map_find_value(_trackMap, "endX");
-	var _FT1EY = ds_map_find_value(_trackMap, "endY");
 	
 	// 2 Future Tracks >>> Generated
 	generate_next_track_options(track_order);

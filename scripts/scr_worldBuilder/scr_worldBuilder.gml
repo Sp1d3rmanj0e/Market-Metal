@@ -60,7 +60,7 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize 
 
 // Draw the tracks on the map 
 // Returns an array with equidistant vectors representing an X and Y location and the angle it is facing
-function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAngle = 0, _trackSize = TRACK_SIZE) {
+function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAngle = 0, _returnMap = false, _trackSize = TRACK_SIZE) {
 	
 	// Store each node/vector (X, Y, angle) into an array so that we can accurately draw trains on the track
 	// while also maintaining clean and fast code
@@ -132,7 +132,12 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 	ds_map_add(vector_map, "endY", Y);
 	ds_map_add(vector_map, "endAngle", curAngle);
 
-	return vector_map;
+	if (_returnMap) {
+		return vector_map
+	} else {
+		ds_map_destroy(vector_map);
+		return
+	}
 }
 
 // Draw the train on the track using the vectors array generated with the draw_tracks() function
