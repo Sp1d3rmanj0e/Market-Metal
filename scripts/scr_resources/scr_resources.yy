@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_enums",
+  "name": "scr_resources",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
