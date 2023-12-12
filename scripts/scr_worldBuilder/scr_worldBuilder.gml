@@ -7,7 +7,7 @@
 /// @param _blend - blends the colors of the nearby biomes
 /// @param _tileSize - how big each tile is when drawing
 /// @param _scale - the "zoom" or how big biomes are
-function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize = 128, _scale = 50000) {
+function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize = 128, _scale = BIOME_SCALE) {
 	
 	// Finds the offset of the screen to the grid
 	// We find this so that we can readjust where we draw the biomes to create smooth instead of blocky movement
