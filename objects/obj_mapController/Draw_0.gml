@@ -23,7 +23,7 @@ _list = ds_map_find_value(_trackMap, "list");
 
 // Only draw the track if track data exists for it to process
 if (!is_undefined(_list))
-	draw_tracks(map_cam_x, map_cam_y, _list, _startX, _startY, _startAngle);
+	draw_tracks(map_cam_x, map_cam_y, _list, _startX, _startY, _startAngle, false);
 
 draw_text_transformed(_startX - map_cam_x, _startY - map_cam_y, "Prev Track Start: (" + string(_startX) + ", " + string(_startY) + ")",10, 10, 0);
 
@@ -59,9 +59,12 @@ _trackMap = ds_map_find_value(track_order, "CurrentTrack");
 _list = ds_map_find_value(_trackMap, "list");
 
 // Draw the current track
-_trainMap = draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle);
-trainVectors = ds_map_find_value(_trainMap, "vectors"); // The train is drawn at the end in order 
-														// to draw over all of the tracks								
+_trainMap = draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, true);
+
+// The train is drawn at the end in order to draw over all of the tracks	
+trainVectors = ds_map_find_value(_trainMap, "vectors"); 						
+ds_map_destroy(_trainMap); // Destroy the unused map after vectors has been grabbed
+
 draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Current Track and Ignored Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
 
 // Get ignored track locations
@@ -70,7 +73,7 @@ _list = ds_map_find_value(_trackMap, "list");
 
 // Draw the ignored track
 if (!is_undefined(_list))
-	draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle);
+	draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 
 #endregion Draw the current and ignored track
 
@@ -93,7 +96,7 @@ _list = ds_map_find_value(_trackMap, "list");
 
 
 // Draw the first future track
-draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle);
+draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 
 draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Future 1 Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
 
@@ -102,7 +105,7 @@ _trackMap = ds_map_find_value(track_order, "FutureTrack2");
 _list = ds_map_find_value(_trackMap, "list");
 
 // Draw the second future track
-draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle);
+draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 
 draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Future 2 Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
 
