@@ -30,6 +30,8 @@
   "frames": [
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b159caf0-25f7-4a0c-9577-5acf52b7ab29",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"86efb11a-23c0-4d1c-a01d-1b43b361b62a",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"3f142648-5973-4f06-997a-00235979d913",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"45f38b1c-a11c-4aa6-abef-199c8aeecf37",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -41,13 +43,15 @@
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,
-    "length": 2.0,
+    "length": 4.0,
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","spriteId":null,"keyframes":{"Keyframes":[
             {"id":"b1d345ca-620d-4388-b824-ac2a6e488d3e","Key":0.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"b159caf0-25f7-4a0c-9577-5acf52b7ab29","path":"sprites/spr_cloud1/spr_cloud1.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"a8f4b834-fe63-4e71-9ec6-7728b7f060f1","Key":1.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"86efb11a-23c0-4d1c-a01d-1b43b361b62a","path":"sprites/spr_cloud1/spr_cloud1.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"ad2d074c-45bf-4211-99a1-408d92cfdf05","Key":2.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"3f142648-5973-4f06-997a-00235979d913","path":"sprites/spr_cloud1/spr_cloud1.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"c75579a4-dd33-4db4-aa3c-129db6fe6878","Key":3.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"45f38b1c-a11c-4aa6-abef-199c8aeecf37","path":"sprites/spr_cloud1/spr_cloud1.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
@@ -70,7 +74,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "sky",
-    "path": "folders/Sprites/sky.yy",
+    "name": "weather",
+    "path": "folders/Sprites/weather.yy",
   },
 }
