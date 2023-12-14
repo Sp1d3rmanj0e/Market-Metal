@@ -3,6 +3,11 @@ map_cam_x = 0;
 map_cam_y = 0;
 map_cam_move_speed = 43;
 
+trainPos = 0;
+
+max_gen_dist = 200
+
+#region generate the first tracks
 track_order = ds_map_create();
 ds_map_add(track_order, "PreviousTrack",noone);
 ds_map_add(track_order, "IgnoredTrack",	noone);
@@ -31,7 +36,9 @@ ds_map_replace(track_order, "CurrentTrack", _dataMap);
 // Generate the first 2 future tracks
 generate_next_track_options(track_order);
 
-trainPos = 0;
+#endregion generate the first tracks
+
+
 
 /**
  * Moves:

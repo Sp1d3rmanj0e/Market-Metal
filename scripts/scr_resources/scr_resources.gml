@@ -8,6 +8,7 @@ enum RESOURCE {
 	PINE_TREE,
 	SWAMP_TREE,
 	TROPICAL_TREE,
+	OAK_TREE,
 	
 	// Ores
 	COPPER_ORE,
@@ -27,6 +28,7 @@ function get_resource_sprite_from_enum(_enum) {
 		case RESOURCE.PINE_TREE:		return		spr_pine_tree;		break;
 		case RESOURCE.SWAMP_TREE:		return		spr_swamp_tree;		break;
 		case RESOURCE.TROPICAL_TREE:	return		spr_tropical_tree;	break;
+		case RESOURCE.OAK_TREE:			return		spr_oak_tree;		break;
 												
 		case RESOURCE.COPPER_ORE:		return		spr_copper_ore;		break;
 		case RESOURCE.GOLD_ORE:			return		spr_gold_ore;		break;

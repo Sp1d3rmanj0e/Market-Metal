@@ -77,20 +77,20 @@ function generate_track_data (_startX = 0, _startY = 0, _startAngle = 0, _seed =
 // tracks need to be generated
 function generate_next_track_options(_trackMap, _seed = global.seed) {
 	
-// Start by getting the endX, endY, and endAngle of the currentTrack
-var _endX, _endY, _endAngle, _dataMap;
+	// Start by getting the endX, endY, and endAngle of the currentTrack
+	var _endX, _endY, _endAngle, _dataMap;
 
-var _curTrackMap = ds_map_find_value(_trackMap, "CurrentTrack");
-_endX		= ds_map_find_value(_curTrackMap, "endX");
-_endY		= ds_map_find_value(_curTrackMap, "endY");
-_endAngle	= ds_map_find_value(_curTrackMap, "endAngle");
+	var _curTrackMap = ds_map_find_value(_trackMap, "CurrentTrack");
+	_endX		= ds_map_find_value(_curTrackMap, "endX");
+	_endY		= ds_map_find_value(_curTrackMap, "endY");
+	_endAngle	= ds_map_find_value(_curTrackMap, "endAngle");
 
-// Generate the first track option
-_dataMap = generate_track_data(_endX, _endY, _endAngle, _seed);
-ds_map_replace(_trackMap, "FutureTrack1", _dataMap);
+	// Generate the first track option
+	_dataMap = generate_track_data(_endX, _endY, _endAngle, _seed);
+	ds_map_replace(_trackMap, "FutureTrack1", _dataMap);
 
-// Generate the second track option
-_dataMap = generate_track_data(_endX, _endY, _endAngle, _seed*_endX/_endY);
-ds_map_replace(_trackMap, "FutureTrack2", _dataMap);
+	// Generate the second track option
+	_dataMap = generate_track_data(_endX, _endY, _endAngle, _seed*_endX/_endY);
+	ds_map_replace(_trackMap, "FutureTrack2", _dataMap);
 
 }

@@ -6,3 +6,6 @@ initial_y = y;
 
 initial_map_cam_x = obj_mapController.map_cam_x;
 initial_map_cam_y = obj_mapController.map_cam_y;
+
+image_xscale = 2.5;
+image_yscale = 2.5;
