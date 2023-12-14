@@ -62,7 +62,8 @@ _list = ds_map_find_value(_trackMap, "list");
 _trainMap = draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, true);
 
 // The train is drawn at the end in order to draw over all of the tracks	
-_vectors = ds_map_find_value(_trainMap, "vectors"); 						
+_vectors = ds_map_find_value(_trainMap, "vectors"); 	
+
 ds_map_destroy(_trainMap); // Destroy the unused map after vectors has been grabbed
 
 draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Current Track and Ignored Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);

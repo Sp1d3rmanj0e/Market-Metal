@@ -3,7 +3,7 @@ function get_resources_from_biome(_biomeMap) {
 	return ds_map_find_value(_biomeMap, "resources");
 }
 
-function scr_resourceGenerator(_seed, _startX, _startY, _genWidth, _genHeight, _spacing = 100, _variability = 10, _cutoff = 10, _scale = BIOME_SCALE) {
+function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacing = 100, _variability = 10, _cutoff = 10, _scale = BIOME_SCALE) {
 	
 	var _density;
 	for (var _x = _startX; _x < (_startX + _genWidth); _x += _spacing) {
@@ -23,10 +23,8 @@ function scr_resourceGenerator(_seed, _startX, _startY, _genWidth, _genHeight, _
 			_percentChance = _array[1];
 	
 			_resourceSprite = get_resource_sprite_from_enum(_resource);
-			log(sprite_get_name(_resourceSprite));
 			
 			_density = round(noise_scale(_seed + i, _x + map_cam_x, _y + map_cam_y, 4000) * 100 - _cutoff);
-			log(_density);
 		
 			randomize();
 			if (_density >= irandom(100)) {
