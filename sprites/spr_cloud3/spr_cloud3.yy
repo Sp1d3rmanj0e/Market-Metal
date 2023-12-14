@@ -74,7 +74,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "sky",
-    "path": "folders/Sprites/sky.yy",
+    "name": "weather",
+    "path": "folders/Sprites/weather.yy",
   },
 }
