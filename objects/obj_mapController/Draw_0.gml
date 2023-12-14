@@ -64,6 +64,11 @@ _trainMap = draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, tr
 // The train is drawn at the end in order to draw over all of the tracks	
 _vectors = ds_map_find_value(_trainMap, "vectors"); 	
 
+if (!already_generated_resources) {
+	spawn_resources_along_track(_vectors);
+	already_generated_resources = true;
+}
+
 ds_map_destroy(_trainMap); // Destroy the unused map after vectors has been grabbed
 
 draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Current Track and Ignored Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);

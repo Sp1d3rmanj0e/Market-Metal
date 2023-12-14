@@ -1,3 +1,5 @@
+already_generated_resources = false;
+
 // Cam movement
 map_cam_x = 0;
 map_cam_y = 0;
@@ -37,8 +39,6 @@ ds_map_replace(track_order, "CurrentTrack", _dataMap);
 generate_next_track_options(track_order);
 
 #endregion generate the first tracks
-
-
 
 /**
  * Moves:
@@ -105,6 +105,9 @@ function generate_next_tracks(_whichTrackWasSelected) {
 		ds_map_replace(track_order, "IgnoredTrack", ds_map_find_value(track_order, "FutureTrack1"));	
 	}
 	
+	already_generated_resources = false;
+	
 	// 2 Future Tracks >>> Generated
 	generate_next_track_options(track_order);
+	
 }

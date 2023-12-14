@@ -24,7 +24,7 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 	
 			_resourceSprite = get_resource_sprite_from_enum(_resource);
 			
-			_density = round(noise_scale(_seed + i, _x + map_cam_x, _y + map_cam_y, 4000) * 100 - _cutoff);
+			_density = round(noise_scale(_seed + i, _x + map_cam_x, _y + map_cam_y, _scale) * 100 - _cutoff);
 		
 			randomize();
 			if (_density >= irandom(100)) {
@@ -41,4 +41,33 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 			}
 		}
 	}}
+}
+
+/// @param _vectors [[X, Y, Angle], ...]
+function spawn_resources_along_track(_vectors) {
+	
+	var _highestY = 0;
+	var _lowestY = 0;
+	var _startX = _vectors[0][0];
+	var _endX = _vectors[array_length(_vectors)-1][0];
+	
+	var _x, _y, _array;
+	for (var i = 1; i < array_length(_vectors); i++) {
+		_array = _vectors[i];
+		
+		_x = _array[0];
+		_y = _array[1];
+		
+		if (_y < _highestY)
+			_highestY = _y;
+			
+		if (_y > _lowestY)
+			_lowestY = _y;
+	}
+	
+	var _height = _lowestY - _highestY;
+	var _width = _endX - _startX;
+	
+	spawn_resources(global.seed, _startX, _highestY - 100, _width, _height + 200,  50, 0, 70, 5000);
+	
 }
