@@ -198,7 +198,7 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 	for (var i = 0; i < array_length(_carts); i++) {
 		
 		// Get the cart sprite and width
-		var _cartData = get_cart_data(_carts[i]);
+		var _cartData = get_top_cart_data(_carts[i]);
 		
 		// Extract cart sprite and width
 		var _cartTopSprite = _cartData[0];

@@ -93,6 +93,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Cars",
-    "path": "folders/Sprites/Train Sprites/Cars.yy",
+    "path": "folders/Sprites/Train Sprites/Side Views/Cars.yy",
   },
 }

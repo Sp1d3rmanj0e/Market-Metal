@@ -25,7 +25,7 @@ _list = ds_map_find_value(_trackMap, "list");
 if (!is_undefined(_list))
 	draw_tracks(map_cam_x, map_cam_y, _list, _startX, _startY, _startAngle, false);
 
-draw_text_transformed(_startX - map_cam_x, _startY - map_cam_y, "Prev Track Start: (" + string(_startX) + ", " + string(_startY) + ")",10, 10, 0);
+//draw_text_transformed(_startX - map_cam_x, _startY - map_cam_y, "Prev Track Start: (" + string(_startX) + ", " + string(_startY) + ")",10, 10, 0);
 
 #endregion Draw the previous track
 
@@ -71,7 +71,7 @@ if (!already_generated_resources) {
 
 ds_map_destroy(_trainMap); // Destroy the unused map after vectors has been grabbed
 
-draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Current Track and Ignored Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
+//draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Current Track and Ignored Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
 
 // Get ignored track locations
 _trackMap = ds_map_find_value(track_order, "IgnoredTrack")
@@ -104,7 +104,7 @@ _list = ds_map_find_value(_trackMap, "list");
 // Draw the first future track
 draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 
-draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Future 1 Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
+//draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Future 1 Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
 
 // Get data for the second future track
 _trackMap = ds_map_find_value(track_order, "FutureTrack2");
@@ -113,7 +113,7 @@ _list = ds_map_find_value(_trackMap, "list");
 // Draw the second future track
 draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 
-draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Future 2 Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
+//draw_text_transformed(_endX - map_cam_x, _endY - map_cam_y, "Future 2 Start: (" + string(_endX) + ", " + string(_endY) + ")",10, 10, 0);
 
 #endregion Draw the Future Tracks
 

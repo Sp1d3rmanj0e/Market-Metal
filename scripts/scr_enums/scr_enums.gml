@@ -27,7 +27,7 @@ enum TRACK {
 }
 
 // Returns both the sprite and width of a cart enum
-function get_cart_data(_cart) {
+function get_top_cart_data(_cart) {
 	
 	switch(_cart) {
 		case CARTS.ENGINE:		return [spr_car_top_engine, sprite_get_width(spr_car_top_engine)]

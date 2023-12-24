@@ -4,11 +4,11 @@
 
 // Camera follow player
 
-var _train_cam = obj_cameraManager.train_cam; // Get the train camera
+var _trainCam = obj_cameraManager.train_cam; // Get the train camera
 camera_set_view_pos(
-_train_cam, 
-obj_player.x - camera_get_view_width(_train_cam)/2,
-obj_player.y - camera_get_view_height(_train_cam)/1.5
+_trainCam, 
+obj_player.x - camera_get_view_width(_trainCam)/2,
+camera_get_view_y(_trainCam)
 );
 
 // Flip based on direction

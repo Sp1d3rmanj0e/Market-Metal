@@ -2,10 +2,7 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "obj_trainCart",
-  "spriteId": {
-    "name": "spr_trainCartFront",
-    "path": "sprites/spr_trainCartFront/spr_trainCartFront.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "managed": true,
@@ -33,7 +30,7 @@
   ],
   "overriddenProperties": [],
   "parent": {
-    "name": "Objects",
-    "path": "folders/Objects.yy",
+    "name": "Train Carts",
+    "path": "folders/Objects/Train Carts.yy",
   },
 }

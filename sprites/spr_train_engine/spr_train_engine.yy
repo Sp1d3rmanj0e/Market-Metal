@@ -5,7 +5,7 @@
   "bboxMode": 0,
   "collisionKind": 1,
   "type": 0,
-  "origin": 0,
+  "origin": 9,
   "preMultiplyAlpha": false,
   "edgeFiltering": false,
   "collisionTolerance": 0,
@@ -72,8 +72,8 @@
     "backdropHeight": 768,
     "backdropXOffset": 0.0,
     "backdropYOffset": 0.0,
-    "xorigin": 0,
-    "yorigin": 0,
+    "xorigin": 356,
+    "yorigin": 88,
     "eventToFunction": {},
     "eventStubScript": null,
   },
@@ -83,6 +83,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Primary",
-    "path": "folders/Sprites/Train Sprites/Primary.yy",
+    "path": "folders/Sprites/Train Sprites/Side Views/Primary.yy",
   },
 }

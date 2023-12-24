@@ -83,6 +83,6 @@
   "nineSlice": null,
   "parent": {
     "name": "Bogeys",
-    "path": "folders/Sprites/Train Sprites/Bogeys.yy",
+    "path": "folders/Sprites/Train Sprites/Side Views/Bogeys.yy",
   },
 }
