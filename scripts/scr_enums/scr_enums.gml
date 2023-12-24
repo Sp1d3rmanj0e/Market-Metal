@@ -6,7 +6,7 @@ enum VIEW {
 
 #macro SIDE_VIEW_HEIGHT 360
 #macro MAP_VIEW_HEIGHT 2792
-#macro MAP_VIEW_Y 552
+#macro MAP_VIEW_Y 652
 
 #macro TRACK_SIZE 64
 

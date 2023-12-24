@@ -7,7 +7,7 @@
 /// @param _blend - blends the colors of the nearby biomes
 /// @param _tileSize - how big each tile is when drawing
 /// @param _scale - the "zoom" or how big biomes are
-function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize = 128, _scale = BIOME_SCALE) {
+function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize = 256, _scale = BIOME_SCALE) {
 	
 	// Finds the offset of the screen to the grid
 	// We find this so that we can readjust where we draw the biomes to create smooth instead of blocky movement
@@ -20,12 +20,12 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize 
 	if (_trainX >= 0)
 		_xOff = _trainX mod _tileSize;
 	else
-		_xOff = 128 - abs(_trainX) mod _tileSize;
+		_xOff = _tileSize - abs(_trainX) mod _tileSize;
 	
 	if (_trainY >= 0)
 		_yOff = _trainY mod _tileSize;
 	else
-		_yOff = 128 - abs(_trainY) mod _tileSize;
+		_yOff = _tileSize - abs(_trainY) mod _tileSize;
 	
 	_width += _xOff;
 	_height += _yOff;
@@ -54,7 +54,9 @@ function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize 
 		var _biomeSprite = ds_map_find_value(_biomeMap, "sprite");
 		
 		// Draw the biome at the grid space
-		draw_sprite_ext(_biomeSprite, 0, _x - _xOff, _y+_topY - _yOff, 1, 1, 0, c_white, 1)	
+		// Prevent bleeding into the side view (above the map view)
+		if (_y + _topY - _yOff + _tileSize >= MAP_VIEW_Y)
+			draw_sprite_ext(_biomeSprite, 0, _x - _xOff, _y+_topY - _yOff, 2, 2, 0, c_white, 1)	
 	}}
 }
 
