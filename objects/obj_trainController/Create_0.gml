@@ -12,6 +12,7 @@ function add_cart(cart_enum) {
 	
 	var _numCarts  = array_length(cart_ids); // Get how many cart ids there are in the list
 	
+	// Get the leftmost x of the caboose
 	if (_numCarts > 0) {
 		var _cabooseId = cart_ids[_numCarts-1]; // Get the last cart id in the list
 		_cabooseEndX = _cabooseId.bbox_left; // Gets the back end of the last train cart
@@ -25,4 +26,6 @@ function add_cart(cart_enum) {
 	
 	// Add the new id to the end
 	array_push(cart_ids, _cartId);
+	
+	log(array_length(cart_ids));
 }
