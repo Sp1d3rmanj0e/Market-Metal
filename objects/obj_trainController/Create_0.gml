@@ -1,8 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-// How fast we want the carts/player to move in side view of the train
-player_move_speed_side_view = 5;
 
 // Initialize an array to store the IDs of carts it creates
 cart_ids = [];

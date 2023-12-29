@@ -52,6 +52,7 @@
     {"id":{"name":"spr_night","path":"sprites/spr_night/spr_night.yy",},"order":0,},
     {"id":{"name":"spr_skull","path":"sprites/spr_skull/spr_skull.yy",},"order":13,},
     {"id":{"name":"spr_iron_ore","path":"sprites/spr_iron_ore/spr_iron_ore.yy",},"order":4,},
+    {"id":{"name":"spr_passengerCurvyWalk","path":"sprites/spr_passengerCurvyWalk/spr_passengerCurvyWalk.yy",},"order":0,},
     {"id":{"name":"spr_utilityCarInside","path":"sprites/spr_utilityCarInside/spr_utilityCarInside.yy",},"order":2,},
     {"id":{"name":"spr_theme_park","path":"sprites/spr_theme_park/spr_theme_park.yy",},"order":18,},
     {"id":{"name":"spr_plains","path":"sprites/spr_plains/spr_plains.yy",},"order":12,},
@@ -209,6 +210,9 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"weather","folderPath":"folders/Sprites/weather.yy","order":21,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tile Sets","folderPath":"folders/Tile Sets.yy","order":2,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy","order":7,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"People","folderPath":"folders/Sprites/People.yy","order":22,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Herbert","folderPath":"folders/Sprites/People/Herbert.yy","order":1,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Passengers","folderPath":"folders/Sprites/People/Passengers.yy","order":2,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},

@@ -1,11 +1,19 @@
-/// @description Insert description here
-// You can write your code in this editor
+/// @description Movement & Animations
 
 
+key_left = keyboard_check(ord("A")) || keyboard_check(vk_left);
+key_right = keyboard_check(ord("D")) || keyboard_check(vk_right);
 
-// x collisions
-if (place_meeting(x + moveX, y, obj_trainCart)) moveX = 0;
+var _move = (key_right - key_left) * walk_speed * -1;
 
-// y collisions
+if (_move != 0) image_xscale = sign(_move) * -1;
 
-x += moveX;
+if (place_meeting(x, y, obj_trainCart)) {
+	_move = 0;
+}
+
+if (_move != 0) {
+	with (obj_trainCart) {
+		x += _move;
+	}
+}
