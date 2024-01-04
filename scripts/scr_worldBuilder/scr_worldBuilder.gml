@@ -143,7 +143,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 }
 
 // Draw the train on the track using the vectors array generated with the draw_tracks() function
-function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite = spr_car_top_engine, _trackSize = 64) {
+function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite = spr_car_top_engine, _trackSize = TRACK_SIZE) {
 	
 	// Find how many vectors there are (to prevent errors)
 	var _vectorsLength = array_length(_vectors);
