@@ -5,6 +5,11 @@ function get_resources_from_biome(_biomeMap) {
 
 function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacing = 100, _variability = 10, _cutoff = 10, _scale = BIOME_SCALE) {
 	
+	// To prevent data leaks, despawn any resources that have existed for a while
+	with(obj_resourceTest) {
+		decrement_despawn_timer();
+	}
+	
 	var _density;
 	for (var _x = _startX; _x < (_startX + _genWidth); _x += _spacing) {
 	for (var _y = _startY; _y < (_startY + _genHeight); _y += _spacing) {
