@@ -12,49 +12,21 @@ function draw_biomes(_seed, _topY, _width, _height, _camX, _camY, _tileSize = 25
 	_topY = MAP_VIEW_Y;
 	_height = MAP_VIEW_HEIGHT;
 	
-	// Finds the offset of the screen to the grid
-	// We find this so that we can readjust where we draw the biomes to create smooth instead of blocky movement
+	var _bottomY = _height + _topY;
 	
-	// We use different methods based on whether x and y are positive or negative is that modulus doesn't work how
-	// I need it to and instead of returning 127 when given -1 mod 128, I get -1, so I had to make a supplementary
-	// process to do what I needed it to do instead
-	var _xOff, _yOff;
-	
-	if (_camX >= 0)
-		_xOff = _camX mod _tileSize;
-	else
-		_xOff = _tileSize - abs(_camX) mod _tileSize;
-	
-	if (_camY >= 0)
-		_yOff = _camY mod _tileSize;
-	else
-		_yOff = _tileSize - abs(_camY) mod _tileSize;
-	
-	_width += _xOff;
-	_height += _yOff;
-	
-	// This for loop shows the screen in which to display the biomes within it
-	// _x and _y start at -_tileSize to stretch out the map enough to prevent seeing
-	// and empty spots while the map is moving
-	// _height and _width have _tileSize added for the same reason on the other 2 sides
-	for (var _x = -_tileSize; _x < _width + _tileSize; _x+=_tileSize) {
-	for (var _y = -_tileSize; _y < _height + _tileSize; _y+=_tileSize) {
+	for (var _x = -_tileSize; _x < _width + _tileSize;	 _x += _tileSize) {
+	for (var _y = _topY;	  _y < _bottomY + _tileSize; _y += _tileSize) {
 		
-		// Shift the map based on where the train/camera is located
-		// If the train is 60px to the right, we'll draw the map shifted 60px to the right
-		var _tileX = _x + _camX;
-		var _tileY = _y + _camY;
+		var _mapX = _x + _camX;
+		var _mapY = _y + _camY;
 		
-		// Get the biome that's supposed to be at that location
-		// Get the biome's sprite respective to the biome given using the ds_map
-		var _biomeMap = get_biome_at_tile(_seed, _tileX, _tileY, _tileSize, _scale);
+		var _mapTileX = _mapX - working_mod(_mapX, _tileSize);
+		var _mapTileY = _mapY - working_mod(_mapY, _tileSize);
+		
+		var _biomeMap = get_biome_at(_seed, _mapTileX, _mapTileY, _scale);
 		var _biomeSprite = ds_map_find_value(_biomeMap, "sprite");
 		
-		// Draw the biome at the grid space
-		// Prevent bleeding into the side view (above the map view)
-		if (_y + _topY - _yOff + _tileSize >= MAP_VIEW_Y)
-			draw_sprite_ext(_biomeSprite, 0, _x - _xOff, _y+_topY - _yOff, 2, 2, 0, c_white, 1)	
-			
+		draw_sprite_ext(_biomeSprite, 0, _mapTileX - _camX, _mapTileY - _camY, 2, 2, 0, c_white, 1);
 	}}
 }
 

@@ -110,8 +110,20 @@ function get_biome_at(_seed, _x, _y, _scale = BIOME_SCALE) {
 // Does the same thing as the above function, but locks each coordinate to a grid
 // to promote consistency betweem different parts of the code
 function get_biome_at_tile(_seed, _x, _y, _tileSize, _scale = BIOME_SCALE) {
-	var _mapTileX = _x - _x mod _tileSize;
-	var _mapTileY = _y - _y mod _tileSize;
 	
+	// Lock to nearest grid
+	var _mapTileX = _x - working_mod(_x, _tileSize);
+	var _mapTileY = _y -  working_mod(_y, _tileSize);
+	
+	// Get the biome
 	return get_biome_at(_seed, _mapTileX, _mapTileY, _scale);
+}
+
+// How mod actually works
+function working_mod(_value, _mod) {
+	if (_value >= 0) {
+		return _value mod _mod;
+	} else {
+		return _mod - abs(_value) mod _mod;
+	}
 }
