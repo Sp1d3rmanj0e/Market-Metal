@@ -44,6 +44,7 @@
     {"id":{"name":"scr_cameras","path":"scripts/scr_cameras/scr_cameras.yy",},"order":6,},
     {"id":{"name":"spr_passengerCarOutside","path":"sprites/spr_passengerCarOutside/spr_passengerCarOutside.yy",},"order":5,},
     {"id":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},"order":1,},
+    {"id":{"name":"spr_trainStation","path":"sprites/spr_trainStation/spr_trainStation.yy",},"order":23,},
     {"id":{"name":"spr_utilityCarOutside","path":"sprites/spr_utilityCarOutside/spr_utilityCarOutside.yy",},"order":6,},
     {"id":{"name":"spr_car_top_utility","path":"sprites/spr_car_top_utility/spr_car_top_utility.yy",},"order":0,},
     {"id":{"name":"spr_backgrounds","path":"sprites/spr_backgrounds/spr_backgrounds.yy",},"order":0,},
