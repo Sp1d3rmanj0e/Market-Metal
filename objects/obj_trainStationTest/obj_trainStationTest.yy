@@ -1,10 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_resourceTest",
+  "name": "obj_trainStationTest",
   "spriteId": {
-    "name": "spr_electrical_parts",
-    "path": "sprites/spr_electrical_parts/spr_electrical_parts.yy",
+    "name": "spr_error",
+    "path": "sprites/spr_error/spr_error.yy",
   },
   "solid": false,
   "visible": true,

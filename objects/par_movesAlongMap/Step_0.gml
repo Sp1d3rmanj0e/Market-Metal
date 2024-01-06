@@ -1,5 +1,4 @@
-/// @description Insert description here
-// You can write your code in this editor
+/// @description Change position based on map movement
 
 var _currentMapCamX = obj_mapController.map_cam_x;
 var _currentMapCamY = obj_mapController.map_cam_y;

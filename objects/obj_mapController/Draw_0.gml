@@ -71,6 +71,7 @@ _vectors = ds_map_find_value(_trainMap, "vectors");
 
 if (!already_generated_resources) {
 	spawn_resources_along_track(_vectors);
+	spawn_along_track_tester(_vectors);
 	already_generated_resources = true;
 }
 

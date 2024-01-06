@@ -1,7 +1,4 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-
+/// @description Despawning and init
 
 initial_x = x;
 initial_y = y;
