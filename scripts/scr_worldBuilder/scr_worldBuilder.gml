@@ -115,7 +115,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 }
 
 // Draw the train on the track using the vectors array generated with the draw_tracks() function
-function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite = spr_car_top_engine, _trackSize = TRACK_SIZE) {
+function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite = spr_car_top_engine, _updateTrainPosition = false, _trackSize = TRACK_SIZE) {
 	
 	// Find how many vectors there are (to prevent errors)
 	var _vectorsLength = array_length(_vectors);
@@ -149,6 +149,11 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	
 	if (_camY > MAP_VIEW_Y + _trackWidth) and (_camX < camera_get_view_width(get_map_camera()) + _trackWidth) {
 		draw_sprite_ext(_cartSprite, 0,_camX, _camY, 4, 4, _trainAngle, c_white, 1);
+		
+		if (_updateTrainPosition) {
+			global.train_x = _camX + obj_mapController.map_cam_x;
+			global.train_y = _camY + obj_mapController.map_cam_y;
+		}
 	}
 	
 
@@ -184,7 +189,12 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 			_cartDistance -= _cartTopLength * (0.25 * _trainScale);
 		
 		// Draw the cart
-		draw_train_cart(_vectors, _cartDistance, _cartTopSprite);
+		// We only update train position for the first cart because we want the
+		// base position to be the front of the train, not the back (also wastes processing power)
+		if (i == 0)
+			draw_train_cart(_vectors, _cartDistance, _cartTopSprite, true);
+		else
+			draw_train_cart(_vectors, _cartDistance, _cartTopSprite, false);
 		
 		// Move backwards equal to half the width of the cart
 		

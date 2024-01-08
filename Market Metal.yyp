@@ -10,6 +10,7 @@
     {"id":{"name":"obj_backgroundController","path":"objects/obj_backgroundController/obj_backgroundController.yy",},"order":6,},
     {"id":{"name":"spr_city_tracks","path":"sprites/spr_city_tracks/spr_city_tracks.yy",},"order":8,},
     {"id":{"name":"spr_burnt_tree","path":"sprites/spr_burnt_tree/spr_burnt_tree.yy",},"order":0,},
+    {"id":{"name":"scr_otherGlobalVars","path":"scripts/scr_otherGlobalVars/scr_otherGlobalVars.yy",},"order":4,},
     {"id":{"name":"spr_mid_ocean","path":"sprites/spr_mid_ocean/spr_mid_ocean.yy",},"order":10,},
     {"id":{"name":"spr_smoke_3","path":"sprites/spr_smoke_3/spr_smoke_3.yy",},"order":3,},
     {"id":{"name":"spr_maple_forest","path":"sprites/spr_maple_forest/spr_maple_forest.yy",},"order":8,},

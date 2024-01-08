@@ -87,6 +87,8 @@ function spawn_along_track_tester(_vectors) {
 	
 	instance_create_layer(_x, _y, "Resources", obj_trainStationTest, 
 	{
-		image_angle : _angle
+		image_angle : _angle,
+		map_x : _x,
+		map_y : _y
 	});
 }
