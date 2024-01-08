@@ -39,7 +39,7 @@
     "name": "spr_bird",
     "timeUnits": 1,
     "playback": 1,
-    "playbackSpeed": 5.0,
+    "playbackSpeed": 6.0,
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,
@@ -75,7 +75,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "effects",
-    "path": "folders/Sprites/effects.yy",
+    "name": "birds",
+    "path": "folders/Sprites/effects and other items/birds.yy",
   },
 }

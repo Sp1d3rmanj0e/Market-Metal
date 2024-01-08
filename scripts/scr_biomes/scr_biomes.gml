@@ -5,13 +5,13 @@ enum BIOME {
 	NUM_BIOMES = 20
 }
 
-#macro BIOME_SCALE 150
+#macro BIOME_SCALE 50000
 
 // Easily and simply adds all the biome data into a single map
 /// @param _num - the number that corresponds to a spot on the tileset
 /// @param _name - the name of the biome (string)
 /// @param _color - the associated color with the biome
-/// @param _resources[] - an array of all resources that can spawn in 
+/// @param _resources[[RESOURCE, % Chance spawn]] - an array of all resources that can spawn in 
 //						  the biome and how likely they are to spawn
 /// @param _structures[] - an array of all the structures that can
 //						   spawn in the biome and how likely they are
@@ -37,27 +37,27 @@ function create_biome_data(_num = -1, _name = "null", _color = c_black, _sprite 
 function load_biomes_into_memory() {
 
 #region biome creation
-Deep_Ocean		  = create_biome_data(1,  "Deep Ocean",			c_navy,				 spr_deep_ocean			, , , 3);
-Mid_Ocean		  = create_biome_data(2,  "Mid Ocean",			c_blue,				 spr_mid_ocean			, , , 2);
-Shallow_Ocean	  = create_biome_data(3,  "Shallow Ocean",		rgb(1, 171, 239),	 spr_shallow_ocean		, , , 1);
-River			  = create_biome_data(4,  "River",				c_aqua,				 spr_river				, , , 1);
-Beach			  = create_biome_data(5,  "Beach",				rgb(224, 228, 87),	 spr_beach				, , , 1);
-Burnt_Forest	  = create_biome_data(7,  "Burnt Forest",		c_red,				 spr_burnt_forest		, , , 2);
-Plains			  = create_biome_data(8,  "Plains",				rgb(236, 238, 143),	 spr_plains				, , , 2);
-Forest			  = create_biome_data(9,  "Forest",				c_green,			 spr_forest				, , , 2);
-Maple_Forest	  = create_biome_data(10, "Maple Forest",		rgb(165,57,5),		 spr_maple_forest		, , , 1);
-Swamp			  = create_biome_data(11, "Swamp", 				rgb(191,108,30),	 spr_swamp				, , , 1);
-Light_Mountains	  = create_biome_data(13, "Light Mountains",	c_gray,				 spr_light_mountains	, , , 1);
-Broken_City		  = create_biome_data(14, "Broken City",		c_fuchsia,			 spr_city				, , , 1);
-//Tundra		  = create_biome_data(14, "Tundra",				rgb(100,199,189),	 spr_					, , , 1);
-Old_Growth_Forest = create_biome_data(15, "Old Growth Forest",	c_maroon,			 spr_old_growth_forest	, , , 1);
-Snow			  = create_biome_data(16, "Snow",				rgb(75,166,232),	 spr_snow				, , , 1);
-Tropical_Forest	  = create_biome_data(17, "Tropical Forest",	rgb(154,211,68),	 spr_tropical_forest	, , , 1);
-Salt_Flats		  = create_biome_data(19, "Salt Flats",			rgb(154,211,68),     spr_salt_flats			, , , 1);
-Desert			  = create_biome_data(20, "Desert",				c_yellow,			 spr_desert				, , , 1);
-Mesa			  = create_biome_data(21, "Mesa",				rgb(245,159,47),	 spr_mesa				, , , 1);
-Broken_Theme_Park = create_biome_data(22, "Broken Theme Park",	rgb(235,107,32),	 spr_theme_park			, , , 1);
-Heavy_Mountains	  = create_biome_data(23, "Heavy Mountains",	c_dkgray,			 spr_heavy_mountains	, , , 1);
+Deep_Ocean		  = create_biome_data(1,  "Deep Ocean",			c_navy,				 spr_deep_ocean			,[] , , 3);
+Mid_Ocean		  = create_biome_data(2,  "Mid Ocean",			c_blue,				 spr_mid_ocean			,[] , , 2);
+Shallow_Ocean	  = create_biome_data(3,  "Shallow Ocean",		rgb(1, 171, 239),	 spr_shallow_ocean		,[] , , 1);
+River			  = create_biome_data(4,  "River",				c_aqua,				 spr_river				,[] , , 1);
+Beach			  = create_biome_data(5,  "Beach",				rgb(224, 228, 87),	 spr_beach				,[[RESOURCE.PALM_TREE, 6]] , , 1);
+Burnt_Forest	  = create_biome_data(7,  "Burnt Forest",		c_red,				 spr_burnt_forest		,[[RESOURCE.BURNT_TREE, 5]] , , 2);
+Plains			  = create_biome_data(8,  "Plains",				rgb(236, 238, 143),	 spr_plains				,[[RESOURCE.OAK_TREE, 2]] , , 2);
+Forest			  = create_biome_data(9,  "Forest",				c_green,			 spr_forest				,[[RESOURCE.OAK_TREE, 5], [RESOURCE.PINE_TREE, 3], [RESOURCE.OLD_TREE, 1]] , , 2);
+Maple_Forest	  = create_biome_data(10, "Maple Forest",		rgb(165,57,5),		 spr_maple_forest		,[[RESOURCE.MAPLE_TREE, 10]] , , 1);
+Swamp			  = create_biome_data(11, "Swamp", 				rgb(191,108,30),	 spr_swamp				,[[RESOURCE.SWAMP_TREE, 6]] , , 1);
+Light_Mountains	  = create_biome_data(13, "Light Mountains",	c_gray,				 spr_light_mountains	,[] , , 1);
+Broken_City		  = create_biome_data(14, "Broken City",		c_fuchsia,			 spr_city				,[] , , 1);
+//Tundra		  = create_biome_data(14, "Tundra",				rgb(100,199,189),	 spr_					,[] , , 1);
+Old_Growth_Forest = create_biome_data(15, "Old Growth Forest",	c_maroon,			 spr_old_growth_forest	,[[RESOURCE.OLD_TREE, 7]] , , 1);
+Snow			  = create_biome_data(16, "Snow",				rgb(75,166,232),	 spr_snow				,[[RESOURCE.PINE_TREE, 12]] , , 1);
+Tropical_Forest	  = create_biome_data(17, "Tropical Forest",	rgb(154,211,68),	 spr_tropical_forest	,[[RESOURCE.TROPICAL_TREE, 5]] , , 1);
+Salt_Flats		  = create_biome_data(19, "Salt Flats",			rgb(154,211,68),     spr_salt_flats			,[[RESOURCE.IRON_ORE, 10]] , , 1);
+Desert			  = create_biome_data(20, "Desert",				c_yellow,			 spr_desert				,[[RESOURCE.CACTUS, 10]] , , 1);
+Mesa			  = create_biome_data(21, "Mesa",				rgb(245,159,47),	 spr_mesa				,[[RESOURCE.CACTUS, 7]] , , 1);
+Broken_Theme_Park = create_biome_data(22, "Broken Theme Park",	rgb(235,107,32),	 spr_theme_park			,[] , , 1);
+Heavy_Mountains	  = create_biome_data(23, "Heavy Mountains",	c_dkgray,			 spr_heavy_mountains	,[[RESOURCE.GOLD_ORE, 5], [RESOURCE.PINE_TREE, 15]] , , 1);
 #endregion biome creation
 
 // A 2D Lookup Table based on humidity and inlandness.
@@ -105,4 +105,25 @@ function get_biome_at(_seed, _x, _y, _scale = BIOME_SCALE) {
 	var _inlandness = noise_scale(_seed, _x, _y, _scale);
 	var _humidity	= noise_scale(_seed+1, _x, _y, _scale);
 	return get_biome_map(_humidity, _inlandness);
+}
+
+// Does the same thing as the above function, but locks each coordinate to a grid
+// to promote consistency betweem different parts of the code
+function get_biome_at_tile(_seed, _x, _y, _tileSize, _scale = BIOME_SCALE) {
+	
+	// Lock to nearest grid
+	var _mapTileX = _x - working_mod(_x, _tileSize);
+	var _mapTileY = _y -  working_mod(_y, _tileSize);
+	
+	// Get the biome
+	return get_biome_at(_seed, _mapTileX, _mapTileY, _scale);
+}
+
+// How mod actually works
+function working_mod(_value, _mod) {
+	if (_value >= 0) {
+		return _value mod _mod;
+	} else {
+		return _mod - abs(_value) mod _mod;
+	}
 }

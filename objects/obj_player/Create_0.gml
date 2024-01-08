@@ -1,6 +1,4 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-walk_speed = 5;
-hsp = 0;
-
+walk_speed = 2;

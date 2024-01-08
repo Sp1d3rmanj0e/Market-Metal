@@ -2,74 +2,44 @@
 /// @param _topY - the topmost border to draw the biomes
 /// @param _width - the width of the biomes to draw
 /// @param _height - the height of the biomes to draw
-/// @param _trainX - the train offset X distance from 0 (moves the map)
-/// @param _trainY - the train offset Y distance from 0 (moves the map)
+/// @param _camX - the train offset X distance from 0 (moves the map)
+/// @param _camY - the train offset Y distance from 0 (moves the map)
 /// @param _blend - blends the colors of the nearby biomes
 /// @param _tileSize - how big each tile is when drawing
 /// @param _scale - the "zoom" or how big biomes are
-function draw_biomes(_seed, _topY, _width, _height, _trainX, _trainY, _tileSize = 128, _scale = 50000) {
+function draw_biomes(_seed, _topY, _width, _height, _camX, _camY, _tileSize = 256, _scale = BIOME_SCALE) {
 	
-	// Finds the offset of the screen to the grid
-	// We find this so that we can readjust where we draw the biomes to create smooth instead of blocky movement
+	_topY = MAP_VIEW_Y;
+	_height = MAP_VIEW_HEIGHT;
 	
-	// We use different methods based on whether x and y are positive or negative is that modulus doesn't work how
-	// I need it to and instead of returning 127 when given -1 mod 128, I get -1, so I had to make a supplementary
-	// process to do what I needed it to do instead
-	var _xOff, _yOff;
+	var _bottomY = _height + _topY;
 	
-	if (_trainX >= 0)
-		_xOff = _trainX mod _tileSize;
-	else
-		_xOff = 128 - abs(_trainX) mod _tileSize;
-	
-	if (_trainY >= 0)
-		_yOff = _trainY mod _tileSize;
-	else
-		_yOff = 128 - abs(_trainY) mod _tileSize;
-	
-	_width += _xOff;
-	_height += _yOff;
-	
-	// This for loop shows the screen in which to display the biomes within it
-	// _x and _y start at -_tileSize to stretch out the map enough to prevent seeing
-	// and empty spots while the map is moving
-	// _height and _width have _tileSize added for the same reason on the other 2 sides
-	for (var _x = -_tileSize; _x < _width + _tileSize; _x+=_tileSize) {
-	for (var _y = -_tileSize; _y < _height + _tileSize; _y+=_tileSize) {
+	for (var _x = -_tileSize; _x < _width + _tileSize;	 _x += _tileSize) {
+	for (var _y = _topY;	  _y < _bottomY + _tileSize; _y += _tileSize) {
 		
-		// Shift the map based on where the train/camera is located
-		// If the train is 60px to the right, we'll draw the map shifted 60px to the right
-		var _tileX = _trainX + _x;
-		var _tileY = _trainY + _y;
+		var _mapX = _x + _camX;
+		var _mapY = _y + _camY;
 		
-		// Lock the coordinates on the tile grid
-		// We do this to ensure that when we are gathering data from the noise map, 
-		// the coordinates aren't shifted slightly, drawing slightly different maps every time
-		var map_tileX = _tileX - _tileX mod _tileSize;
-		var map_tileY = _tileY - _tileY mod _tileSize;
+		var _mapTileX = _mapX - working_mod(_mapX, _tileSize);
+		var _mapTileY = _mapY - working_mod(_mapY, _tileSize);
 		
-		// Get the biome that's supposed to be at that location
-		// Get the biome's sprite respective to the biome given using the ds_map
-		var _biomeMap = get_biome_at(_seed, map_tileX, map_tileY, _scale);
+		var _biomeMap = get_biome_at(_seed, _mapTileX, _mapTileY, _scale);
 		var _biomeSprite = ds_map_find_value(_biomeMap, "sprite");
 		
-		// Draw the biome at the grid space
-		draw_sprite_ext(_biomeSprite, 0, _x - _xOff, _y+_topY - _yOff, 1, 1, 0, c_white, 1)	
+		draw_sprite_ext(_biomeSprite, 0, _mapTileX - _camX, _mapTileY - _camY, 2, 2, 0, c_white, 1);
 	}}
 }
 
 // Draw the tracks on the map 
 // Returns an array with equidistant vectors representing an X and Y location and the angle it is facing
-function draw_tracks(_xPos, _yPos, _list, _trackSize = 64) {
+function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAngle = 0, _returnMap = false, _trackSize = TRACK_SIZE) {
 	
 	// Store each node/vector (X, Y, angle) into an array so that we can accurately draw trains on the track
 	// while also maintaining clean and fast code
 	var _vectors = [];
-
-	var X = -_xPos;
-	var Y = -_yPos;
-	var curAngle = 0;
-	var _totalDistance = 0
+	var X = -_xCamPos + _startX;
+	var Y = -_yCamPos + _startY;
+	var _totalDistance = 0;
 	var prevX = X;
 	var prevY = Y;
 		
@@ -117,6 +87,7 @@ function draw_tracks(_xPos, _yPos, _list, _trackSize = 64) {
 					
 				// Draw the tracks
 				draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
+				//draw_text_transformed(X + 10, Y + 10, "(" + string(map_cam_x + X) + ", " + string(map_cam_y + Y) + ")", 5, 5, 0);
 			}
 			
 			// Store the vector in the vectors array
@@ -127,17 +98,30 @@ function draw_tracks(_xPos, _yPos, _list, _trackSize = 64) {
 		}
 	}
 	
-	return _vectors;
+	draw_sprite(spr_trainStation, 0, X, Y);
+	
+	var vector_map = ds_map_create();
+	ds_map_add(vector_map, "vectors", _vectors);
+	ds_map_add(vector_map, "endX", X);
+	ds_map_add(vector_map, "endY", Y);
+	ds_map_add(vector_map, "endAngle", curAngle);
+
+	if (_returnMap) {
+		return vector_map
+	} else {
+		ds_map_destroy(vector_map);
+		return
+	}
 }
 
 // Draw the train on the track using the vectors array generated with the draw_tracks() function
-function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite = spr_car_top_engine, _trackSize = 64) {
+function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite = spr_car_top_engine, _updateTrainPosition = false, _trackSize = TRACK_SIZE) {
 	
 	// Find how many vectors there are (to prevent errors)
 	var _vectorsLength = array_length(_vectors);
 	
 	// Find which vectors to get data from based on the train's location
-	var _floorVectorLoc = max(floor(_trainDistance/_trackSize), 0); // Used to retrieve base X and Y location and angle
+	var _floorVectorLoc = clamp(floor(_trainDistance/_trackSize), 0, _vectorsLength-1); // Used to retrieve base X and Y location and angle
 	var _ceilVectorLoc = min(_floorVectorLoc+1, _vectorsLength-1); // Used to get the angle the train is turning into
 	
 	// Get the X, Y, and angle of the nearest track vectors
@@ -157,12 +141,26 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	
 	// Get the X and Y location of the train based on
 	// how far it is away from the base vector and it's train Angle
-	var _trainX = _baseX + lengthdir_x(_distanceFromBaseVector, _trainAngle);
-	var _trainY = _baseY + lengthdir_y(_distanceFromBaseVector, _trainAngle);
+	var _camX = _baseX + lengthdir_x(_distanceFromBaseVector, _trainAngle);
+	var _camY = _baseY + lengthdir_y(_distanceFromBaseVector, _trainAngle);
 	
+	// Don't draw the train if it goes out of view bounds
 	var _trackWidth = 74;
-	if (_trainY > MAP_VIEW_Y + _trackWidth) and (_trainX < camera_get_view_width(get_map_camera()) + _trackWidth) {
-		draw_sprite_ext(_cartSprite, 0, _trainX, _trainY, 4, 4, _trainAngle, c_white, 1);
+	
+	if (_camY > MAP_VIEW_Y + _trackWidth) and (_camX < camera_get_view_width(get_map_camera()) + _trackWidth) {
+		draw_sprite_ext(_cartSprite, 0,_camX, _camY, 4, 4, _trainAngle, c_white, 1);
+		
+		if (_updateTrainPosition) {
+			global.train_x = _camX + obj_mapController.map_cam_x;
+			global.train_y = _camY + obj_mapController.map_cam_y;
+		}
+	}
+	
+
+	
+	// If the train has reached the end, return true
+	if (_ceilVectorLoc+1 == _vectorsLength) {
+		return true;	
 	}
 }
 
@@ -177,7 +175,7 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 	for (var i = 0; i < array_length(_carts); i++) {
 		
 		// Get the cart sprite and width
-		var _cartData = get_cart_data(_carts[i]);
+		var _cartData = get_top_cart_data(_carts[i]);
 		
 		// Extract cart sprite and width
 		var _cartTopSprite = _cartData[0];
@@ -191,7 +189,12 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 			_cartDistance -= _cartTopLength * (0.25 * _trainScale);
 		
 		// Draw the cart
-		draw_train_cart(_vectors, _cartDistance, _cartTopSprite);
+		// We only update train position for the first cart because we want the
+		// base position to be the front of the train, not the back (also wastes processing power)
+		if (i == 0)
+			draw_train_cart(_vectors, _cartDistance, _cartTopSprite, true);
+		else
+			draw_train_cart(_vectors, _cartDistance, _cartTopSprite, false);
 		
 		// Move backwards equal to half the width of the cart
 		

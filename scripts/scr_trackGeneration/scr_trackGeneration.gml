@@ -4,8 +4,11 @@
 
 /// @param _seed - the map seed
 /// @param _xPos and _yPos - these aren't the world X and Y coordinates, these signify how far from the starting track is
+/// @param _curAngle - Store the current track information | We do this to prevent tracks from moving backwards
 
-function create_tracks(_seed, _xPos, _yPos){
+/// @returns _tracksList - a Ds_list containing a list of track lengths and angles
+
+function create_tracks(_seed, _xPos, _yPos, _curAngle){
 	
 	// Create a list to store the track data
 	var _tracksList = ds_list_create();
@@ -15,10 +18,6 @@ function create_tracks(_seed, _xPos, _yPos){
 	
 	// Get how many tracks to generate
 	var _numTracksGenerated = irandom_range(50, 150);
-	
-	// Store the current track information
-	// We do this to prevent tracks from moving backwards
-	var _curAngle = 0;
 	
 	// Create a list of all upcoming tracks
 	for (var loop = 0; loop < _numTracksGenerated; loop++) {
@@ -32,14 +31,9 @@ function create_tracks(_seed, _xPos, _yPos){
 	
 		// 50% chance to be a straight line of track
 		if (irandom(100) > 50) {
-
 			_trackData[1] = 0;
-		
-		// 50% chance to be an angled piece of track
-		} else {
-	
-			_trackData[1] = choose(25, 30, 30, 45, 90) * choose(1, -1);
-	
+		} else { // 50% chance to be an angled piece of track
+			_trackData[1] = irandom_range(25, 90) * choose(1, -1);
 		}
 
 		// Prevent sharp 90 degree turns with this manual filter
@@ -59,4 +53,44 @@ function create_tracks(_seed, _xPos, _yPos){
 	}
 	
 	return _tracksList;
+}
+
+
+// Given a start location, angle, and seed, generate a new set of tracks
+// and return the end vector (X, Y, angle) as well as the generated vector in a map
+function generate_track_data (_startX = 0, _startY = 0, _startAngle = 0, _seed = global.seed) {
+	
+	var _list = create_tracks(_seed, _startX, _startY, _startAngle); // Xpos and Y pos are switched to ensure different tracks are generated
+	var _vectorMap = draw_tracks(0, 0, _list, _startX, _startY, _startAngle, true); // Generate a list of vector locations and get the end X, Y, and Angle
+	
+	ds_map_add(_vectorMap, "list", _list);
+	
+	// Keys: "vectors", "endX", "endY", "endAngle", "list"
+	return _vectorMap;
+}
+
+
+// Given the starting vector of the track and the track map, generate and replace the current two
+// track options with a new 2 track options
+
+// This will typically be used when the player chooses a track to go onto and now a new 2future
+// tracks need to be generated
+function generate_next_track_options(_trackMap, _seed = global.seed) {
+	
+	// Start by getting the endX, endY, and endAngle of the currentTrack
+	var _endX, _endY, _endAngle, _dataMap;
+
+	var _curTrackMap = ds_map_find_value(_trackMap, "CurrentTrack");
+	_endX		= ds_map_find_value(_curTrackMap, "endX");
+	_endY		= ds_map_find_value(_curTrackMap, "endY");
+	_endAngle	= ds_map_find_value(_curTrackMap, "endAngle");
+
+	// Generate the first track option
+	_dataMap = generate_track_data(_endX, _endY, _endAngle, _seed);
+	ds_map_replace(_trackMap, "FutureTrack1", _dataMap);
+
+	// Generate the second track option
+	_dataMap = generate_track_data(_endX, _endY, _endAngle, _seed*_endX/_endY);
+	ds_map_replace(_trackMap, "FutureTrack2", _dataMap);
+
 }

@@ -6,7 +6,9 @@ enum VIEW {
 
 #macro SIDE_VIEW_HEIGHT 360
 #macro MAP_VIEW_HEIGHT 2792
-#macro MAP_VIEW_Y 552
+#macro MAP_VIEW_Y 652
+
+#macro TRACK_SIZE 128
 
 enum CARTS {
 	ENGINE,
@@ -17,8 +19,15 @@ enum CARTS {
 	UTIL
 }
 
+enum TRACK {
+	PREV = 0,
+	IGNORED = 1,
+	CUR = 2,
+	FUTURE = 3
+}
+
 // Returns both the sprite and width of a cart enum
-function get_cart_data(_cart) {
+function get_top_cart_data(_cart) {
 	
 	switch(_cart) {
 		case CARTS.ENGINE:		return [spr_car_top_engine, sprite_get_width(spr_car_top_engine)]
