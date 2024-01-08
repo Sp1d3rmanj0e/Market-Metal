@@ -61,6 +61,7 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	var _dataMap = ds_map_find_value(track_order, "PreviousTrack");
 	var _startX = ds_map_find_value(_dataMap, "endX");
 	var _startY = ds_map_find_value(_dataMap, "endY");
+	var _startAngle = ds_map_find_value(_dataMap, "endAngle");
 	
 	// When the currentTrack becomes previous track, it needs a starting point 
 	// (as it is the first track in the sequence), so we give it the end point of 
@@ -68,6 +69,7 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	_dataMap = ds_map_find_value(track_order, "CurrentTrack");
 	ds_map_add(_dataMap, "startX", _startX);
 	ds_map_add(_dataMap, "startY", _startY);
+	ds_map_add(_dataMap, "startAngle", _startAngle);
 	
 	trainPos = 0;
 	

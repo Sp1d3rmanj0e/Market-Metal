@@ -8,7 +8,7 @@ enum VIEW {
 #macro MAP_VIEW_HEIGHT 2792
 #macro MAP_VIEW_Y 652
 
-#macro TRACK_SIZE 64
+#macro TRACK_SIZE 128
 
 enum CARTS {
 	ENGINE,
