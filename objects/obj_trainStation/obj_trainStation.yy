@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_trainStationTest",
+  "name": "obj_trainStation",
   "spriteId": {
     "name": "spr_trainStation",
     "path": "sprites/spr_trainStation/spr_trainStation.yy",

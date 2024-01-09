@@ -76,7 +76,7 @@ function spawn_resources_along_track(_vectors) {
 	spawn_resources(global.seed, _startX, _highestY - 100, _width, _height + 200,  50, 0, 70, 5000);
 	
 }
-function spawn_along_track_tester(_vectors) {
+function spawn_along_track_tester(_vectors, _object) {
 	
 	var _arrayLen = array_length(_vectors);
 	var _pointAlongArray = _vectors[irandom_range(0, _arrayLen-1)];
@@ -85,7 +85,24 @@ function spawn_along_track_tester(_vectors) {
 	var _y = _pointAlongArray[1];
 	var _angle = _pointAlongArray[2];
 	
-	instance_create_layer(_x, _y, "Resources", obj_trainStationTest, 
+	instance_create_layer(_x, _y, "Resources", _object, 
+	{
+		image_angle : _angle,
+		map_x : _x + obj_mapController.map_cam_x,
+		map_y : _y + obj_mapController.map_cam_y
+	});
+}
+
+function spawn_train_station(_vectors) {
+	
+	var _arrayLen = array_length(_vectors);
+	var _endPoint = _vectors[_arrayLen-1];
+	
+	var _x = _endPoint[0];
+	var _y = _endPoint[1];
+	var _angle = _endPoint[2];
+	
+	instance_create_layer(_x, _y, "Resources", obj_trainStation, 
 	{
 		image_angle : _angle,
 		map_x : _x + obj_mapController.map_cam_x,
