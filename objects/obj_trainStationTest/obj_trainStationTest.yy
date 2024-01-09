@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_trainStationTest",
   "spriteId": {
-    "name": "spr_error",
-    "path": "sprites/spr_error/spr_error.yy",
+    "name": "spr_trainStation",
+    "path": "sprites/spr_trainStation/spr_trainStation.yy",
   },
   "solid": false,
   "visible": true,
@@ -30,6 +30,7 @@
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
