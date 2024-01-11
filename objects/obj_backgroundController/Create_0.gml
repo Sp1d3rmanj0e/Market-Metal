@@ -52,3 +52,25 @@ BG.SUNSET,	// 21
 BG.NIGHT,	// 22
 BG.NIGHT	// 23
 ]
+
+// 0 = 0.0
+// 12 = 0.5
+// 24 = 1.0
+function time_to_percent(_time) {
+	
+	// Turn the decimals from base 60 to base 100
+	
+	// Isolate the decimal
+	var _minute = floor(_time);
+	var _decimal = _time - _minute;
+	
+	// Switch to base 100
+	// 30/60 = 50/100 (Multiply numerator by 5/3)
+	_decimal = _decimal * (5/3);
+	
+	// Rejoin the decimal with the minute
+	_time = _minute + _decimal;
+	
+	// Get the percentage completed by dividing by 24
+	return _time/24;
+}

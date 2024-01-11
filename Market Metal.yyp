@@ -110,6 +110,7 @@
     {"id":{"name":"spr_tropical_tree","path":"sprites/spr_tropical_tree/spr_tropical_tree.yy",},"order":7,},
     {"id":{"name":"spr_day","path":"sprites/spr_day/spr_day.yy",},"order":4,},
     {"id":{"name":"spr_desert","path":"sprites/spr_desert/spr_desert.yy",},"order":4,},
+    {"id":{"name":"snd_biomeMapleForest","path":"sounds/snd_biomeMapleForest/snd_biomeMapleForest.yy",},"order":0,},
     {"id":{"name":"scr_resourceGenerator","path":"scripts/scr_resourceGenerator/scr_resourceGenerator.yy",},"order":4,},
     {"id":{"name":"spr_old_growth_forest","path":"sprites/spr_old_growth_forest/spr_old_growth_forest.yy",},"order":11,},
     {"id":{"name":"spr_trainWheels","path":"sprites/spr_trainWheels/spr_trainWheels.yy",},"order":2,},
