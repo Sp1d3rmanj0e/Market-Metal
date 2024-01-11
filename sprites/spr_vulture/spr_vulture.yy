@@ -77,6 +77,6 @@
   "nineSlice": null,
   "parent": {
     "name": "birds",
-    "path": "folders/Sprites/effects and other items/birds.yy",
+    "path": "folders/Sprites/Map Recources/birds.yy",
   },
 }

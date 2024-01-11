@@ -69,6 +69,6 @@
   "nineSlice": null,
   "parent": {
     "name": "trees",
-    "path": "folders/Sprites/recources/trees.yy",
+    "path": "folders/Sprites/Map Recources/trees.yy",
   },
 }

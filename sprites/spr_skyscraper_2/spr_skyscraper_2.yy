@@ -68,7 +68,7 @@
   ],
   "nineSlice": null,
   "parent": {
-    "name": "buildings",
-    "path": "folders/Sprites/effects and other items/background_recources/buildings.yy",
+    "name": "city buildings",
+    "path": "folders/Sprites/Map Recources/city buildings.yy",
   },
 }
