@@ -150,9 +150,11 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 	if (_camY > MAP_VIEW_Y + _trackWidth) and (_camX < camera_get_view_width(get_map_camera()) + _trackWidth) {
 		draw_sprite_ext(_cartSprite, 0,_camX, _camY, 4, 4, _trainAngle, c_white, 1);
 		
+		// Only activates for the first train cart in the line (the engine)
 		if (_updateTrainPosition) {
 			global.train_x = _camX + obj_mapController.map_cam_x;
 			global.train_y = _camY + obj_mapController.map_cam_y;
+			draw_text_transformed(_camX, _camY + 40, "Current Passengers: " + string(global.numPassengers), 10, 10, 0);
 		}
 	}
 	

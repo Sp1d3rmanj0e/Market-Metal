@@ -15,3 +15,17 @@ function get_side_view_cart_sprite_from_enum(cart_enum) {
 	return [spr_error, spr_error];
 	log("There was an error when attempting to retrieve side view train sprites");
 }
+
+function get_cart_max_capacity(cart_enum) {
+	switch(cart_enum) {
+		case CARTS.ENGINE: return 0;
+		case CARTS.COAL: return 0;
+		case CARTS.FARM: return 1;
+		case CARTS.PASS: return 5;
+		case CARTS.STORAGE: return 0;
+		case CARTS.UTIL: return 1;
+	}
+	
+	return [spr_error, spr_error];
+	log("There was an error when attempting to retrieve side view train sprites");
+}
