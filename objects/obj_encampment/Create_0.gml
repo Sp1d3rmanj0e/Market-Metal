@@ -2,6 +2,9 @@
 
 // map_x and map_y are given after creation step (location relative to the map)
 
+image_xscale = 2.5;
+image_yscale = 2.5;
+
 close_to_train = false;
 
 // Inherit the parent event (Despawning and Init)

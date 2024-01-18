@@ -1,19 +1,16 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_resourceTest",
-  "spriteId": {
-    "name": "spr_electrical_parts",
-    "path": "sprites/spr_electrical_parts/spr_electrical_parts.yy",
-  },
+  "name": "par_willDespawn",
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "par_willDespawn",
-    "path": "objects/par_willDespawn/par_willDespawn.yy",
+    "name": "par_movesAlongMap",
+    "path": "objects/par_movesAlongMap/par_movesAlongMap.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,

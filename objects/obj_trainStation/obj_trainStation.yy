@@ -12,8 +12,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "par_movesAlongMap",
-    "path": "objects/par_movesAlongMap/par_movesAlongMap.yy",
+    "name": "par_willDespawn",
+    "path": "objects/par_willDespawn/par_willDespawn.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
