@@ -11,7 +11,10 @@
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "par_movesAlongMap",
+    "path": "objects/par_movesAlongMap/par_movesAlongMap.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,

@@ -1,5 +1,10 @@
 /// @description Dismount the train
 
-instance_create_layer(global.train_x - 10, global.train_y - 20, "Resources", obj_playerTop);
-
-global.playerDismounted = true;
+if (!instance_exists(obj_playerTop)) {
+	player_id = instance_create_layer(global.train_x - map_cam_x, global.train_y - map_cam_y, "Resources", obj_playerTop);
+	global.playerDismounted = true;
+} else {
+	global.playerDismounted = false;
+	instance_destroy(player_id)
+}
+	

@@ -1,9 +1,5 @@
 /// @description Detect when train is close to station
 
-
-// Inherit the parent event (Despawning and storing starting position)
-event_inherited();
-
 log("Train: (" + string(global.train_x) + ", " + string(global.train_y) + ")");
 log("station: (" + string(map_x) + ", " + string(map_y) + ")");
 
