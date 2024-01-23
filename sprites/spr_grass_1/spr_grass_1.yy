@@ -69,6 +69,6 @@
   "nineSlice": null,
   "parent": {
     "name": "background_recources",
-    "path": "folders/Sprites/effects and other items/background_recources.yy",
+    "path": "folders/Sprites/Map Recources/background_recources.yy",
   },
 }
