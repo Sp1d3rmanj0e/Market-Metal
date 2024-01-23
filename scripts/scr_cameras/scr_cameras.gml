@@ -6,3 +6,10 @@ function get_map_camera() {
 	}
 	return view_get_camera(VIEW.MINI);
 }
+
+function get_side_camera() {
+	if (obj_cameraManager.map_open) {
+		return view_get_camera(VIEW.MINI)
+	}
+	return view_get_camera(VIEW.MAIN);
+}

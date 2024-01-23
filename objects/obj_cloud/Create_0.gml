@@ -13,7 +13,7 @@ image_xscale = cloud_depth;
 image_yscale = cloud_depth;
 image_alpha = cloud_depth;
 
-cloud_speed = 2 * cloud_depth;
+cloud_speed = 0.5 * cloud_depth;
 
 function get_sprite_based_on_time(_timeEnum) {
 	switch(_timeEnum) {

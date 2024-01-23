@@ -71,7 +71,8 @@ _vectors = ds_map_find_value(_trainMap, "vectors");
 
 if (!already_generated_resources) {
 	spawn_resources_along_track(_vectors);
-	spawn_along_track_tester(_vectors);
+	spawn_along_track_tester(_vectors, obj_encampment);
+	spawn_train_station(_vectors)
 	already_generated_resources = true;
 }
 

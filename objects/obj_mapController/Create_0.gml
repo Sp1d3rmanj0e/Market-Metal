@@ -5,6 +5,8 @@ map_cam_x = 0;
 map_cam_y = 0;
 map_cam_move_speed = 43;
 
+centered_camera = true;
+
 trainPos = 0;
 
 max_gen_dist = 200

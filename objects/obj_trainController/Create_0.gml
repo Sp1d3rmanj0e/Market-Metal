@@ -35,6 +35,7 @@ function add_cart(cart_enum) {
 	
 	// Add the new id to the end
 	array_push(cart_ids, _cartId);
+	array_push(global.currentCarts, cart_enum);
 	
 	log(array_length(cart_ids));
 }
