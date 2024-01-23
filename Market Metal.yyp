@@ -100,7 +100,6 @@
     {"id":{"name":"spr_parrot_2","path":"sprites/spr_parrot_2/spr_parrot_2.yy",},"order":2,},
     {"id":{"name":"spr_coal_car","path":"sprites/spr_coal_car/spr_coal_car.yy",},"order":1,},
     {"id":{"name":"spr_theme_park_tracks","path":"sprites/spr_theme_park_tracks/spr_theme_park_tracks.yy",},"order":14,},
-    {"id":{"name":"obj_createTrainPiece","path":"objects/obj_createTrainPiece/obj_createTrainPiece.yy",},"order":0,},
     {"id":{"name":"scr_items","path":"scripts/scr_items/scr_items.yy",},"order":0,},
     {"id":{"name":"obj_measuringTool","path":"objects/obj_measuringTool/obj_measuringTool.yy",},"order":4,},
     {"id":{"name":"obj_resourceTest","path":"objects/obj_resourceTest/obj_resourceTest.yy",},"order":8,},

@@ -98,8 +98,6 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 		}
 	}
 	
-	draw_sprite(spr_trainStation, 0, X, Y);
-	
 	var vector_map = ds_map_create();
 	ds_map_add(vector_map, "vectors", _vectors);
 	ds_map_add(vector_map, "endX", X);

@@ -11,4 +11,3 @@ image_yscale = 2.5;
 
 // Inherit the parent event
 event_inherited();
-

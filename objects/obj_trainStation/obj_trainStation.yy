@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_trainStation",
   "spriteId": {
-    "name": "spr_trainStation",
-    "path": "sprites/spr_trainStation/spr_trainStation.yy",
+    "name": "spr_train_station",
+    "path": "sprites/spr_train_station/spr_train_station.yy",
   },
   "solid": false,
   "visible": true,

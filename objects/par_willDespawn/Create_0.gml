@@ -1,7 +1,7 @@
 /// @description Add despawning mechanic
 
 
-// Inherit the parent event
+// Store initial location
 event_inherited();
 
 despawn_counter = 2; // Goes down by 1 every time more resources get generated
