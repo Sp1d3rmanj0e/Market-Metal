@@ -49,6 +49,7 @@ function get_resource_drops_from_enum(_enum) {
 		case RESOURCE.PINE_TREE:		return [[ITEM.WOOD, 4]]; break;
 		case RESOURCE.SWAMP_TREE:		return [[ITEM.WOOD, 2], [ITEM.WATER, 1], [ITEM.FOLIAGE, 1]]; break;
 		case RESOURCE.TROPICAL_TREE:	return [[ITEM.WOOD, 3], [ITEM.FOLIAGE, 3], [ITEM.VEGETABLES, 1]]; break;
+		case RESOURCE.OAK_TREE:			return [[ITEM.WOOD, 4], [ITEM.FOLIAGE, 2]] break;
 		
 		case RESOURCE.COPPER_ORE:		return [[ITEM.COPPER, 3], [ITEM.STONE, 2]]; break;
 		case RESOURCE.GOLD_ORE:			return [[ITEM.GOLD, 2], [ITEM.STONE, 3]]; break;
@@ -56,6 +57,6 @@ function get_resource_drops_from_enum(_enum) {
 		
 		case RESOURCE.CACTUS:			return [[ITEM.FOLIAGE, 4], [ITEM.WATER, 2]]; break;
 		
-		default: return [[]];
+		default: return [[ITEM.NONE, 1]];
 	}
 }

@@ -9,7 +9,3 @@ image_blend = make_color_rgb(random(255), random(255), random(255))
 // Choose a random momentum upon being created
 vsp = irandom_range(-5, 5);
 hsp = irandom_range(-5, 5);
-
-// Default vars if an error were to occur in its creation
-text = "ItemName";
-item_id = ITEM.NONE;

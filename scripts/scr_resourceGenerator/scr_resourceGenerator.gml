@@ -23,12 +23,14 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 		for (var i = 0; i < array_length(_resourceArr); i++) {
 	
 			// Unpack the array
-			_array = _resourceArr[i];
-			_resource = _array[0];
-			_percentChance = _array[1];
-	
+			_array = _resourceArr[i]; // Get the specific resource from that biome
+			_resource = _array[0];  // Get the resource enum
+			_percentChance = _array[1]; // Get the percent chance that it spawns
+		
+			// Get the resource sprite from the resource enum
 			_resourceSprite = get_resource_sprite_from_enum(_resource);
 			
+			// Get the resource density of that area on the map
 			_density = round(noise_scale(_seed + i, _x + map_cam_x, _y + map_cam_y, _scale) * 100 - _cutoff);
 		
 			randomize();
@@ -40,7 +42,8 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 						"resources", 
 						obj_resourceTest,
 						{
-							sprite_index : _resourceSprite
+							resource_id : _resource, // Give the sprite its resource enum
+							sprite_index : _resourceSprite // Set the resource's sprite
 						});
 				}
 			}
