@@ -1,5 +1,8 @@
 /// @description Store initial location
 
+x_off = 0;
+y_off = 0;
+
 initial_x = x;
 initial_y = y;
 

@@ -2,6 +2,8 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 enum ITEM {
 	
+	NONE,
+	
 	// BASIC RESOURCES
 	WOOD,
 	STONE,

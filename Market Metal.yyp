@@ -20,6 +20,7 @@
     {"id":{"name":"spr_storageCarOutside","path":"sprites/spr_storageCarOutside/spr_storageCarOutside.yy",},"order":7,},
     {"id":{"name":"spr_food","path":"sprites/spr_food/spr_food.yy",},"order":2,},
     {"id":{"name":"spr_water_tower","path":"sprites/spr_water_tower/spr_water_tower.yy",},"order":10,},
+    {"id":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"order":17,},
     {"id":{"name":"spr_copper_ore","path":"sprites/spr_copper_ore/spr_copper_ore.yy",},"order":0,},
     {"id":{"name":"obj_mouse_tracker","path":"objects/obj_mouse_tracker/obj_mouse_tracker.yy",},"order":7,},
     {"id":{"name":"Sprite122","path":"sprites/Sprite122/Sprite122.yy",},"order":23,},
@@ -99,6 +100,7 @@
     {"id":{"name":"spr_cloud3","path":"sprites/spr_cloud3/spr_cloud3.yy",},"order":7,},
     {"id":{"name":"spr_smoke_1","path":"sprites/spr_smoke_1/spr_smoke_1.yy",},"order":1,},
     {"id":{"name":"spr_pigeon","path":"sprites/spr_pigeon/spr_pigeon.yy",},"order":3,},
+    {"id":{"name":"spr_defaultItem","path":"sprites/spr_defaultItem/spr_defaultItem.yy",},"order":0,},
     {"id":{"name":"spr_bird","path":"sprites/spr_bird/spr_bird.yy",},"order":0,},
     {"id":{"name":"spr_mesa","path":"sprites/spr_mesa/spr_mesa.yy",},"order":9,},
     {"id":{"name":"spr_sunset","path":"sprites/spr_sunset/spr_sunset.yy",},"order":1,},
@@ -234,6 +236,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"weather","folderPath":"folders/Sprites/weather.yy","order":21,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tile Sets","folderPath":"folders/Tile Sets.yy","order":2,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy","order":7,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Items","folderPath":"folders/Sprites/Items.yy","order":27,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},

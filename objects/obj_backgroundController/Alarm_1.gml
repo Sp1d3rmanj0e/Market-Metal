@@ -1,5 +1,7 @@
 /// @description Spawn Clouds
 
-instance_create_layer(room_width, 0, "Decorations", obj_cloud);
+var _spawnX = camera_get_view_x(get_side_camera()) + camera_get_view_width(get_side_camera()) + sprite_get_width(obj_cloud);
 
-alarm[1] = irandom_range(1*room_speed, 4 * room_speed);
+instance_create_layer(_spawnX, 0, "Decorations", obj_cloud);
+
+alarm[1] = irandom_range(2*room_speed, 8 * room_speed);
