@@ -26,6 +26,14 @@ enum TRACK {
 	FUTURE = 3
 }
 
+enum PROF {
+	NONE,
+	WORKER,
+	FIGHTER,
+	FARMER,
+	ATTENDANT
+}
+
 // Returns both the sprite and width of a cart enum
 function get_top_cart_data(_cart) {
 	

@@ -1,5 +1,11 @@
 /// @description Move this somewhere else
 
+with(obj_taskController) {
+	request_task(mine_object, other.id, 1, other.profession_restriction);
+}
+
+/*
+
 // Get the potential item drops from this item
 // This data is stored like this [[ITEM.ID, Qty], [ITEM.ID, Qty]]
 var _drops = get_resource_drops_from_enum(resource_id);
