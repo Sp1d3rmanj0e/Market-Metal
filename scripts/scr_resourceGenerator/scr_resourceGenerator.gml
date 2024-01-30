@@ -6,7 +6,7 @@ function get_resources_from_biome(_biomeMap) {
 function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacing = 100, _variability = 10, _cutoff = 10, _scale = BIOME_SCALE) {
 	
 	// To prevent data leaks, despawn any resources that have existed for a while
-	with(par_movesAlongMap) {
+	with(par_willDespawn) {
 		decrement_despawn_timer();
 	}
 	

@@ -39,3 +39,6 @@ function add_cart(cart_enum) {
 	
 	log(array_length(cart_ids));
 }
+
+add_cart(CARTS.ENGINE);
+add_cart(CARTS.COAL);

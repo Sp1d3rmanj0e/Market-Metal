@@ -42,6 +42,8 @@ part_particles_create(global.P_System, mouse_x, mouse_y, global.ParticleMapleLea
 alarm[0] = irandom_range(60, 270);
 */
 
+/* Smoke
 randomize();
 part_particles_create(global.P_System, mouse_x, mouse_y, global.ParticleSmokeCloud, 1);
 alarm[0] = irandom_range(20, 30);
+*/
