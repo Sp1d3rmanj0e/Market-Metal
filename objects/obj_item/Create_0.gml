@@ -9,3 +9,11 @@ image_blend = make_color_rgb(random(255), random(255), random(255))
 // Choose a random momentum upon being created
 vsp = irandom_range(-5, 5);
 hsp = irandom_range(-5, 5);
+
+with(obj_taskController) {
+	request_task(collect_item, other.id, 1, PROF.NONE);
+}
+
+function collect() {
+	instance_destroy();
+}

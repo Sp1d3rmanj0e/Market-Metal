@@ -1,7 +1,7 @@
 global.numCarts = 1;
 global.trainSpeed = 0.1;
 global.wheelFrame = 0;
-global.currentCarts = [CARTS.ENGINE, CARTS.COAL];
+global.currentCarts = [];
 global.numPassengers = 0;
 
 function get_train_max_capacity() {

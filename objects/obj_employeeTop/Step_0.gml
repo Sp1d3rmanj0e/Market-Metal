@@ -5,7 +5,8 @@ if (ds_list_size(command_queue) > 0) {
 
 	// Get the top command to do
 	var _nextCommandMap = ds_list_find_value(command_queue, 0);
-
+	var _listSize = ds_list_size(command_queue);
+	
 	// Get the command and the target
 	var _command = ds_map_find_value(_nextCommandMap, "command");
 	var _target = ds_map_find_value(_nextCommandMap, "target");

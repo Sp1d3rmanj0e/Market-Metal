@@ -19,6 +19,18 @@ function is_valid_target(_id) {
 
 #region employee commands
 
+function collect_item(_id) {
+	
+	// Move towards item before collecting it
+	if (too_far_from_target(_id)) {
+		queue_command_top(move_to_object, _id);
+		return false; // Return false in order to prevent the code from collecting before we reach the destination
+	}
+	
+	add_item_to_inventory(_id);
+	return true;
+}
+
 // Puts a command at the top of the list
 // This will usually be used to add a step/requirement to a command
 function queue_command_top(_command, _target) {

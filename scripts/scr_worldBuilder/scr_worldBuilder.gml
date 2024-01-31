@@ -26,7 +26,16 @@ function draw_biomes(_seed, _topY, _width, _height, _camX, _camY, _tileSize = 25
 		var _biomeMap = get_biome_at(_seed, _mapTileX, _mapTileY, _scale);
 		var _biomeSprite = ds_map_find_value(_biomeMap, "sprite");
 		
+		/// Drawing lakes
+		//var _lakeBiomeMap = get_biome_at(_seed*752.123, _mapTileX, _mapTileY, _scale/12);
+		//var _lakeBiomeSprite = ds_map_find_value(_lakeBiomeMap, "name");
+		
+		//if (_lakeBiomeSprite == "Deep Ocean") or (_lakeBiomeSprite == "Mid Ocean") or (_lakeBiomeSprite == "Shallow Ocean") {
+		//	draw_sprite_ext(spr_river, 0, _mapTileX - _camX, _mapTileY - _camY, 2, 2, 0, c_white, 1);
+		//	draw_line(_mapTileX, _mapTileY, mouse_x, mouse_y);
+		//} else {
 		draw_sprite_ext(_biomeSprite, 0, _mapTileX - _camX, _mapTileY - _camY, 2, 2, 0, c_white, 1);
+		//}
 	}}
 }
 
