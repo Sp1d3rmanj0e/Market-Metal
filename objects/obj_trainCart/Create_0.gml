@@ -11,3 +11,10 @@ if (!instance_exists(obj_wheelAnimator)) instance_create_layer(0, 0, "Instances"
 
 // Start the alarm
 alarm[0] = 1;
+
+// Create the entrance/exit object if the cart is an engine
+if (cart_enum == CARTS.ENGINE)
+	instance_create_layer(x-250, y-40, "Instances", obj_trainExit,
+	{
+		engine_id : id
+	});

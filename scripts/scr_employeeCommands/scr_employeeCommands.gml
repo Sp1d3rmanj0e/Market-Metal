@@ -76,13 +76,29 @@ function leave_or_enter_train(_id) {
 	return true;
 }
 
+function teleport_to_object(_id) {
+	x = _id.x;
+	y = _id.y;
+	return true;
+}
+
 function move_to_object(_id) {
 	
 	// Enter/leave the train if the task is on the other side
 	// TODO: Switch obj_employeeTop to train enter/exit target
-	if (_id.is_outdoors != is_outdoors) and (_id != obj_employeeTop) {
+	if (_id.is_outdoors != is_outdoors) and (_id != obj_trainEntrance) {
 		queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen second
-		queue_command_top(move_to_object, obj_employeeTop); // Go to the train to switch inside-outside
+		queue_command_top(move_to_object, obj_trainEntrance); // Go to the train to switch inside-outside
+		
+		/* TODO: Fix this
+		if (_id.is_outdoors) {
+			queue_command_top(teleport_to_object, obj_trainExit);
+			queue_command_top(move_to_object, obj_trainEntrance); // Go to the train to switch inside-outside
+		} else {
+			queue_command_top(teleport_to_object, obj_trainEntrance);
+			queue_command_top(move_to_object, obj_trainExit); // Go to the train to switch inside-outside
+		
+		*/}
 	}
 	
 	
