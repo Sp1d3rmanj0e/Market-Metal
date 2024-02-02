@@ -80,6 +80,6 @@
   },
   "parent": {
     "name": "Rooms",
-    "path": "folders/Rooms.yy",
+    "path": "folders/Scripts/Rooms.yy",
   },
 }
