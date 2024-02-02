@@ -90,6 +90,7 @@ function queue_command(_command, _target, _priority) {
 ///@desc changes the indoor/outdoor status of an employee
 function leave_or_enter_train(_id) {
 	is_outdoors = !is_outdoors;
+	locked_to_map = is_outdoors;
 	return task_finished();
 }
 
@@ -115,7 +116,6 @@ function teleport_to_object(_id) {
 function move_to_object(_id) {
 
 	// Enter/leave the train if the task is on the other side
-	// TODO: Switch obj_employeeTop to train enter/exit target
 	if (_id != obj_trainEntrance) and (_id != obj_trainExit) and (_id.is_outdoors != is_outdoors) {
 		
 		queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen last
@@ -135,16 +135,25 @@ function move_to_object(_id) {
 	if (!too_far_from_target(_id))
 		return task_finished();
 	
-	// Move towards target
-	var _directionToObject = point_direction(x, y, _id.x, _id.y);
+	// When outdoors, movement is 2d.  When indoors, movement is 1d
+	if (is_outdoors) {
+		
+		// Move towards target
+		var _directionToObject = point_direction(x, y, _id.x, _id.y);
 	
-	var _moveX = lengthdir_x(1, _directionToObject);
-	var _moveY = lengthdir_y(1, _directionToObject);
+		var _moveX = lengthdir_x(1, _directionToObject);
+		var _moveY = lengthdir_y(1, _directionToObject);
 	
-	x_off += _moveX * walk_speed;
-	y_off += _moveY * walk_speed;
+		x_off += _moveX * walk_speed;
+		y_off += _moveY * walk_speed;
 	
-	return task_not_finished();
+		return task_not_finished();
+	} else {
+		var _moveDir = sign(_id.x - x); // -1 = left; 1 = right
+		x_off += _moveDir * walk_speed;
+		
+		return task_not_finished();
+	}
 }
 
 ///@function mine_object()

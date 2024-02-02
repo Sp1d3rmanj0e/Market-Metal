@@ -5,7 +5,7 @@
 
 
 
-if (y > MAP_VIEW_Y)
+if ((y > MAP_VIEW_Y) and (is_outdoors)) or ((y < MAP_VIEW_Y) and (!is_outdoors))
 	draw_self();
 
 draw_set_color(c_aqua);
