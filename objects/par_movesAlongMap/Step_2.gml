@@ -12,8 +12,4 @@ if (locked_to_map) {
 
 	x = initial_x - _changeInMapCamX + x_off;
 	y = initial_y - _changeInMapCamY + y_off;
-} else {
-	
-	x = initial_x + x_off;
-	y = initial_y + y_off;
 }

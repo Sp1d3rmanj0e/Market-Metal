@@ -97,12 +97,37 @@ function leave_or_enter_train(_id) {
 ///@function teleport_to_object()
 ///@desc immediately moves an employee to a specific coordinate
 function teleport_to_object(_id) {
-	var _angleToObject = point_direction(x, y, _id.x, _id.y);
-	var _distanceToObject = distance_to_object(_id);
-	
-	x_off += lengthdir_x(_distanceToObject, _angleToObject);
-	y_off += lengthdir_y(_distanceToObject, _angleToObject);
+	set_coords_to(_id.x, _id.y, is_outdoors);
 	return task_finished();
+}
+
+function set_coords_to(_targetX, _targetY, _isOutdoors) {
+	
+	if (_isOutdoors) {
+		
+		/*
+		Functions were created by reverse engineering
+		map movement calculations:
+		
+		x = initial_x - _changeInMapCamX + x_off;
+		y = initial_y - _changeInMapCamY + y_off;
+		*/
+		
+		var _currentMapCamX = obj_mapController.map_cam_x;
+		var _currentMapCamY = obj_mapController.map_cam_y;
+
+		var _changeInMapCamX = _currentMapCamX - id.initial_map_cam_x;
+		var _changeInMapCamY = _currentMapCamY - id.initial_map_cam_y;
+		
+		x_off = _targetX + _changeInMapCamX - initial_x;
+		y_off = _targetY + _changeInMapCamY - initial_y;
+	} else {
+		x = _targetX;
+		y = _targetY;
+	}
+	
+	
+	
 }
 
 
@@ -118,13 +143,13 @@ function move_to_object(_id) {
 	// Enter/leave the train if the task is on the other side
 	if (_id != obj_trainEntrance) and (_id != obj_trainExit) and (_id.is_outdoors != is_outdoors) {
 		
-		queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen last
-		
 		if (!_id.is_outdoors) {
 			queue_command_top(teleport_to_object, obj_trainExit);
+			queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen last
 			queue_command_top(move_to_object, obj_trainEntrance); // Go to the train to switch inside-outside
 		} else {
 			queue_command_top(teleport_to_object, obj_trainEntrance);
+			queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen last
 			queue_command_top(move_to_object, obj_trainExit); // Go to the train to switch inside-outside
 		
 		}
@@ -149,8 +174,7 @@ function move_to_object(_id) {
 	
 		return task_not_finished();
 	} else {
-		var _moveDir = sign(_id.x - x); // -1 = left; 1 = right
-		x_off += _moveDir * walk_speed;
+		x += sign(_id.x - x) * walk_speed;
 		
 		return task_not_finished();
 	}
