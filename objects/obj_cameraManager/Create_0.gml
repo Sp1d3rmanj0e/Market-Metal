@@ -19,12 +19,14 @@ function setSecondaryCam(_camera) {
 function flipCams() {
 	
 	map_open = !map_open;
-
+	
 	if (map_open) {
 		setPrimaryCam(map_cam);
 		setSecondaryCam(train_cam);
+		global.currentCamera = CAM.MAP;
 	} else {
 		setPrimaryCam(train_cam);
 		setSecondaryCam(map_cam);
+		global.currentCamera = CAM.SIDE;
 	}
 }
