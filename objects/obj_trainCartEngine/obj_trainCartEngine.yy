@@ -1,10 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_trainCart",
+  "name": "obj_trainCartEngine",
   "spriteId": {
-    "name": "spr_passengerCarInside",
-    "path": "sprites/spr_passengerCarInside/spr_passengerCarInside.yy",
+    "name": "spr_train_engine",
+    "path": "sprites/spr_train_engine/spr_train_engine.yy",
   },
   "solid": false,
   "visible": true,
@@ -28,11 +28,10 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":2,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
   ],
-  "properties": [
-    {"resourceType":"GMObjectProperty","resourceVersion":"1.0","name":"trainNumber","varType":0,"value":"1","rangeEnabled":false,"rangeMin":0.0,"rangeMax":10.0,"listItems":[],"multiselect":false,"filters":[],},
-  ],
+  "properties": [],
   "overriddenProperties": [],
   "parent": {
     "name": "Train Carts",
