@@ -10,11 +10,12 @@ if (position_meeting(mouse_x, mouse_y, id)) and (!starting_game) {
 
 // Increase the speed of the train once pressed
 if (starting_game) {
-	hsp += 0.05;
+	scale += 0.05;
 }
 
 // Allow the train to move once pressed
-x += hsp;
+image_xscale += scale;
+image_yscale += scale;
 
 // Once the train leaves the screen, fade to black
 if (bbox_left > room_width) {

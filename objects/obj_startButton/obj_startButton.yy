@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_startButton",
   "spriteId": {
-    "name": "spr_startButton",
-    "path": "sprites/spr_startButton/spr_startButton.yy",
+    "name": "spr_headlight",
+    "path": "sprites/spr_headlight/spr_headlight.yy",
   },
   "solid": false,
   "visible": true,
