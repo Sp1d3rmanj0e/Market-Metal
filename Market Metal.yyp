@@ -184,6 +184,7 @@
     {"id":{"name":"spr_cactus","path":"sprites/spr_cactus/spr_cactus.yy",},"order":4,},
     {"id":{"name":"spr_barrel","path":"sprites/spr_barrel/spr_barrel.yy",},"order":22,},
     {"id":{"name":"spr_maple_leaves","path":"sprites/spr_maple_leaves/spr_maple_leaves.yy",},"order":4,},
+    {"id":{"name":"spr_train_engine154","path":"sprites/spr_train_engine154/spr_train_engine154.yy",},"order":2,},
     {"id":{"name":"Sprite143","path":"sprites/Sprite143/Sprite143.yy",},"order":4,},
     {"id":{"name":"obj_trainController","path":"objects/obj_trainController/obj_trainController.yy",},"order":0,},
     {"id":{"name":"spr_beach","path":"sprites/spr_beach/spr_beach.yy",},"order":0,},
