@@ -115,3 +115,34 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	generate_next_track_options(track_order);
 	
 }
+
+// Returns the map coordinates of the center of the camera
+function get_center_of_camera_map() {
+	
+	var _mapCamera = get_map_camera();
+	
+	var _camX = camera_get_view_x(_mapCamera);
+	var _camY = camera_get_view_y(_mapCamera);
+	var _camWidth = camera_get_view_width(_mapCamera);
+	var _camHeight = camera_get_view_height(_mapCamera);
+	
+	var _camMidX = _camX + _camWidth/2;
+	var _camMidY = _camY + _camHeight/2;
+	
+	var _mapCamMidX = _camMidX + map_cam_x;
+	var _mapCamMidY = _camMidY + map_cam_y;
+	
+	return [_mapCamMidX, _mapCamMidY];
+}
+
+function get_center_of_camera_biome_map() {
+	
+	// Get the center of the map camera
+	var _mapCoords = get_center_of_camera_map();
+
+	// Get the biome at those coordinates
+	var _x = _mapCoords[0];
+	var _y = _mapCoords[1];
+
+	return get_biome_at(global.seed, _x, _y, BIOME_SCALE);
+}

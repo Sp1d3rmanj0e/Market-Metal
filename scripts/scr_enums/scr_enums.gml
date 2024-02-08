@@ -1,15 +1,25 @@
 
+// Signifies which view is being referenced
 enum VIEW {
 	MAIN = 0,
 	MINI = 1
 }
 
+// Signifies which camera is being referenced
+enum CAM {
+	SIDE,
+	MAP
+}
+
+// Coordinates
 #macro SIDE_VIEW_HEIGHT 360
 #macro MAP_VIEW_HEIGHT 2792
 #macro MAP_VIEW_Y 652
+#macro TRAIN_FLOOR_Y 243
 
 #macro TRACK_SIZE 128
 
+// Signifies which train cart is being referenced
 enum CARTS {
 	ENGINE,
 	COAL,
@@ -19,6 +29,7 @@ enum CARTS {
 	UTIL
 }
 
+// Signifies which track portion of track generation is being referenced
 enum TRACK {
 	PREV = 0,
 	IGNORED = 1,
@@ -26,6 +37,7 @@ enum TRACK {
 	FUTURE = 3
 }
 
+// Signifies which profession is being referenced
 enum PROF {
 	NONE,
 	WORKER,

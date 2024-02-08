@@ -3,7 +3,7 @@
 
 randomize();
 
-var _id = instance_create_layer(mouse_x, mouse_y, "Resources", obj_employeeTop,
+var _id = instance_create_layer(mouse_x, mouse_y, "Instances", obj_employeeTop,
 {
 	profession : choose(PROF.NONE, PROF.ATTENDANT, PROF.WORKER)
 });

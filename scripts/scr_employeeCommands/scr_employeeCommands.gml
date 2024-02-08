@@ -17,18 +17,33 @@ function is_valid_target(_id) {
 
 #endregion status checkers
 
+#region command commands
+
+function task_finished() {
+	return true;	
+}
+
+function task_not_finished() {
+	return false;
+}
+
+#endregion command commands
+
 #region employee commands
 
+/// @function collect_item()
+// 1) Move to target if too far
+// 2) Add item to inventory
 function collect_item(_id) {
 	
 	// Move towards item before collecting it
 	if (too_far_from_target(_id)) {
 		queue_command_top(move_to_object, _id);
-		return false; // Return false in order to prevent the code from collecting before we reach the destination
+		return task_not_finished(); // Return false in order to prevent the code from collecting before we reach the destination
 	}
 	
 	add_item_to_inventory(_id);
-	return true;
+	return task_finished();
 }
 
 // Puts a command at the top of the list
@@ -71,44 +86,110 @@ function queue_command(_command, _target, _priority) {
 	ds_list_add(command_queue, _mapId);
 }
 
+///@function leave_or_enter_train()
+///@desc changes the indoor/outdoor status of an employee
 function leave_or_enter_train(_id) {
 	is_outdoors = !is_outdoors;
-	return true;
+	locked_to_map = is_outdoors;
+	return task_finished();
 }
 
-function move_to_object(_id) {
+///@function teleport_to_object()
+///@desc immediately moves an employee to a specific coordinate
+function teleport_to_object(_id) {
+	set_coords_to(_id.x, _id.y, is_outdoors);
+	return task_finished();
+}
+
+function set_coords_to(_targetX, _targetY, _isOutdoors) {
 	
+	if (_isOutdoors) {
+		
+		/*
+		Functions were created by reverse engineering
+		map movement calculations:
+		
+		x = initial_x - _changeInMapCamX + x_off;
+		y = initial_y - _changeInMapCamY + y_off;
+		*/
+		
+		var _currentMapCamX = obj_mapController.map_cam_x;
+		var _currentMapCamY = obj_mapController.map_cam_y;
+
+		var _changeInMapCamX = _currentMapCamX - id.initial_map_cam_x;
+		var _changeInMapCamY = _currentMapCamY - id.initial_map_cam_y;
+		
+		x_off = _targetX + _changeInMapCamX - initial_x;
+		y_off = _targetY + _changeInMapCamY - initial_y;
+	} else {
+		x = _targetX;
+		y = _targetY;
+	}
+	
+	
+	
+}
+
+
+///@function move_to_object()
+///@desc Allow an employee to walk toward a specific object
+// 1) If the employee is outside and the task is inside (or vice versa)
+//	  the employee will first move to the train entrance/exit and switch
+//	  its indoor/outdoor status
+// 2) If close to the target, complete the task.  Otherwise, continue
+//	  moving toward the target
+function move_to_object(_id) {
+
 	// Enter/leave the train if the task is on the other side
-	// TODO: Switch obj_employeeTop to train enter/exit target
-	if (_id.is_outdoors != is_outdoors) and (_id != obj_employeeTop) {
-		queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen second
-		queue_command_top(move_to_object, obj_employeeTop); // Go to the train to switch inside-outside
+	if (_id != obj_trainEntrance) and (_id != obj_trainExit) and (_id.is_outdoors != is_outdoors) {
+		
+		if (!_id.is_outdoors) {
+			queue_command_top(teleport_to_object, obj_trainExit);
+			queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen last
+			queue_command_top(move_to_object, obj_trainEntrance); // Go to the train to switch inside-outside
+		} else {
+			queue_command_top(teleport_to_object, obj_trainEntrance);
+			queue_command_top(leave_or_enter_train, id); // We queue this one first in order for it to happen last
+			queue_command_top(move_to_object, obj_trainExit); // Go to the train to switch inside-outside
+		
+		}
 	}
 	
 	
 	// Finish objective if close to target
 	if (!too_far_from_target(_id))
-		return true;
+		return task_finished();
 	
-	// Move towards target
-	var _directionToObject = point_direction(x, y, _id.x, _id.y);
+	// When outdoors, movement is 2d.  When indoors, movement is 1d
+	if (is_outdoors) {
+		
+		// Move towards target
+		var _directionToObject = point_direction(x, y, _id.x, _id.y);
 	
-	var _moveX = lengthdir_x(1, _directionToObject);
-	var _moveY = lengthdir_y(1, _directionToObject);
+		var _moveX = lengthdir_x(1, _directionToObject);
+		var _moveY = lengthdir_y(1, _directionToObject);
 	
-	x_off += _moveX * walk_speed;
-	y_off += _moveY * walk_speed;
+		x_off += _moveX * walk_speed;
+		y_off += _moveY * walk_speed;
 	
-	return false;
+		return task_not_finished();
+	} else {
+		x += sign(_id.x - x) * walk_speed;
+		
+		return task_not_finished();
+	}
 }
 
+///@function mine_object()
+///@desc Makes an employee move toward a harvestable object and use the mine command with it.
+///		 once successful, the command will complete
 function mine_object(_id) {
 	
 	// If the target is too far to mine the object, 
 	// queue a move command first to get closer
 	if (too_far_from_target(_id)) {
 		queue_command_top(move_to_object, _id);
-		return false; // Return false in order to prevent the code from mining before we reach the destination
+		return task_not_finished(); // Return false in order to prevent the code from mining before we reach the destination
 	}
 	
 	with (_id) {

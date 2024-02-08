@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_encampment",
   "spriteId": {
-    "name": "spr_encampmentStation",
-    "path": "sprites/spr_encampmentStation/spr_encampmentStation.yy",
+    "name": "spr_settlements",
+    "path": "sprites/spr_settlements/spr_settlements.yy",
   },
   "solid": false,
   "visible": true,

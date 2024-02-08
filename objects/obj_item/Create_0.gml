@@ -13,7 +13,3 @@ hsp = irandom_range(-5, 5);
 with(obj_taskController) {
 	request_task(collect_item, other.id, 1, PROF.NONE);
 }
-
-function collect() {
-	instance_destroy();
-}

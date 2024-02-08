@@ -16,4 +16,3 @@ draw_sprite_ext(spr_backgrounds, previous_background, x, y, 0.238, 0.125, 0, c_w
  * 19 - 23 Sunset
  * 23 - 3 Night/Aurora Borealis
  */
- 

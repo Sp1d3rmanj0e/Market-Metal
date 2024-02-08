@@ -35,7 +35,6 @@ function find_all_valid_employees(_professionRestriction) {
 // Returns the id of the employee with the least amount of tasks in their list
 function find_least_tasks_employee(_employeeIdList) {
 	
-	// TODO: No employees edge case
 	if (ds_list_size(_employeeIdList) > 0) {
 	
 		var _leastAmountOfTasks;
