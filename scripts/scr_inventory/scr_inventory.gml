@@ -41,6 +41,14 @@ function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSiz
 	// Track which box is being interacted with
 	var _inventorySlotNum = 0;
 	
+	var _midX = _startX + _width/2;
+	var _midY = _startY + _height/2;
+	
+	var _halfBoxesWidth = _boxSize * _numColumns / 2;
+	var _halfBoxesHeight = _boxSize * _numRows / 2;
+	
+	_startX = _midX - _halfBoxesWidth;
+	_startY = _midY - _halfBoxesHeight;
 	
 	for (var _column = 0; _column < _numColumns; _column++) {
 	for (var _row = 0; _row < _numRows; _row++) {
