@@ -36,6 +36,7 @@
       ],"visible":true,"depth":400,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Map","instances":[
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_C6CECE7","properties":[],"isDnd":false,"objectId":{"name":"obj_mapController","path":"objects/obj_mapController/obj_mapController.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":740.0,"y":380.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_452725C3","properties":[],"isDnd":false,"objectId":{"name":"obj_GUIController","path":"objects/obj_GUIController/obj_GUIController.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":672.0,"y":-32.0,},
       ],"visible":true,"depth":500,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Decorations","instances":[],"visible":true,"depth":600,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRAssetLayer","resourceVersion":"1.0","name":"BackgroundSprites","assets":[
@@ -61,6 +62,7 @@
     {"name":"inst_4B3AACF","path":"rooms/rm_main/rm_main.yy",},
     {"name":"inst_C6CECE7","path":"rooms/rm_main/rm_main.yy",},
     {"name":"inst_107725DC","path":"rooms/rm_main/rm_main.yy",},
+    {"name":"inst_452725C3","path":"rooms/rm_main/rm_main.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,
