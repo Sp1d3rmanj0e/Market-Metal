@@ -8,13 +8,7 @@ function create_inventory(_size) {
 function add_item(_inventoryId, _slot, _itemId, _name, _sprite, _quantity, _description) {
 	
 	// Create an item dictionary/map of its traits
-	var _itemMap = {
-		"id"		: _itemId,
-		"name"		: _name,
-		"sprite"	: _sprite,
-		"quantity"	: _quantity,
-		"desc"		: _description
-	}
+	var _itemMap = generate_item_map(_itemId, _name, _sprite, _quantity, _description)
 	
 	// Add the item to the inventory
 	ds_grid_add(_inventoryId, 0, _slot, _itemMap);
@@ -37,6 +31,8 @@ function inventory_return_picked_up_item(_packetId) {
 
 // Draws the inventory to the screen
 function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns) {
+	
+	draw_gui_background(_startX, _startY, _width, _height);
 	
 	// Track which box is being interacted with
 	var _inventorySlotNum = 0;
@@ -72,9 +68,16 @@ function inventory_remove_item(_inventoryId, _slotNum) {
 	ds_grid_set(_inventoryId, 0, _slotNum, 0);
 }
 
-function delete_current_packet() {
-	instance_destroy(global.current_packet);
-	global.current_packet = noone;
+// Removes the packet from existence now that it is in an inventory
+function delete_current_packet(_packetId) {
+	
+	// If the packet removed was the hand packet, set the hand to none
+	if (_packetId == global.current_packet) {
+		instance_destroy(global.current_packet);
+		global.current_packet = noone;
+	} else { // Otherwise, it was something like an item, which is not in the hand upon first collection
+		instance_destroy(_packetId);
+	}
 }
 
 // Puts an item packet into a designated inventory spot
@@ -97,7 +100,7 @@ function inventory_put_item(_inventoryId, _inventorySlotNum, _packetId) {
 	
 	// Remove the packet from the player's hand to prevent item duplication
 	// (and because the item is now in the inventory, it should not also be in the player's hand)
-	delete_current_packet();
+	delete_current_packet(_packetId);
 	
 	log("packet deleted!");
 }
@@ -224,4 +227,40 @@ function mouse_in_box(_topLeftX, _topLeftY, _boxSize) {
 		_topLeftX, _topLeftY,
 		_topLeftX + _boxSize, 
 		_topLeftY + _boxSize);
+}
+
+// Default value for an unoccupied cell is 0, so if it is not 0, return True
+function inventory_slot_occupied(_inventoryId, _inventorySlotNum) {
+	return (ds_grid_get(_inventoryId, 0, _inventorySlotNum) != 0)
+}
+
+// No open slot >>> Returns -1
+// Open slot >>> Returns the location of the open slot
+function inventory_has_space(_inventoryId) {
+	
+	// Search the inventory for an open slot
+	for (var _slot = 0; _slot < ds_grid_height(_inventoryId); _slot++) {
+		
+		// If a slot if open, return the location of that spot
+		if (!inventory_slot_occupied(_inventoryId, _slot)) {
+			return _slot;
+		}
+	}
+	
+	return -1;
+}
+
+// No valid spots to place item >>> Returns false
+// Slot found and placed >>> Returns true
+function inventory_add_item_next_slot(_inventoryId, _packetId) {
+	
+	// Get the location of a valid spot in the inventory to place the item
+	var _inventorySlotNum = inventory_has_space(_inventoryId);
+	
+	// No open spots
+	if (_inventoryId == -1) { return false};
+	
+	inventory_put_item(_inventoryId, _inventorySlotNum, _packetId);
+	
+	return true;
 }

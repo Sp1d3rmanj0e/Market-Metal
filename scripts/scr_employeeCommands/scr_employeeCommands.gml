@@ -36,6 +36,14 @@ function task_not_finished() {
 // 2) Add item to inventory
 function collect_item(_id) {
 	
+	if (inventory_has_space(inventory_id) == -1) {
+		
+		// TODO: Switch obj_player for the storage cart
+		queue_command_top(move_to_object, obj_player);
+		// TODO: Give the bots the ability to deposit their stuff
+		return task_not_finished();
+	}
+	
 	// Move towards item before collecting it
 	if (too_far_from_target(_id)) {
 		queue_command_top(move_to_object, _id);
