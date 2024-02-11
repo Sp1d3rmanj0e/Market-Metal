@@ -195,6 +195,7 @@
     {"id":{"name":"spr_beach","path":"sprites/spr_beach/spr_beach.yy",},"order":0,},
     {"id":{"name":"spr_player_top","path":"sprites/spr_player_top/spr_player_top.yy",},"order":25,},
     {"id":{"name":"spr_chest","path":"sprites/spr_chest/spr_chest.yy",},"order":9,},
+    {"id":{"name":"scr_money","path":"scripts/scr_money/scr_money.yy",},"order":10,},
     {"id":{"name":"spr_desert_tracks","path":"sprites/spr_desert_tracks/spr_desert_tracks.yy",},"order":0,},
     {"id":{"name":"spr_light_mountain_bg","path":"sprites/spr_light_mountain_bg/spr_light_mountain_bg.yy",},"order":0,},
     {"id":{"name":"biome_map","path":"sprites/biome_map/biome_map.yy",},"order":20,},
