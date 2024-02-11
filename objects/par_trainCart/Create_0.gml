@@ -14,3 +14,6 @@ instance_create_layer(x, y, "Cart_Covers", obj_trainCartCover,
 	sprite_index : exterior_sprite,
 	parent : id
 });
+
+cart_health = 100;
+max_cart_health = cart_health;
