@@ -27,4 +27,4 @@ draw_text(x, y+80, string(ds_list_size(inventory)));
 draw_set_color(-1);
 
 if (show_inventory)
-	draw_inventory(inventory_id, x, y, 200, 100, 100, 1, 2);
+	draw_inventory(inventory_id, x, y, 200, 100, 100, 1, 2, true, false);

@@ -20,3 +20,20 @@ function get_train_max_capacity() {
 	
 	return _maxCapacity;
 }
+
+function move_train_side(_amt) {
+	
+	with (par_trainCart) {
+		x += _amt;
+	}
+	
+	with (obj_employeeTop) {
+		if (!is_outdoors) {
+			x += _amt;
+		}
+	}
+	
+	with (par_movesAlongTrain) {
+		x += _amt;
+	}
+}

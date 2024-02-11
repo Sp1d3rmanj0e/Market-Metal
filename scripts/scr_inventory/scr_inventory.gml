@@ -30,9 +30,10 @@ function inventory_return_picked_up_item(_packetId) {
 }
 
 // Draws the inventory to the screen
-function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns) {
+function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns, _drawBack, _isGUI) {
 	
-	draw_gui_background(_startX, _startY, _width, _height);
+	if (_drawBack)
+		draw_gui_background(_startX, _startY, _width, _height);
 	
 	// Track which box is being interacted with
 	var _inventorySlotNum = 0;
@@ -50,7 +51,7 @@ function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSiz
 	for (var _row = 0; _row < _numRows; _row++) {
 		
 		// Draw a slot in the inventory
-		draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum);
+		draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _isGUI);
 		// Increase this number to tell the box which slot in the inventory it represents
 		_inventorySlotNum++;
 	}}
@@ -147,9 +148,9 @@ function pick_up_item(_inventoryId, _inventorySlotNum, _itemMap) {
 	log("packet collected! (made global var)");
 }
 
-function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum) {
+function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum, _isGUI) {
 	
-	var _mouseInBox = mouse_in_box(_topLeftX, _topLeftY, _boxSize);
+	var _mouseInBox = mouse_in_box(_topLeftX, _topLeftY, _boxSize, _isGUI);
 	
 	// Check if mouse is within the box
 	if (_mouseInBox)
@@ -221,12 +222,23 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 }
 
 // Returns if the mouse is in a box's square
-function mouse_in_box(_topLeftX, _topLeftY, _boxSize) {
-	return point_in_rectangle(
-		mouse_x, mouse_y, 
-		_topLeftX, _topLeftY,
-		_topLeftX + _boxSize, 
-		_topLeftY + _boxSize);
+function mouse_in_box(_topLeftX, _topLeftY, _boxSize, _isGUI) {
+	
+	if (_isGUI) {
+		return point_in_rectangle(
+			device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), 
+			_topLeftX, _topLeftY,
+			_topLeftX + _boxSize, 
+			_topLeftY + _boxSize);
+	} else {
+		return point_in_rectangle(
+			mouse_x, mouse_y, 
+			_topLeftX, _topLeftY,
+			_topLeftX + _boxSize, 
+			_topLeftY + _boxSize);
+	}
+		
+		
 }
 
 // Default value for an unoccupied cell is 0, so if it is not 0, return True

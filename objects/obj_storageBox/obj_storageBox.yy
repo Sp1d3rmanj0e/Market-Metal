@@ -1,10 +1,10 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_trainCartStorage",
+  "name": "obj_storageBox",
   "spriteId": {
-    "name": "spr_storageCarOutside",
-    "path": "sprites/spr_storageCarOutside/spr_storageCarOutside.yy",
+    "name": "spr_crate",
+    "path": "sprites/spr_crate/spr_crate.yy",
   },
   "solid": false,
   "visible": true,
@@ -12,8 +12,8 @@
   "spriteMaskId": null,
   "persistent": false,
   "parentObjectId": {
-    "name": "par_trainCart",
-    "path": "objects/par_trainCart/par_trainCart.yy",
+    "name": "par_movesAlongTrain",
+    "path": "objects/par_movesAlongTrain/par_movesAlongTrain.yy",
   },
   "physicsObject": false,
   "physicsSensor": false,
@@ -28,14 +28,15 @@
   "physicsKinematic": false,
   "physicsShapePoints": [],
   "eventList": [
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":4,"eventType":6,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":81,"eventType":9,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":1,"collisionObjectId":null,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":64,"eventType":8,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Train Carts",
-    "path": "folders/Objects/Train Carts.yy",
+    "name": "Cart Items",
+    "path": "folders/Objects/Train Carts/Cart Items.yy",
   },
 }
