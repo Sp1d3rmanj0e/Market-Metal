@@ -36,11 +36,20 @@ function task_not_finished() {
 // 2) Add item to inventory
 function collect_item(_id) {
 	
+	// If there is no inventory space, empty out inventory first
 	if (inventory_has_space(inventory_id) == -1) {
 		
-		// TODO: Switch obj_player for the storage cart
-		queue_command_top(move_to_object, obj_player);
-		// TODO: Give the bots the ability to deposit their stuff
+		// Find a cart to deposit items into 
+		var _storageCartId = get_storage_cart_id_with_space();
+		
+		// If there is absolutely no space in the train, cancel this task
+		if (_storageCartId == false) {
+			return task_finished();
+		}
+		
+		// Move to a storage cart and deposit items
+		queue_command_top(deposit_items, id);
+		
 		return task_not_finished();
 	}
 	
@@ -51,6 +60,40 @@ function collect_item(_id) {
 	}
 	
 	add_item_to_inventory(_id);
+	return task_finished();
+}
+
+function deposit_items(_employeeId) {
+	
+	// Get the id of a storage cart with space in it
+	var _storageCartId = get_storage_cart_id_with_space();
+	
+	// Cancel task if there is no space to deposit items
+	if (_storageCartId == false) {
+		return task_finished();
+	}
+
+	// Move to the storage cart if too far away
+	if (too_far_from_target(_storageCartId)) {
+		queue_command_top(move_to_object, _storageCartId);
+		return task_not_finished();
+	}
+	
+	// Once next to the storage cart, find an item in your inventory to deposit
+	
+	// Get the item info
+	var _itemSlot = inventory_get_first_filled_slot(_employeeId.inventory_id);
+	var _itemMap = inventory_get_item(_employeeId.inventory_id, _itemSlot);
+	
+	// Remove the item from its current spot in the employee inventory
+	inventory_remove_item(_employeeId.inventory_id, _itemSlot);
+	
+	// Get the storage cart inventoryId
+	var _storageCartInventoryId = _storageCartId.inventory_id;
+	
+	// Add the item originally from the employee's inventory into the storage cart's inventory
+	inventory_add_item_next_slot_map(_storageCartInventoryId, _itemMap);
+	
 	return task_finished();
 }
 

@@ -37,3 +37,47 @@ function move_train_side(_amt) {
 		x += _amt;
 	}
 }
+
+
+global.currentStorageCapacity = 0;
+global.currentStorageFilled = 0;
+global.currentStorageOnTheWay = 0;
+
+// Returns an array with all the storage cart ids
+function get_all_storage_cart_ids() {
+	var _storageCartIds = [];
+	
+	// Add all storage cart ids to an array
+	for (var i = 0; i < instance_number(obj_trainCartStorage); i++) {
+		array_push(_storageCartIds, instance_find(obj_trainCartStorage, i));
+	}
+	
+	return _storageCartIds;
+}
+
+// Returns the id of a storage cart with space
+// If there is no space, it returns false
+function get_storage_cart_id_with_space() {
+	
+	// Get the ids of every storage cart
+	var _storageCartIds = get_all_storage_cart_ids();
+	
+	// Returns the id of the first storage cart with space in it
+	for (var i = 0; i < array_length(_storageCartIds); i++) {
+		var _cartId = _storageCartIds[i];
+		
+		if (is_there_storage_space_left(_cartId)) {
+			return _cartId;
+		}
+	}
+	
+	return false;
+}
+
+// Returns True if there is space left and false if not
+function is_there_storage_space_left(_cartId) {
+	
+	var _inventoryId = _cartId.inventory_id;
+	
+	return (inventory_get_number_open_slots(_inventoryId) != 0);
+}

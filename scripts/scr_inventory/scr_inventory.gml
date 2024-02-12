@@ -262,6 +262,50 @@ function inventory_has_space(_inventoryId) {
 	return -1;
 }
 
+// Returns how many slots there are in a given inventory
+function inventory_get_size(_inventoryId) {
+	return ds_grid_height(_inventoryId);
+}
+
+// Returns the number of open slots there are in a given inventory
+function inventory_get_number_open_slots(_inventoryId) {
+	
+	var _inventorySize = inventory_get_size(_inventoryId);
+	var _numOpenSlots = 0;
+	
+	// Check every slot of the inventory and add 1 to every slot that is empty
+	for (var _slot = 0; _slot < _inventorySize; _slot++) {
+		if (inventory_slot_occupied(_inventoryId, _slot) == false) {
+			_numOpenSlots++;
+		}
+	}
+	
+	return _numOpenSlots;
+}
+
+// If any inventory slot is filled, return false
+// Otherwise, return true
+function inventory_is_empty(_inventoryId) {
+	for (var _slot = 0; _slot < inventory_get_size(_inventoryId); _slot++) {
+		if (inventory_slot_occupied(_inventoryId, _slot)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+// Returns the slot number of the first non-empty slot
+// If all slots are empty, return -1
+function inventory_get_first_filled_slot(_inventoryId) {
+	for (var _slot = 0; _slot < inventory_get_size(_inventoryId); _slot++) {
+		if (inventory_slot_occupied(_inventoryId, _slot)) {
+			return _slot;
+		}
+	}
+	
+	return -1;
+}
+
 // No valid spots to place item >>> Returns false
 // Slot found and placed >>> Returns true
 function inventory_add_item_next_slot(_inventoryId, _packetId) {
@@ -270,9 +314,36 @@ function inventory_add_item_next_slot(_inventoryId, _packetId) {
 	var _inventorySlotNum = inventory_has_space(_inventoryId);
 	
 	// No open spots
-	if (_inventoryId == -1) { return false};
+	if (_inventoryId == -1) {
+		log("Error: inventory_add_item_next_slot - attempted to place item in an inventory with no open slots");
+		return false
+	};
 	
 	inventory_put_item(_inventoryId, _inventorySlotNum, _packetId);
+	
+	return true;
+}
+
+function inventory_add_item_next_slot_map(_inventoryId, _itemMap) {
+	
+	// Get the location of a valid spot in the inventory to place the item
+	var _inventorySlotNum = inventory_has_space(_inventoryId);
+	
+	// No open spots
+	if (_inventoryId == -1) 
+	{
+		log("Error: inventory_add_item_next_slot_map - attempted to place item in an inventory with no open slots");
+		return false
+	};
+	
+	// Unpack the map
+	var _itemId = _itemMap[$ "id"];
+	var _itemName = _itemMap[$ "name"];
+	var _itemSprite = _itemMap[$ "sprite"];
+	var _itemQuantity = _itemMap[$ "quantity"];
+	var _itemDescription = _itemMap[$ "desc"];
+	
+	add_item(_inventoryId, _inventorySlotNum, _itemId, _itemName, _itemSprite, _itemQuantity, _itemDescription);
 	
 	return true;
 }
