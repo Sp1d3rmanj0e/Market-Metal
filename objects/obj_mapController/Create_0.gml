@@ -135,6 +135,7 @@ function get_center_of_camera_map() {
 	return [_mapCamMidX, _mapCamMidY];
 }
 
+// TODO: Evaluate whether or not to keep this
 function get_center_of_camera_biome_map() {
 	
 	// Get the center of the map camera
@@ -145,4 +146,8 @@ function get_center_of_camera_biome_map() {
 	var _y = _mapCoords[1];
 
 	return get_biome_at(global.seed, _x, _y, BIOME_SCALE);
+}
+
+function get_train_biome_map() {
+	return get_biome_at(global.seed, global.train_x, global.train_y, BIOME_SCALE);
 }

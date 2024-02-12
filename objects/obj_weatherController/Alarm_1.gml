@@ -13,4 +13,4 @@ global.currentWeather = _nextWeatherEvent;
 
 log(string(global.currentWeather));
 
-alarm[1] = 5 * room_speed;
+alarm[1] = random_range(7, 14) * room_speed;
