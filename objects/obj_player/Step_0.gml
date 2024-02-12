@@ -17,7 +17,7 @@ if (place_meeting(x, y, obj_trainCart)) {
 }
 
 // Tell the train to move (to simulate the player walking)
-if (_move != 0) {
+if (_move != 0) and (global.currentCamera == CAM.SIDE){
 	
 	move_train_side(_move);
 }
