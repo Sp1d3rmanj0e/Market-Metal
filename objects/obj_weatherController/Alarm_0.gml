@@ -11,7 +11,13 @@ switch(global.currentWeather) {
 	break;
 	
 	case WEATHER.RAIN:
-		
+		// Normal Rain
+		for (var i = 570; i < 1310; i+= random(15)) {
+			part_particles_create(global.P_System, i, -350, global.ParticleRain, 5);
+		}
+
+		randomize();
+		alarm[0] = irandom_range(30, 35);
 	break;
 	
 	case WEATHER.SNOW:
@@ -32,4 +38,6 @@ switch(global.currentWeather) {
 		}
 		alarm[0] = irandom_range(5, 7);
 	break;
+	default:
+		log("error, no weather chosen!");
 }

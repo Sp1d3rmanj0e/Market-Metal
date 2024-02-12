@@ -19,8 +19,7 @@ enum BIOME {
 /// @param _events - an array of natural events (like aurora borealis) 
 //					 that can occur in the biome
 /// @param _difficulty - a number that tells the game what difficulty of enemies to spawn in that biome
-/// @param _weather (ds_map) - with the help of create_weather_profile(), it creates a map containing the chances of 
-//							   a given weather event to occur (in weight, not percentages)
+/// @param _weather (dictionary) - see create_weather_profile() description
 /// @returns a ds_map() of all of these data points
 function create_biome_data(_num = -1, _name = "null", _color = c_black, _sprite = spr_error, _resources = [], _structures = [], _events = [], _difficulty = 1, _weather = [[WEATHER.CLEAR, 1]]) {
 	var _map = ds_map_create();
@@ -37,15 +36,20 @@ function create_biome_data(_num = -1, _name = "null", _color = c_black, _sprite 
 }
 
 // Creates a Ds_map containing the chances of any weather event happening
+/// Created with help from https://dev.to/jacktt/understanding-the-weighted-random-algorithm-581p
+/// @returns a map with keys "values" and "weights", which return 2 arrays storing a weather event
+//			 and the weight/chance of that happening
 function create_weather_profile(_clearWeight, _rainWeight, _snowWeight, _sandWeight) {
 	
-	var _map = ds_map_create();
-	ds_map_add(_map, WEATHER.CLEAR, _clearWeight);
-	ds_map_add(_map, WEATHER.RAIN, _rainWeight);
-	ds_map_add(_map, WEATHER.SNOW, _snowWeight);
-	ds_map_add(_map, WEATHER.SAND, _sandWeight);
+	var _values = [WEATHER.CLEAR, WEATHER.RAIN, WEATHER.SNOW, WEATHER.SAND];
+	var _weights = [_clearWeight, _rainWeight, _snowWeight, _sandWeight]
 	
-	return _map;
+	var _map = {
+		"values" : _values,
+		"weights" : _weights
+	}
+	
+	return _map
 }
 
 // Execute only once to add all biome data into global.biomes
