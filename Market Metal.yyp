@@ -26,6 +26,7 @@
     {"id":{"name":"spr_copper_ore","path":"sprites/spr_copper_ore/spr_copper_ore.yy",},"order":0,},
     {"id":{"name":"obj_mouse_tracker","path":"objects/obj_mouse_tracker/obj_mouse_tracker.yy",},"order":6,},
     {"id":{"name":"Sprite122","path":"sprites/Sprite122/Sprite122.yy",},"order":19,},
+    {"id":{"name":"spr_itemError","path":"sprites/spr_itemError/spr_itemError.yy",},"order":32,},
     {"id":{"name":"spr_train_station","path":"sprites/spr_train_station/spr_train_station.yy",},"order":0,},
     {"id":{"name":"scr_resources","path":"scripts/scr_resources/scr_resources.yy",},"order":2,},
     {"id":{"name":"scr_carts","path":"scripts/scr_carts/scr_carts.yy",},"order":3,},

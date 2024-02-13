@@ -55,7 +55,7 @@ function spawn_item_qty(_name, _enum, _qty) {
 
 function spawn_item(_name, _enum) {
 	
-	var _itemMap = generate_item_map(_enum, _name, spr_error, 1, "item does not yet have a description");
+	var _itemMap = generate_item_map(_enum, _name, spr_itemError, 1, "item does not yet have a description");
 	
 	instance_create_layer(x, y, "Resources", obj_item,
 	{

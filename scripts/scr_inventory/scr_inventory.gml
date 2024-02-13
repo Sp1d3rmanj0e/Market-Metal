@@ -30,8 +30,8 @@ function inventory_return_picked_up_item(_packetId) {
 }
 
 // Draws the inventory to the screen
-function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns, _drawBack, _isGUI) {
-	
+function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns, _drawBack) {
+		
 	if (_drawBack)
 		draw_gui_background(_startX, _startY, _width, _height);
 	
@@ -51,10 +51,11 @@ function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSiz
 	for (var _row = 0; _row < _numRows; _row++) {
 		
 		// Draw a slot in the inventory
-		draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _isGUI);
+		draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum);
 		// Increase this number to tell the box which slot in the inventory it represents
 		_inventorySlotNum++;
 	}}
+	
 }
 
 /// @returns A map containing the item's information
@@ -114,7 +115,7 @@ function pick_up_item(_inventoryId, _inventorySlotNum, _itemMap) {
 	log("item removed!");
 	
 	// Get the item information from this slot
-	var _packetId = instance_create_layer(mouse_x, mouse_y, "Instances", obj_itemPacket,
+	var _packetId = instance_create_layer(mouse_x, mouse_y, "GUI", obj_itemPacket,
 	{
 		parent_inventory_id : _inventoryId,
 		parent_inventory_slot : _inventorySlotNum,
@@ -148,9 +149,9 @@ function pick_up_item(_inventoryId, _inventorySlotNum, _itemMap) {
 	log("packet collected! (made global var)");
 }
 
-function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum, _isGUI) {
+function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum) {
 	
-	var _mouseInBox = mouse_in_box(_topLeftX, _topLeftY, _boxSize, _isGUI);
+	var _mouseInBox = mouse_in_box(_topLeftX, _topLeftY, _boxSize);
 	
 	// Check if mouse is within the box
 	if (_mouseInBox)
@@ -204,7 +205,7 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 		var _itemDesc	= _itemMap[$ "desc"];
 	
 		// Draw the icon (origin is in the top left)
-		draw_sprite(_itemSprite, 0, _topLeftX, _topLeftY);
+		draw_sprite_stretched(_itemSprite, 0, _topLeftX, _topLeftY, _boxSize, _boxSize);
 	
 		// Draw the box text
 		draw_set_halign(fa_center);
@@ -222,23 +223,13 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 }
 
 // Returns if the mouse is in a box's square
-function mouse_in_box(_topLeftX, _topLeftY, _boxSize, _isGUI) {
-	
-	if (_isGUI) {
-		return point_in_rectangle(
-			device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), 
-			_topLeftX, _topLeftY,
-			_topLeftX + _boxSize, 
-			_topLeftY + _boxSize);
-	} else {
-		return point_in_rectangle(
-			mouse_x, mouse_y, 
-			_topLeftX, _topLeftY,
-			_topLeftX + _boxSize, 
-			_topLeftY + _boxSize);
-	}
-		
-		
+function mouse_in_box(_topLeftX, _topLeftY, _boxSize) {
+
+	return point_in_rectangle(
+		mouse_x, mouse_y, 
+		_topLeftX, _topLeftY,
+		_topLeftX + _boxSize, 
+		_topLeftY + _boxSize);
 }
 
 // Default value for an unoccupied cell is 0, so if it is not 0, return True
@@ -324,6 +315,7 @@ function inventory_add_item_next_slot(_inventoryId, _packetId) {
 	return true;
 }
 
+// Works the same as inventroy_add_item_next_slot(), but uses an item map instead of a packet id
 function inventory_add_item_next_slot_map(_inventoryId, _itemMap) {
 	
 	// Get the location of a valid spot in the inventory to place the item
