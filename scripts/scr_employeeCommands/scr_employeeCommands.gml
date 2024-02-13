@@ -94,6 +94,11 @@ function deposit_items(_employeeId) {
 	// Add the item originally from the employee's inventory into the storage cart's inventory
 	inventory_add_item_next_slot_map(_storageCartInventoryId, _itemMap);
 	
+	if (!inventory_is_empty(_employeeId.inventory_id)) {
+		// Move towards item before collecting it
+		return task_not_finished();
+	}
+	
 	return task_finished();
 }
 
