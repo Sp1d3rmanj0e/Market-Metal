@@ -5,7 +5,11 @@
 if (is_outdoors) {
 	sprite_index = spr_player_top;
 } else {
-	sprite_index = spr_passengerCurvyWalk
+	if (!is_sitting) {
+		sprite_index = spr_passengerCurvyWalk;
+	} else {
+		sprite_index = spr_passengerCurvySit;
+	}
 }
 
 

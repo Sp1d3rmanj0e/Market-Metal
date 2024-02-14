@@ -30,6 +30,7 @@ function move_train_side(_amt) {
 	with (obj_employeeTop) {
 		if (!is_outdoors) {
 			x += _amt;
+			log("moving");
 		}
 	}
 	
@@ -93,6 +94,8 @@ function pass_get_cart_ids() {
 	return _passCartIds;
 }
 
+// Returns the id of an available seat in a passenger cart
+// If no ids are found, it will return -1;
 function pass_find_seat() {
 	
 	// Get all the ids of passenger carts
@@ -103,14 +106,17 @@ function pass_find_seat() {
 		// Get a passenger cart id
 		var _passId = _passCartIds[i];
 		
+		// Attempt to get the id of an open seat
+		var _openSeat;
+		with (_passId) { _openSeat = pass_get_open_seat()}
 		
-		// TODO TODO TODO QWERTY
-		var _openSeat
-		
-		if (_passId.pass_get_open_seat() != -1) {
-			
+		if (_openSeat != -1) {
+			return _openSeat;
 		}
 	}
+	
+	// No seats found, return -1 (should never happen in practice)
+	return -1;
 }
 
 #endregion passenger

@@ -42,3 +42,10 @@ function pass_get_open_seat() {
 	
 	return -1;
 }
+
+pass_create_seat(bbox_left + 27, 1);
+pass_create_seat(bbox_left + 77, -1);
+pass_create_seat(bbox_left + 127, 1);
+pass_create_seat(bbox_left + 157, -1);
+pass_create_seat(bbox_left + 227, 1);
+pass_create_seat(bbox_left + 257, -1);

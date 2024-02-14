@@ -2,7 +2,6 @@
 // You can write your code in this editor
 
 employee_ids = ds_list_create();
-
 /// @returns a ds_list of the ids of employees who have the profession restriction
 function find_all_valid_employees(_professionRestriction) {
 	

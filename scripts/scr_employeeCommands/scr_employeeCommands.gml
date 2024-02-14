@@ -3,7 +3,7 @@
 
 // Returns true if the bot is within range of the target
 function too_far_from_target(_id) {
-	if (distance_to_object(_id) > 10)
+	if (distance_to_object(_id) > walk_speed)
 		return true;
 	return false;
 }
@@ -146,7 +146,6 @@ function queue_command(_command, _target, _priority) {
 ///@desc changes the indoor/outdoor status of an employee
 function leave_or_enter_train(_id) {
 	is_outdoors = !is_outdoors;
-	locked_to_map = is_outdoors;
 	return task_finished();
 }
 
@@ -187,6 +186,21 @@ function set_coords_to(_targetX, _targetY, _isOutdoors) {
 }
 
 
+function sit_down(_target) {
+	
+	//move to the seat if not close enough
+	if (too_far_from_target(_target)) {
+		queue_command_top(move_to_object, _target);
+		return task_not_finished();
+	}
+	
+	// Get the direction that the seat is facing (-1 = left, 1 = right)
+	image_xscale = _target.facing;
+	
+	is_sitting = true;
+	x = _target.x;
+}
+
 ///@function move_to_object()
 ///@desc Allow an employee to walk toward a specific object
 // 1) If the employee is outside and the task is inside (or vice versa)
@@ -196,6 +210,12 @@ function set_coords_to(_targetX, _targetY, _isOutdoors) {
 //	  moving toward the target
 function move_to_object(_id) {
 
+	// Unsit if sitting
+	if (is_sitting) {
+		is_sitting = false;
+	}
+	
+	
 	// Enter/leave the train if the task is on the other side
 	if (_id != obj_trainEntrance) and (_id != obj_trainExit) and (_id.is_outdoors != is_outdoors) {
 		

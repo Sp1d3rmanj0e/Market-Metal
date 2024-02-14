@@ -9,7 +9,7 @@ event_inherited();
 
 walk_speed = 5;
 
-is_outdoors = true;
+is_sitting = false;
 
 command_queue = ds_list_create();
 

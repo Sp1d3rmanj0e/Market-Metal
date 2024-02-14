@@ -2,7 +2,7 @@
 
 // Only move with the map when the locked_to_map variable is set to true
 // This allows objects like obj_employee to move between map and side view
-if (locked_to_map) {
+if (is_outdoors) {
 	
 	var _currentMapCamX = obj_mapController.map_cam_x;
 	var _currentMapCamY = obj_mapController.map_cam_y;
