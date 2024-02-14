@@ -146,7 +146,7 @@
     {"id":{"name":"spr_startButton","path":"sprites/spr_startButton/spr_startButton.yy",},"order":1,},
     {"id":{"name":"spr_heavy_mountain_bg","path":"sprites/spr_heavy_mountain_bg/spr_heavy_mountain_bg.yy",},"order":1,},
     {"id":{"name":"spr_smoke_2","path":"sprites/spr_smoke_2/spr_smoke_2.yy",},"order":2,},
-    {"id":{"name":"obj_exchangePassengers","path":"objects/obj_exchangePassengers/obj_exchangePassengers.yy",},"order":3,},
+    {"id":{"name":"obj_GUIExchangePassengers","path":"objects/obj_GUIExchangePassengers/obj_GUIExchangePassengers.yy",},"order":3,},
     {"id":{"name":"spr_plains_tracks","path":"sprites/spr_plains_tracks/spr_plains_tracks.yy",},"order":6,},
     {"id":{"name":"spr_parrot","path":"sprites/spr_parrot/spr_parrot.yy",},"order":1,},
     {"id":{"name":"spr_sparks","path":"sprites/spr_sparks/spr_sparks.yy",},"order":0,},

@@ -1,7 +1,10 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-
+// Variables given before creation
+// profession - PROF.enum
+// is_outdoors - whether or not the bot is outdoors or not
+// passenger_seat - the id of the seat they were assigned
 
 
 // Store initial position upon creation for reference

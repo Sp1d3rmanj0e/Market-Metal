@@ -185,6 +185,19 @@ function set_coords_to(_targetX, _targetY, _isOutdoors) {
 	
 }
 
+function depart(_employeeId) {
+	
+	if (too_far_from_target(obj_trainExit)) {
+		queue_command_top(move_to_object, obj_trainExit);
+		return task_not_finished();
+	}
+	
+	// TODO: Add payment
+	
+	// Id is removed from its seat and passenger controller in the bots destroy event
+	instance_destroy(_employeeId);
+	
+}
 
 function sit_down(_target) {
 	

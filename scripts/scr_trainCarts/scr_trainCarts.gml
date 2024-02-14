@@ -30,7 +30,6 @@ function move_train_side(_amt) {
 	with (obj_employeeTop) {
 		if (!is_outdoors) {
 			x += _amt;
-			log("moving");
 		}
 	}
 	
