@@ -27,6 +27,10 @@ function task_not_finished() {
 	return false;
 }
 
+function task_failed() {
+	return -1;
+}
+
 #endregion command commands
 
 #region employee commands
@@ -44,7 +48,8 @@ function collect_item(_id) {
 		
 		// If there is absolutely no space in the train, cancel this task
 		if (_storageCartId == false) {
-			return task_finished();
+			log("ISSUE: NO STORAGE CART SPACE TO STORE ITEM, REFUSING TO PICK UP ITEM");
+			return task_failed();
 		}
 		
 		// Move to a storage cart and deposit items
@@ -113,12 +118,13 @@ function queue_command_top(_command, _target) {
 	ds_list_insert(command_queue, 0, _mapId);
 }
 
-function queue_command(_command, _target, _priority) {
+function queue_command(_command, _target, _priority, _professionRestriction) {
 	
 	var _mapId = ds_map_create();
 	ds_map_add(_mapId, "command", _command);
 	ds_map_add(_mapId, "target", _target);
-	ds_map_add(_mapId, "priority", _priority)
+	ds_map_add(_mapId, "priority", _priority);
+	ds_map_add(_mapId, "prof rest", _professionRestriction);
 	
 	// Find where the command lies on the list of priorities
 	for (var i = 0; i < ds_list_size(command_queue); i++) {

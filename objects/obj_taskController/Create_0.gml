@@ -84,7 +84,7 @@ function request_task(_command, _target, _priority, _professionRestriction) {
 	// Only request a command if there is a valid employee
 	if (_employeeIdToGiveTaskTo != false) {
 		with(_employeeIdToGiveTaskTo) {
-			queue_command(_command, _target, _priority);
+			queue_command(_command, _target, _priority, _professionRestriction);
 		}
 	}
 	
