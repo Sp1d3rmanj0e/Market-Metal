@@ -42,7 +42,7 @@
   ],
   "overriddenProperties": [],
   "parent": {
-    "name": "Employees",
-    "path": "folders/Objects/Employees.yy",
+    "name": "Bots",
+    "path": "folders/Objects/Bots.yy",
   },
 }

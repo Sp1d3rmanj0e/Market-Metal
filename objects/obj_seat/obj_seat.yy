@@ -1,20 +1,17 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_trainCartPassenger",
+  "name": "obj_seat",
   "spriteId": {
-    "name": "spr_passengerCarInside",
-    "path": "sprites/spr_passengerCarInside/spr_passengerCarInside.yy",
+    "name": "spr_barrel",
+    "path": "sprites/spr_barrel/spr_barrel.yy",
   },
   "solid": false,
   "visible": true,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": {
-    "name": "par_trainCart",
-    "path": "objects/par_trainCart/par_trainCart.yy",
-  },
+  "parentObjectId": null,
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,
@@ -33,7 +30,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Train Carts",
-    "path": "folders/Objects/Train Carts.yy",
+    "name": "Cart Items",
+    "path": "folders/Objects/Train Carts/Cart Items.yy",
   },
 }

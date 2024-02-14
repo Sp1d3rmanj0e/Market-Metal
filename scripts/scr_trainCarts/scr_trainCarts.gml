@@ -38,11 +38,7 @@ function move_train_side(_amt) {
 	}
 }
 
-
-global.currentStorageCapacity = 0;
-global.currentStorageFilled = 0;
-global.currentStorageOnTheWay = 0;
-
+#region storage
 // Returns an array with all the storage cart ids
 function get_all_storage_cart_ids() {
 	var _storageCartIds = [];
@@ -81,3 +77,40 @@ function is_there_storage_space_left(_cartId) {
 	
 	return (inventory_get_number_open_slots(_inventoryId) != 0);
 }
+#endregion storage cart
+
+#region passenger
+
+// TODO: Merge with the other instance finder function
+// Adds every passenger cart id into an array
+function pass_get_cart_ids() {
+	var _passCartIds = [];
+	
+	for (var i = 0; i < instance_number(obj_trainCartPassenger); i++) {
+		array_push(_passCartIds, instance_find(obj_trainCartPassenger, i));
+	}
+	
+	return _passCartIds;
+}
+
+function pass_find_seat() {
+	
+	// Get all the ids of passenger carts
+	var _passCartIds = pass_get_cart_ids();
+	
+	for (var i = 0; i < array_length(_passCartIds); i++) {
+		
+		// Get a passenger cart id
+		var _passId = _passCartIds[i];
+		
+		
+		// TODO TODO TODO QWERTY
+		var _openSeat
+		
+		if (_passId.pass_get_open_seat() != -1) {
+			
+		}
+	}
+}
+
+#endregion passenger
