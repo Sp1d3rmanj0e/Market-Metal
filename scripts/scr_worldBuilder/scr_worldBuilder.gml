@@ -93,9 +93,12 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 			// Draw a track (Only if it doesn't break into the other camera)
 			var _trackWidth = 74 // sprite_get_width(spr_track_forward)
 			if (Y > MAP_VIEW_Y + _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
-					
+				
+				// Ensure a consistently random track sprite based on location
+				random_set_seed((X + map_cam_x)*0.867 + (Y+map_cam_y) * 1.54);
+				
 				// Draw the tracks
-				draw_sprite_ext(_trackSprite, 0, X,Y, trackScale, 1, curAngle + 90, c_white, 1);
+				draw_sprite_ext(_trackSprite, irandom_range(1, 9), X,Y, trackScale, 1, curAngle + 90, c_white, 1);
 				//draw_text_transformed(X + 10, Y + 10, "(" + string(map_cam_x + X) + ", " + string(map_cam_y + Y) + ")", 5, 5, 0);
 			}
 			
@@ -180,6 +183,11 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 	// Create a mutable variable to calculate the distances of every cart
 	var _cartDistance = _frontTrainDistance;
 	
+	// Initialize this variable - if the first cart has reached the end,
+	// at the end of this function, it will return true, telling the
+	// map controller as a result
+	var _trainReachedEnd = false;
+	
 	// Loop for every cart
 	for (var i = 0; i < array_length(_carts); i++) {
 		
@@ -201,7 +209,7 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 		// We only update train position for the first cart because we want the
 		// base position to be the front of the train, not the back (also wastes processing power)
 		if (i == 0)
-			draw_train_cart(_vectors, _cartDistance, _cartTopSprite, true);
+			_trainReachedEnd = draw_train_cart(_vectors, _cartDistance, _cartTopSprite, true);
 		else
 			draw_train_cart(_vectors, _cartDistance, _cartTopSprite, false);
 		
@@ -227,5 +235,10 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 				 
 		Totals to the full distance between the front cart's origin and the current cart's origin
 		*/
+		
+		// If this returns true, it will stop the train from moving and
+		// will load the next chunks
 	}
+	
+	return _trainReachedEnd;
 }

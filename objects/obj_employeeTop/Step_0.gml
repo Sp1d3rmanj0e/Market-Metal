@@ -34,7 +34,10 @@ if (ds_list_size(command_queue) > 0) {
 	// or uncompleteable
 	if (!_targetIsValid or _commandResult != false) {
 		ds_map_destroy(_nextCommandMap);
-		ds_list_delete(command_queue, 0);
+		
+		// Only delete the list if the player stil exists
+		if (instance_exists(id))
+			ds_list_delete(command_queue, 0);
 	} 
 	
 	if (_commandResult == -1) { // Re-request the command through the task controller

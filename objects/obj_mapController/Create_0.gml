@@ -9,7 +9,9 @@ centered_camera = true;
 
 trainPos = 0;
 
-max_gen_dist = 200
+train_reached_the_end = false;
+
+max_gen_dist = 200;
 
 #region generate the first tracks
 track_order = ds_map_create();
@@ -110,6 +112,7 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	}
 	
 	already_generated_resources = false;
+	train_reached_the_end = false;
 	
 	// 2 Future Tracks >>> Generated
 	generate_next_track_options(track_order);
