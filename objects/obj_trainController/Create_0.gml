@@ -10,10 +10,6 @@ cart_ids = [];
 x = 1200; // Where the front of the train starts
 y = 250; // Where the train's y resides
 
-
-// Create the wheel animator
-if (!instance_exists(obj_wheelAnimator)) instance_create_layer(0, 0, "Instances", obj_wheelAnimator);
-
 function add_cart(cart_enum) {
 	
 	var _cabooseEndX = x; // Default the endX to be at the beginning (if no carts currently exist)

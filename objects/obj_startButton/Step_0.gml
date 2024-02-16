@@ -15,6 +15,7 @@ if (starting_game) {
 
 // Allow the train to move once pressed
 x += hsp;
+//image_yscale += hsp;
 
 // Once the train leaves the screen, fade to black
 if (bbox_left > room_width) {

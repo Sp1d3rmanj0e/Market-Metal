@@ -21,6 +21,21 @@ function get_train_max_capacity() {
 	return _maxCapacity;
 }
 
+function get_bogey_size(_trainEnum) {
+	switch (_trainEnum) {
+		case CARTS.COAL:
+			return spr_short_bogey;
+		case CARTS.FARM:
+		case CARTS.PASS:
+		case CARTS.STORAGE:
+			return spr_long_bogey;
+		case CARTS.UTIL:
+			return spr_longest_bogey;
+		default:
+			return noone;
+	}
+}
+
 function move_train_side(_amt) {
 	
 	with (par_trainCart) {
