@@ -92,7 +92,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 			
 			// Draw a track (Only if it doesn't break into the other camera)
 			var _trackWidth = 74 // sprite_get_width(spr_track_forward)
-			if (Y > MAP_VIEW_Y + _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
+			if (Y > MAP_VIEW_Y - _trackWidth) and (X < camera_get_view_width(get_map_camera()) + _trackWidth) {
 				
 				// Ensure a consistently random track sprite based on location
 				random_set_seed((X + map_cam_x)*0.867 + (Y+map_cam_y) * 1.54);
