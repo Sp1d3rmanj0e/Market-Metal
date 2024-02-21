@@ -44,21 +44,19 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 					
 					// The further down you are, the lower the depth (higher on screen)
 					var _newDepth = lerp(_curLayerDepth, _curLayerDepth-99, _howFarDown);
-					log(_newDepth);
+					//log(_newDepth);
 					
-					var _id = instance_create_layer(
+					instance_create_layer(
 						_x + random_range(-_variability, _variability), 
 						_y + random_range(-_variability, _variability), 
 						"resources", 
 						obj_resourceTest,
 						{
 							resource_id : _resource, // Give the sprite its resource enum
-							sprite_index : _resourceSprite // Set the resource's sprite
+							sprite_index : _resourceSprite, // Set the resource's sprite
+							target_depth : _newDepth
 						});
 						
-					with(_id) {
-						target_depth = _newDepth;
-					}
 				}
 			}
 		}

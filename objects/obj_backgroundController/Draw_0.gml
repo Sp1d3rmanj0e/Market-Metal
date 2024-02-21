@@ -4,7 +4,9 @@
 draw_sprite_ext(spr_backgrounds, current_background, x, y, 1, 1, 0, c_white, crossfade);
 
 // Draw the previous background (with slowly reducing alpha)
-draw_sprite_ext(spr_backgrounds, previous_background, x, y, 1, 1, 0, c_white, 1 - crossfade);
+draw_sprite_ext(spr_backgrounds, previous_background, x, y, 1, 1, 0, c_white, 1.5 - crossfade);
+
+
 
 // Every background has a transfer time of 1 hour
 // At 30 minutes, both backgrounds will be at 50% alpha

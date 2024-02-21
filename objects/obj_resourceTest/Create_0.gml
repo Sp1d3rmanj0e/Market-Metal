@@ -5,6 +5,7 @@
 // resource_id - an enum of this resource
 // sprite_index - the sprite of the resource
 
+depth = target_depth;
 
 image_xscale = 2.5;
 image_yscale = 2.5;
