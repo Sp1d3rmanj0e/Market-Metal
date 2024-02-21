@@ -26,6 +26,6 @@ draw_text(x, y+60, "profession: " + string(profession));
 draw_text(x, y-40, "(" + string(x) + "), (" + string(y) + ")");
 
 
-draw_text(x, y+80, string(ds_list_size(inventory)));
+//draw_text(x, y+80, string(ds_list_size(inventory)));
 
 draw_set_color(-1);
