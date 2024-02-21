@@ -1,10 +1,10 @@
 /// @description Crossfade backgrounds
 
 // Draw the upcoming background (with slowly increasing alpha)
-draw_sprite_ext(spr_backgrounds, current_background, x, y, 1, 1, 0, c_white, crossfade);
+draw_sprite_ext(spr_backgrounds, current_background, x, y, 1, 1, 0, c_white, 1);
 
 // Draw the previous background (with slowly reducing alpha)
-draw_sprite_ext(spr_backgrounds, previous_background, x, y, 1, 1, 0, c_white, 1.5 - crossfade);
+draw_sprite_ext(spr_backgrounds, previous_background, x, y, 1, 1, 0, c_white, 1 - crossfade);
 
 
 
