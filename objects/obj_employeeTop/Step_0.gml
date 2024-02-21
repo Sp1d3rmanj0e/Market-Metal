@@ -17,7 +17,7 @@ if (ds_list_size(command_queue) > 0) {
 	// Returns true if the command is completed
 	
 	var _targetIsValid = is_valid_target(_target)
-	var _commandResult;
+	var _commandResult = -1;
 	
 	// Only execute the command if the command has the CHANCE to work
 	if (_targetIsValid) {
