@@ -11,3 +11,4 @@ close_to_train = false;
 // Inherit the parent event (Despawning and Init)
 event_inherited();
 
+remove_resources_near_point(x, y, sprite_width/1.5);

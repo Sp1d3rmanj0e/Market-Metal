@@ -1,4 +1,4 @@
-
+randomize(); // Randomize seed
 global.seed = irandom(9999999); //123
 
 global.train_x = 0;

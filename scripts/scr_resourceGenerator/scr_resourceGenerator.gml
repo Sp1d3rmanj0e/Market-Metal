@@ -10,6 +10,8 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 		decrement_despawn_timer();
 	}
 	
+	var _curLayerDepth = layer_get_depth(layer_get_id("Resources"));
+	
 	var _density;
 	for (var _x = _startX; _x < (_startX + _genWidth); _x += _spacing) {
 	for (var _y = _startY; _y < (_startY + _genHeight); _y += _spacing) {
@@ -32,10 +34,18 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 			
 			// Get the resource density of that area on the map
 			_density = round(noise_scale(_seed + i, _x + map_cam_x, _y + map_cam_y, _scale) * 100 - _cutoff);
-		
+			
 			randomize();
 			if (_density >= irandom(100)) {
-				if (_percentChance >= irandom(100)) {
+				if (_percentChance >= random(100)) {
+					
+					// Calculate what the depth of the new resource should be
+					var _howFarDown = (_y-_startY)/_genHeight; // A number between 0 and 1, with 1 being at the bottom of the gen zone
+					
+					// The further down you are, the lower the depth (higher on screen)
+					var _newDepth = lerp(_curLayerDepth, _curLayerDepth-99, _howFarDown);
+					//log(_newDepth);
+					
 					instance_create_layer(
 						_x + random_range(-_variability, _variability), 
 						_y + random_range(-_variability, _variability), 
@@ -43,12 +53,29 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 						obj_resourceTest,
 						{
 							resource_id : _resource, // Give the sprite its resource enum
-							sprite_index : _resourceSprite // Set the resource's sprite
+							sprite_index : _resourceSprite, // Set the resource's sprite
+							target_depth : _newDepth
 						});
+						
 				}
 			}
 		}
 	}}
+}
+
+// Destroys all resources that are within the radius of a given point
+function remove_resources_near_point(_x, _y, _radius) {
+	var _resourceList = ds_list_create();
+	var _numFound = collision_circle_list(_x, _y, _radius, obj_resourceTest, false, false, _resourceList, false);
+	
+	if (_numFound != 0) {
+		for (var j = 0; j < ds_list_size(_resourceList); j++) {
+			var _resourceId = ds_list_find_value(_resourceList, j);
+			instance_destroy(_resourceId);
+		}
+	}
+		
+	ds_list_destroy(_resourceList);
 }
 
 /// @param _vectors [[X, Y, Angle], ...]
@@ -61,17 +88,8 @@ function remove_resources_near_track(_vectors) {
 		_x = _vector[0];
 		_y = _vector[1];
 		
-		var _resourceList = ds_list_create();
-		var _numFound = collision_circle_list(_x, _y, 10, obj_resourceTest, false, false, _resourceList, false);
-	
-		if (_numFound != 0) {
-			for (var j = 0; j < ds_list_size(_resourceList); j++) {
-				var _resourceId = ds_list_find_value(_resourceList, j);
-				instance_destroy(_resourceId);
-			}
-		}
+		remove_resources_near_point(_x, _y, 15);
 		
-		ds_list_destroy(_resourceList);
 	}
 }
 
