@@ -8,7 +8,7 @@ cart_ids = [];
 // The X and Y symbolize the start of the train
 // We do this so that the only thing we need to do in order to move the train is to move this object
 x = 1200; // Where the front of the train starts
-y = 250; // Where the train's y resides
+y = 195; // Where the train's y resides
 
 function add_cart(cart_enum) {
 	

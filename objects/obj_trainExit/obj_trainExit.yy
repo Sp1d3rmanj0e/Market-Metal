@@ -2,10 +2,7 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "obj_trainExit",
-  "spriteId": {
-    "name": "spr_createTrainPiece",
-    "path": "sprites/spr_createTrainPiece/spr_createTrainPiece.yy",
-  },
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "managed": true,

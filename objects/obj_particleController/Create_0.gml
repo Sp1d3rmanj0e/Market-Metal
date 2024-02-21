@@ -12,7 +12,7 @@ part_type_speed(global.ParticleSnow, 1, 2, 0, 0);
 part_type_direction(global.ParticleSnow, 270, 280, 0.01, 0);
 //part_type_blend(global.Particle1, true);
 part_type_color3(global.ParticleSnow, c_white, c_ltgray, c_white);
-part_type_life(global.ParticleSnow, 600, 800);
+part_type_life(global.ParticleSnow, 400, 600);
 part_type_sprite(global.ParticleSnow, spr_particleSnow, false, false, true);
 part_type_orientation(global.ParticleSnow, 0, 359, 1, 1, 0);
 
@@ -25,7 +25,7 @@ part_type_speed(global.ParticleRain, 4, 7, 0, 0);
 part_type_direction(global.ParticleRain, 270, 280, 0, 0);
 //part_type_blend(global.Particle1, true);
 part_type_color3(global.ParticleRain, c_white, c_ltgray, c_white);
-part_type_life(global.ParticleRain, 600, 800);
+part_type_life(global.ParticleRain, 200, 200);
 part_type_sprite(global.ParticleRain, spr_particleRaindrop, false, false, true);
 
 
