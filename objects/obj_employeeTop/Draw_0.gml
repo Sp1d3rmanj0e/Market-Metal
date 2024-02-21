@@ -18,7 +18,7 @@ if ((y > MAP_VIEW_Y) and (is_outdoors)) or ((y < MAP_VIEW_Y) and (!is_outdoors))
 	draw_self();
 
 draw_set_color(c_aqua);
-draw_line_width(x, y, mouse_x, mouse_y, 5);
+//draw_line_width(x, y, mouse_x, mouse_y, 5);
 
 
 draw_text(x, y+40, "is_outside: " + string(is_outdoors));
