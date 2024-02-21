@@ -14,3 +14,13 @@ instance_create_layer(x, y, "Cart_Covers", obj_trainCartCover,
 	sprite_index : exterior_sprite,
 	parent : id
 });
+
+if (cart_enum != CARTS.ENGINE) {
+	instance_create_layer(x, y, "Bogeys", obj_trainCartBogey, {
+		sprite_index : get_bogey_size(cart_enum)
+	});
+}
+
+cart_health = 100;
+max_cart_health = cart_health;
+

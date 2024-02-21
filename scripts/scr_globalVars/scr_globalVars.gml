@@ -8,3 +8,5 @@ global.train_biome = 0;
 global.playerDismounted = false;
 
 global.currentCamera = CAM.SIDE;
+
+global.currentWeather = WEATHER.CLEAR;

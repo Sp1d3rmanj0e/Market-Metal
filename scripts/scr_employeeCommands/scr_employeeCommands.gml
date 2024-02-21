@@ -3,7 +3,7 @@
 
 // Returns true if the bot is within range of the target
 function too_far_from_target(_id) {
-	if (distance_to_object(_id) > 10)
+	if (distance_to_object(_id) > walk_speed)
 		return true;
 	return false;
 }
@@ -27,6 +27,10 @@ function task_not_finished() {
 	return false;
 }
 
+function task_failed() {
+	return -1;
+}
+
 #endregion command commands
 
 #region employee commands
@@ -36,6 +40,24 @@ function task_not_finished() {
 // 2) Add item to inventory
 function collect_item(_id) {
 	
+	// If there is no inventory space, empty out inventory first
+	if (inventory_has_space(inventory_id) == -1) {
+		
+		// Find a cart to deposit items into 
+		var _storageCartId = get_storage_cart_id_with_space();
+		
+		// If there is absolutely no space in the train, cancel this task
+		if (_storageCartId == false) {
+			log("ISSUE: NO STORAGE CART SPACE TO STORE ITEM, REFUSING TO PICK UP ITEM");
+			return task_failed();
+		}
+		
+		// Move to a storage cart and deposit items
+		queue_command_top(deposit_items, id);
+		
+		return task_not_finished();
+	}
+	
 	// Move towards item before collecting it
 	if (too_far_from_target(_id)) {
 		queue_command_top(move_to_object, _id);
@@ -43,6 +65,45 @@ function collect_item(_id) {
 	}
 	
 	add_item_to_inventory(_id);
+	return task_finished();
+}
+
+function deposit_items(_employeeId) {
+	
+	// Get the id of a storage cart with space in it
+	var _storageCartId = get_storage_cart_id_with_space();
+	
+	// Cancel task if there is no space to deposit items
+	if (_storageCartId == false) {
+		return task_finished();
+	}
+
+	// Move to the storage cart if too far away
+	if (too_far_from_target(_storageCartId)) {
+		queue_command_top(move_to_object, _storageCartId);
+		return task_not_finished();
+	}
+	
+	// Once next to the storage cart, find an item in your inventory to deposit
+	
+	// Get the item info
+	var _itemSlot = inventory_get_first_filled_slot(_employeeId.inventory_id);
+	var _itemMap = inventory_get_item(_employeeId.inventory_id, _itemSlot);
+	
+	// Remove the item from its current spot in the employee inventory
+	inventory_remove_item(_employeeId.inventory_id, _itemSlot);
+	
+	// Get the storage cart inventoryId
+	var _storageCartInventoryId = _storageCartId.inventory_id;
+	
+	// Add the item originally from the employee's inventory into the storage cart's inventory
+	inventory_add_item_next_slot_map(_storageCartInventoryId, _itemMap);
+	
+	if (!inventory_is_empty(_employeeId.inventory_id)) {
+		// Move towards item before collecting it
+		return task_not_finished();
+	}
+	
 	return task_finished();
 }
 
@@ -57,12 +118,13 @@ function queue_command_top(_command, _target) {
 	ds_list_insert(command_queue, 0, _mapId);
 }
 
-function queue_command(_command, _target, _priority) {
+function queue_command(_command, _target, _priority, _professionRestriction) {
 	
 	var _mapId = ds_map_create();
 	ds_map_add(_mapId, "command", _command);
 	ds_map_add(_mapId, "target", _target);
-	ds_map_add(_mapId, "priority", _priority)
+	ds_map_add(_mapId, "priority", _priority);
+	ds_map_add(_mapId, "prof rest", _professionRestriction);
 	
 	// Find where the command lies on the list of priorities
 	for (var i = 0; i < ds_list_size(command_queue); i++) {
@@ -90,7 +152,6 @@ function queue_command(_command, _target, _priority) {
 ///@desc changes the indoor/outdoor status of an employee
 function leave_or_enter_train(_id) {
 	is_outdoors = !is_outdoors;
-	locked_to_map = is_outdoors;
 	return task_finished();
 }
 
@@ -130,6 +191,34 @@ function set_coords_to(_targetX, _targetY, _isOutdoors) {
 	
 }
 
+function depart(_employeeId) {
+	
+	if (too_far_from_target(obj_trainExit)) {
+		queue_command_top(move_to_object, obj_trainExit);
+		return task_not_finished();
+	}
+	
+	// TODO: Add payment
+	
+	// Id is removed from its seat and passenger controller in the bots destroy event
+	instance_destroy(_employeeId);
+	
+}
+
+function sit_down(_target) {
+	
+	//move to the seat if not close enough
+	if (too_far_from_target(_target)) {
+		queue_command_top(move_to_object, _target);
+		return task_not_finished();
+	}
+	
+	// Get the direction that the seat is facing (-1 = left, 1 = right)
+	image_xscale = _target.facing;
+	
+	is_sitting = true;
+	x = _target.x;
+}
 
 ///@function move_to_object()
 ///@desc Allow an employee to walk toward a specific object
@@ -140,6 +229,12 @@ function set_coords_to(_targetX, _targetY, _isOutdoors) {
 //	  moving toward the target
 function move_to_object(_id) {
 
+	// Unsit if sitting
+	if (is_sitting) {
+		is_sitting = false;
+	}
+	
+	
 	// Enter/leave the train if the task is on the other side
 	if (_id != obj_trainEntrance) and (_id != obj_trainExit) and (_id.is_outdoors != is_outdoors) {
 		

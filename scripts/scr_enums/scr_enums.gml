@@ -61,3 +61,10 @@ function get_top_cart_data(_cart) {
 	// Error Return
 	return [spr_car_top_engine, sprite_get_width(spr_car_top_engine)]
 }
+
+enum WEATHER {
+	CLEAR,
+	RAIN,
+	SNOW,
+	SAND
+}

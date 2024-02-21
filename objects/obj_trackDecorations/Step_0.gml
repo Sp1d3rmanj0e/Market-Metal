@@ -3,7 +3,7 @@
 
 var _biomeMap;
 with (obj_mapController) {
-	_biomeMap = get_center_of_camera_biome_map();
+	_biomeMap = get_train_biome_map();
 }
 
 current_biome_name = ds_map_find_value(_biomeMap, "name");

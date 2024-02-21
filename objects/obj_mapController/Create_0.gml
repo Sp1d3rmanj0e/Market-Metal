@@ -9,7 +9,9 @@ centered_camera = true;
 
 trainPos = 0;
 
-max_gen_dist = 200
+train_reached_the_end = false;
+
+max_gen_dist = 200;
 
 #region generate the first tracks
 track_order = ds_map_create();
@@ -110,6 +112,7 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	}
 	
 	already_generated_resources = false;
+	train_reached_the_end = false;
 	
 	// 2 Future Tracks >>> Generated
 	generate_next_track_options(track_order);
@@ -135,6 +138,7 @@ function get_center_of_camera_map() {
 	return [_mapCamMidX, _mapCamMidY];
 }
 
+// TODO: Evaluate whether or not to keep this
 function get_center_of_camera_biome_map() {
 	
 	// Get the center of the map camera
@@ -145,4 +149,8 @@ function get_center_of_camera_biome_map() {
 	var _y = _mapCoords[1];
 
 	return get_biome_at(global.seed, _x, _y, BIOME_SCALE);
+}
+
+function get_train_biome_map() {
+	return get_biome_at(global.seed, global.train_x, global.train_y, BIOME_SCALE);
 }

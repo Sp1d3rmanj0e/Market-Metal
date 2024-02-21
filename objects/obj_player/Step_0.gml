@@ -17,13 +17,7 @@ if (place_meeting(x, y, obj_trainCart)) {
 }
 
 // Tell the train to move (to simulate the player walking)
-if (_move != 0) {
-	with (par_trainCart) {
-		x += _move;
-	}
-	with (obj_employeeTop) {
-		if (!is_outdoors) {
-			x += _move;
-		}
-	}
+if (_move != 0) and (global.currentCamera == CAM.SIDE){
+	
+	move_train_side(_move);
 }

@@ -8,7 +8,10 @@
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "par_tasks",
+    "path": "objects/par_tasks/par_tasks.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,

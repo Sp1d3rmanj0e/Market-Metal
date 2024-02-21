@@ -11,8 +11,8 @@ if (y > MAP_VIEW_Y) {
 
 	draw_set_halign(fa_center);
 
-	draw_text(x, y+30, text);
-	draw_text(x, y+50, string(item_id));
+	draw_text(x, y+30, name);
+	draw_text(x, y+50, string(item_enum));
 
 	draw_set_halign(fa_left);
 }

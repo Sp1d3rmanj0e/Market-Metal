@@ -125,4 +125,7 @@ draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 #endregion Draw the Future Tracks
 
 // Draws the train based on the track vectors
-draw_train(_vectors, global.currentCarts, trainPos);
+if (draw_train(_vectors, global.currentCarts, trainPos)) and (!train_reached_the_end) {
+	train_reached_the_end = true;
+	generate_next_tracks(1);
+}

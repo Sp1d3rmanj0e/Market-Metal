@@ -2,5 +2,5 @@
 
 image_index = close_to_train;
 
-if (y > MAP_VIEW_Y)
+if (bbox_bottom > MAP_VIEW_Y)
 	draw_self();

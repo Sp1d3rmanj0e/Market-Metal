@@ -54,10 +54,12 @@ function spawn_item_qty(_name, _enum, _qty) {
 }
 
 function spawn_item(_name, _enum) {
+	
+	var _itemMap = generate_item_map(_enum, _name, spr_itemError, 1, "item does not yet have a description");
+	
 	instance_create_layer(x, y, "Resources", obj_item,
 	{
-		text : _name,
-		item_id : _enum
+		item_map : _itemMap
 	});
 }
 
@@ -108,4 +110,18 @@ function get_item_name_from_enum(_enum) {
 		case ITEM.COINS: return "Coins"; break;
 	}
 	return "Error";
+}
+
+// Creates a map with all necessary data so it can
+// safely enter inventory systems
+function generate_item_map(_enum, _name, _sprite, _qty, _desc) {
+	var _itemMap = {
+		"id" : _enum,
+		"name" : _name,
+		"sprite" : _sprite,
+		"quantity" : _qty,
+		"desc" : _desc
+	}
+	
+	return _itemMap;
 }

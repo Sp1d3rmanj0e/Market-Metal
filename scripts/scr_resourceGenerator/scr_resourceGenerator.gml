@@ -52,6 +52,30 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 }
 
 /// @param _vectors [[X, Y, Angle], ...]
+function remove_resources_near_track(_vectors) {
+	
+	var _vector, _x, _y;
+	for (var i = 0; i < array_length(_vectors); i++) {
+		_vector = _vectors[i];
+		
+		_x = _vector[0];
+		_y = _vector[1];
+		
+		var _resourceList = ds_list_create();
+		var _numFound = collision_circle_list(_x, _y, 10, obj_resourceTest, false, false, _resourceList, false);
+	
+		if (_numFound != 0) {
+			for (var j = 0; j < ds_list_size(_resourceList); j++) {
+				var _resourceId = ds_list_find_value(_resourceList, j);
+				instance_destroy(_resourceId);
+			}
+		}
+		
+		ds_list_destroy(_resourceList);
+	}
+}
+
+/// @param _vectors [[X, Y, Angle], ...]
 function spawn_resources_along_track(_vectors) {
 	
 	var _highestY = 0;
@@ -59,6 +83,7 @@ function spawn_resources_along_track(_vectors) {
 	var _startX = _vectors[0][0];
 	var _endX = _vectors[array_length(_vectors)-1][0];
 	
+	// Get min and max y elevations from the vectors
 	var _x, _y, _array;
 	for (var i = 1; i < array_length(_vectors); i++) {
 		_array = _vectors[i];
@@ -77,6 +102,8 @@ function spawn_resources_along_track(_vectors) {
 	var _width = _endX - _startX;
 	
 	spawn_resources(global.seed, _startX, _highestY - 100, _width, _height + 200,  50, 0, 70, 5000);
+	
+	remove_resources_near_track(_vectors);
 	
 }
 function spawn_along_track_tester(_vectors, _object) {

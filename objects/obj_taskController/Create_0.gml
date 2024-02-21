@@ -2,7 +2,6 @@
 // You can write your code in this editor
 
 employee_ids = ds_list_create();
-
 /// @returns a ds_list of the ids of employees who have the profession restriction
 function find_all_valid_employees(_professionRestriction) {
 	
@@ -85,7 +84,7 @@ function request_task(_command, _target, _priority, _professionRestriction) {
 	// Only request a command if there is a valid employee
 	if (_employeeIdToGiveTaskTo != false) {
 		with(_employeeIdToGiveTaskTo) {
-			queue_command(_command, _target, _priority);
+			queue_command(_command, _target, _priority, _professionRestriction);
 		}
 	}
 	

@@ -10,9 +10,6 @@ cart_ids = [];
 x = 1200; // Where the front of the train starts
 y = 250; // Where the train's y resides
 
-// Create the wheel animator
-if (!instance_exists(obj_wheelAnimator)) instance_create_layer(0, 0, "Instances", obj_wheelAnimator);
-
 function add_cart(cart_enum) {
 	
 	var _cabooseEndX = x; // Default the endX to be at the beginning (if no carts currently exist)
@@ -30,7 +27,7 @@ function add_cart(cart_enum) {
 	var _cartObject = get_cart_object_from_enum(cart_enum);
 	
 	// Create the new cart
-	var _cartId = instance_create_layer(_cabooseEndX, y, "Instances", _cartObject, 
+	var _cartId = instance_create_layer(_cabooseEndX, y, "Carts", _cartObject, 
 	{
 		cart_enum : cart_enum, // Gives the identity of the specific cart
 		side_cart_sprites: _sideCartSprites, // Gives the interior and exterior sprites of the cart
