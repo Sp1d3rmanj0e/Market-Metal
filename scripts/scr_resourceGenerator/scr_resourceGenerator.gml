@@ -63,6 +63,21 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 	}}
 }
 
+// Destroys all resources that are within the radius of a given point
+function remove_resources_near_point(_x, _y, _radius) {
+	var _resourceList = ds_list_create();
+	var _numFound = collision_circle_list(_x, _y, _radius, obj_resourceTest, false, false, _resourceList, false);
+	
+	if (_numFound != 0) {
+		for (var j = 0; j < ds_list_size(_resourceList); j++) {
+			var _resourceId = ds_list_find_value(_resourceList, j);
+			instance_destroy(_resourceId);
+		}
+	}
+		
+	ds_list_destroy(_resourceList);
+}
+
 /// @param _vectors [[X, Y, Angle], ...]
 function remove_resources_near_track(_vectors) {
 	
@@ -73,17 +88,8 @@ function remove_resources_near_track(_vectors) {
 		_x = _vector[0];
 		_y = _vector[1];
 		
-		var _resourceList = ds_list_create();
-		var _numFound = collision_circle_list(_x, _y, 10, obj_resourceTest, false, false, _resourceList, false);
-	
-		if (_numFound != 0) {
-			for (var j = 0; j < ds_list_size(_resourceList); j++) {
-				var _resourceId = ds_list_find_value(_resourceList, j);
-				instance_destroy(_resourceId);
-			}
-		}
+		remove_resources_near_point(_x, _y, 15);
 		
-		ds_list_destroy(_resourceList);
 	}
 }
 
