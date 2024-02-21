@@ -18,6 +18,7 @@
     {"id":{"name":"spr_maple_forest","path":"sprites/spr_maple_forest/spr_maple_forest.yy",},"order":8,},
     {"id":{"name":"spr_salt_flats","path":"sprites/spr_salt_flats/spr_salt_flats.yy",},"order":14,},
     {"id":{"name":"spr_vulture","path":"sprites/spr_vulture/spr_vulture.yy",},"order":4,},
+    {"id":{"name":"spr_coal_item","path":"sprites/spr_coal_item/spr_coal_item.yy",},"order":9,},
     {"id":{"name":"spr_beach_tracks","path":"sprites/spr_beach_tracks/spr_beach_tracks.yy",},"order":5,},
     {"id":{"name":"spr_storageCarOutside","path":"sprites/spr_storageCarOutside/spr_storageCarOutside.yy",},"order":7,},
     {"id":{"name":"obj_trainCartFarm","path":"objects/obj_trainCartFarm/obj_trainCartFarm.yy",},"order":6,},
