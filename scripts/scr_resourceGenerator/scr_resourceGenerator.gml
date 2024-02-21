@@ -37,7 +37,7 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 			
 			randomize();
 			if (_density >= irandom(100)) {
-				if (_percentChance >= irandom(100)) {
+				if (_percentChance >= random(100)) {
 					
 					// Calculate what the depth of the new resource should be
 					var _howFarDown = (_y-_startY)/_genHeight; // A number between 0 and 1, with 1 being at the bottom of the gen zone
