@@ -10,6 +10,8 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 		decrement_despawn_timer();
 	}
 	
+	var _curLayerDepth = layer_get_depth(layer_get_id("Resources"));
+	
 	var _density;
 	for (var _x = _startX; _x < (_startX + _genWidth); _x += _spacing) {
 	for (var _y = _startY; _y < (_startY + _genHeight); _y += _spacing) {
@@ -32,11 +34,19 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 			
 			// Get the resource density of that area on the map
 			_density = round(noise_scale(_seed + i, _x + map_cam_x, _y + map_cam_y, _scale) * 100 - _cutoff);
-		
+			
 			randomize();
 			if (_density >= irandom(100)) {
 				if (_percentChance >= irandom(100)) {
-					instance_create_layer(
+					
+					// Calculate what the depth of the new resource should be
+					var _howFarDown = (_y-_startY)/_genHeight; // A number between 0 and 1, with 1 being at the bottom of the gen zone
+					
+					// The further down you are, the lower the depth (higher on screen)
+					var _newDepth = lerp(_curLayerDepth, _curLayerDepth-99, _howFarDown);
+					log(_newDepth);
+					
+					var _id = instance_create_layer(
 						_x + random_range(-_variability, _variability), 
 						_y + random_range(-_variability, _variability), 
 						"resources", 
@@ -45,6 +55,10 @@ function spawn_resources(_seed, _startX, _startY, _genWidth, _genHeight, _spacin
 							resource_id : _resource, // Give the sprite its resource enum
 							sprite_index : _resourceSprite // Set the resource's sprite
 						});
+						
+					with(_id) {
+						target_depth = _newDepth;
+					}
 				}
 			}
 		}
