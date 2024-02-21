@@ -16,7 +16,13 @@ enum RESOURCE {
 	IRON_ORE,
 	
 	// Special
-	CACTUS
+	CACTUS,
+	
+	// City Buildings
+	RUBBLE,
+	CRANE,
+	SKYSCRAPER1,
+	SKYSCRAPER2,
 }
 
 function get_resource_sprite_from_enum(_enum) {
@@ -35,7 +41,12 @@ function get_resource_sprite_from_enum(_enum) {
 		case RESOURCE.IRON_ORE:			return		spr_iron_ore;		break;
 															
 		case RESOURCE.CACTUS:			return		spr_cactus;			break;
-															
+		
+		case RESOURCE.RUBBLE:			return		spr_rubble;			break;
+		case RESOURCE.CRANE:			return		spr_crane;			break;
+		case RESOURCE.SKYSCRAPER1:		return		spr_skyscraper_1;	break;
+		case RESOURCE.SKYSCRAPER2:		return		spr_skyscraper_2;	break;
+		
 		default: return spr_error;
 	}
 }

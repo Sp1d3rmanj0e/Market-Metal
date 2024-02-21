@@ -1,5 +1,5 @@
 
-global.seed = 123; //123
+global.seed = irandom(9999999); //123
 
 global.train_x = 0;
 global.train_y = 0;

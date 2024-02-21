@@ -11,7 +11,7 @@ image_yscale = 2.5;
 
 var _curLayerDepth = layer_get_depth(layer);
 
-depth = lerp(_curLayerDepth, _curLayerDepth - 99, (y + MAP_VIEW_Y) / MAP_VIEW_HEIGHT)
+depth = lerp(_curLayerDepth, _curLayerDepth-99, (y + MAP_VIEW_Y) / MAP_VIEW_HEIGHT)
 
 // Inherit the parent event
 event_inherited();
