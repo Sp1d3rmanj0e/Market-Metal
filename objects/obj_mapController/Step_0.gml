@@ -10,7 +10,9 @@ if (global.currentCamera == CAM.MAP) {
 	var _move_y = key_down-key_up;
 
 	if ((_move_x != 0) || (_move_y != 0)) {
-		centered_camera = false;
+		
+		if (!global.playerDismounted)
+			centered_camera = false;
 	}
 
 	map_cam_move_speed = 15 + obj_cameraManager.map_zoom*5;
