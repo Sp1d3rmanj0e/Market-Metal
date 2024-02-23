@@ -1,5 +1,33 @@
 /// @description Camera Movement
 
+// Update target speed
+train_target_speed = obj_trainThrottle.get_throttle_amount() * train_max_speed;
+
+// Cap the speeds at designated values (prevents reverse from going too fast)
+train_target_speed = clamp(train_target_speed, train_max_reverse_speed, train_max_speed);
+
+// If the train is not moving at its requested speed
+if (train_cur_speed != train_target_speed) {
+	
+	// Increase the speed change speed (speeds up faster over time)
+	train_cur_speed_increase = min(train_cur_speed_increase + train_speed_increase, 
+								   train_max_speed_increase);
+	
+	// Find whether to move forward or backward
+	var _trainDirection = sign(train_target_speed - train_cur_speed);
+	
+	// Apply speed increase to train
+	train_cur_speed += train_cur_speed_increase * _trainDirection;
+	
+	// Check if speed target was passed or met
+	if (abs(train_cur_speed-train_target_speed) < train_cur_speed_increase*2) // If so, match the values
+		train_cur_speed = train_target_speed;
+}
+
+log(train_cur_speed);
+
+trainPos += train_cur_speed;
+
 if (global.currentCamera == CAM.MAP) {
 	key_left	= keyboard_check(vk_left)	|| keyboard_check(ord("A"));
 	key_right	= keyboard_check(vk_right)	|| keyboard_check(ord("D"));

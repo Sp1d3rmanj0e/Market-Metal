@@ -9,6 +9,15 @@ centered_camera = true;
 
 trainPos = 0;
 
+train_cur_speed = 0;
+train_target_speed = 0;
+train_max_speed = 40;
+train_max_reverse_speed = -10;
+
+train_cur_speed_increase = 0.00;
+train_speed_increase = 0.0001;
+train_max_speed_increase = 0.8;
+
 train_reached_the_end = false;
 
 max_gen_dist = 200;

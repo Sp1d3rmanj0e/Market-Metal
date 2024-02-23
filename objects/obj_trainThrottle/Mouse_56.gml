@@ -3,4 +3,6 @@
 
 throttle_grabbed = false;
 
-log("mouse released");
+if (abs(cur_y-mid_y) < 10) {
+	cur_y = mid_y;
+}
