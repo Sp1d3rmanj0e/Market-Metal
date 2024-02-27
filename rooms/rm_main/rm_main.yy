@@ -20,6 +20,7 @@
     {"resourceType":"GMRLayer","resourceVersion":"1.0","name":"Train_Controls","visible":true,"depth":100,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[
         {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Control_Features","instances":[
             {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_10056B16","properties":[],"isDnd":false,"objectId":{"name":"obj_trainThrottle","path":"objects/obj_trainThrottle/obj_trainThrottle.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":943.0,"y":342.0,},
+            {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_180B8AB9","properties":[],"isDnd":false,"objectId":{"name":"obj_editTrainButton","path":"objects/obj_editTrainButton/obj_editTrainButton.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":631.0,"y":267.0,},
           ],"visible":true,"depth":200,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
         {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Control_Background","instances":[
             {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_62FB870C","properties":[],"isDnd":false,"objectId":{"name":"obj_GUITrainController","path":"objects/obj_GUITrainController/obj_GUITrainController.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":620.0,"y":261.0,},
@@ -84,6 +85,7 @@
     {"name":"inst_4B3AACF","path":"rooms/rm_main/rm_main.yy",},
     {"name":"inst_62FB870C","path":"rooms/rm_main/rm_main.yy",},
     {"name":"inst_10056B16","path":"rooms/rm_main/rm_main.yy",},
+    {"name":"inst_180B8AB9","path":"rooms/rm_main/rm_main.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,

@@ -10,3 +10,5 @@ global.playerDismounted = false;
 global.currentCamera = CAM.SIDE;
 
 global.currentWeather = WEATHER.CLEAR;
+
+global.editingTrain = false;
