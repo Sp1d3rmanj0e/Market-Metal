@@ -32,7 +32,7 @@ function mine() {
 			var _itemQty = _itemData[1];
 	
 			// Get the item name
-			var _itemName = get_item_name_from_enum(_itemEnum);
+			var _itemName = get_item_data_from_enum(_itemEnum, "name");
 	
 			spawn_item_qty(_itemName, _itemEnum, _itemQty);
 		}

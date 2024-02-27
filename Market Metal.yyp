@@ -168,7 +168,7 @@
     {"id":{"name":"obj_particleController","path":"objects/obj_particleController/obj_particleController.yy",},"order":17,},
     {"id":{"name":"spr_light_mountains","path":"sprites/spr_light_mountains/spr_light_mountains.yy",},"order":7,},
     {"id":{"name":"Sprite39","path":"sprites/Sprite39/Sprite39.yy",},"order":9,},
-    {"id":{"name":"spr_guiBackground","path":"sprites/spr_guiBackground/spr_guiBackground.yy",},"order":32,},
+    {"id":{"name":"spr_guiBackground","path":"sprites/spr_guiBackground/spr_guiBackground.yy",},"order":7,},
     {"id":{"name":"spr_startButton","path":"sprites/spr_startButton/spr_startButton.yy",},"order":1,},
     {"id":{"name":"spr_meat_item","path":"sprites/spr_meat_item/spr_meat_item.yy",},"order":13,},
     {"id":{"name":"spr_heavy_mountain_bg","path":"sprites/spr_heavy_mountain_bg/spr_heavy_mountain_bg.yy",},"order":1,},
