@@ -19,6 +19,9 @@ train_speed_increase = 0.0001;
 train_max_speed_increase = 0.8;
 
 train_reached_the_end = false;
+tracks_generated = false;
+
+loading_screen_id = noone;
 
 max_gen_dist = 200;
 
@@ -122,6 +125,7 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	
 	already_generated_resources = false;
 	train_reached_the_end = false;
+	tracks_generated = false;
 	
 	// 2 Future Tracks >>> Generated
 	generate_next_track_options(track_order);
