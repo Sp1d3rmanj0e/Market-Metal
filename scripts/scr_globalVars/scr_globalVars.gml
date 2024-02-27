@@ -12,3 +12,6 @@ global.currentCamera = CAM.SIDE;
 global.currentWeather = WEATHER.CLEAR;
 
 global.editingTrain = false;
+global.firstTrainToMove = noone;
+
+global.activelyMovingCart = false;

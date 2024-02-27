@@ -24,7 +24,6 @@ if (train_cur_speed != train_target_speed) {
 		train_cur_speed = train_target_speed;
 }
 
-log(train_cur_speed);
 
 trainPos += train_cur_speed;
 

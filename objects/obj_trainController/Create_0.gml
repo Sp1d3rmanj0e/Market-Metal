@@ -3,7 +3,7 @@
 
 
 // Initialize an array to store the IDs of carts it creates
-cart_ids = [];
+cart_ids = ds_list_create();
 
 // The X and Y symbolize the start of the train
 // We do this so that the only thing we need to do in order to move the train is to move this object
@@ -14,11 +14,11 @@ function add_cart(cart_enum) {
 	
 	var _cabooseEndX = x; // Default the endX to be at the beginning (if no carts currently exist)
 	
-	var _numCarts  = array_length(cart_ids); // Get how many cart ids there are in the list
+	var _numCarts  = ds_list_size(cart_ids); // Get how many cart ids there are in the list
 	
 	// Get the end x of the last cart in the train
 	if (_numCarts > 0) {
-		var _cabooseId = cart_ids[_numCarts-1]; // Get the last cart id in the list
+		var _cabooseId = ds_list_find_value(cart_ids,_numCarts-1); // Get the last cart id in the list
 		_cabooseEndX = _cabooseId.bbox_left; // Gets the back end of the last train cart
 	}
 	
@@ -34,10 +34,51 @@ function add_cart(cart_enum) {
 	});
 	
 	// Add the new id to the end
-	array_push(cart_ids, _cartId);
-	array_push(global.currentCarts, cart_enum);
+	ds_list_add(cart_ids, _cartId);
+	ds_list_add(global.currentCarts, cart_enum);
+}
+
+// Remove the cart from both the id storage and enum storage lists
+function remove_cart(_cartId) {
 	
-	log(array_length(cart_ids));
+	// Find the position of the cart we wish to remove
+	var _index = ds_list_find_index(cart_ids, _cartId);
+	ds_list_delete(cart_ids, _index);
+	ds_list_delete(global.currentCarts, _index);
+	
+	readjust_carts();
+}
+
+// Adds the cart into both the id storage and enum storage lists
+function insert_cart(_cartId, _position) {
+	ds_list_insert(cart_ids, _position, _cartId);
+	ds_list_insert(global.currentCarts, _position, _cartId.cart_enum);
+	
+	readjust_carts();
+}
+
+function readjust_carts() {
+	
+	// This signifies the back x of the train at any given point
+	var _cabooseX = x;
+	
+	for (var i = 0; i < ds_list_size(cart_ids); i++) {
+		
+		// Get the next id in the list
+		var _id = ds_list_find_value(cart_ids, i);
+		
+		// Set the cart's x to the caboose x
+		_id.x = _cabooseX;
+		
+		// Update that cart's bogey as well
+		with (_id) {update_bogey_location()}
+		
+		// Get the width of the new cart
+		var _cartWidth = sprite_get_width(_id.sprite_index);
+		
+		// Add the width to the new caboose x
+		_cabooseX = _id.bbox_left;
+	}
 }
 
 add_cart(CARTS.ENGINE);

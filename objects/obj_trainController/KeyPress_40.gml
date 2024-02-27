@@ -1,11 +1,4 @@
 /// @description Insert description here
-
 // You can write your code in this editor
 
-
-/*
-if (global.editingTrain) {
-	if (global.editSelectTrainId != noone) {
-		
-	}
-}
+remove_cart(ds_list_find_value(cart_ids, 2));
