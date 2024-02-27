@@ -127,5 +127,23 @@ draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 // Draws the train based on the track vectors
 if (draw_train(_vectors, global.currentCarts, trainPos)) and (!train_reached_the_end) {
 	train_reached_the_end = true;
-	generate_next_tracks(1);
+}
+
+// Reserve a frame to allow for the creation of a loading screen
+if (train_reached_the_end) {
+	
+	// If the train reached the end, but there is no loading
+	// screen, create a loading screen
+	if (!instance_exists(obj_loadingScreen)) {
+		loading_screen_id = instance_create_layer(0, 0, "GUI", obj_loadingScreen);
+		
+	// Generate tracks 1 frame after the loading screen is created
+	} else if (!tracks_generated){
+		generate_next_tracks(1);
+		tracks_generated = true;
+		
+		// Allow time for the loading screen to draw itself
+		// before it destroys itself
+		with(obj_loadingScreen) alarm[0] = 5;
+	}
 }
