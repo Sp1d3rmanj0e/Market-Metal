@@ -51,6 +51,10 @@ function move_train_side(_amt) {
 	with (par_movesAlongTrain) {
 		x += _amt;
 	}
+	
+	with (obj_trainController) {
+		x+= _amt;
+	}
 }
 
 #region storage

@@ -31,6 +31,7 @@ function add_cart(cart_enum) {
 	{
 		cart_enum : cart_enum, // Gives the identity of the specific cart
 		side_cart_sprites: _sideCartSprites, // Gives the interior and exterior sprites of the cart
+		cart_index : _numCarts // Tells the cart which place it is on a ds_list
 	});
 	
 	// Add the new id to the end
@@ -47,6 +48,8 @@ function remove_cart(_cartId) {
 	ds_list_delete(global.currentCarts, _index);
 	
 	readjust_carts();
+	
+	return _index;
 }
 
 // Adds the cart into both the id storage and enum storage lists
@@ -70,11 +73,14 @@ function readjust_carts() {
 		// Set the cart's x to the caboose x
 		_id.x = _cabooseX;
 		
-		// Update that cart's bogey as well
-		with (_id) {update_bogey_location()}
+		// Reset the cart's y to the tacks
+		_id.y = y;
 		
-		// Get the width of the new cart
-		var _cartWidth = sprite_get_width(_id.sprite_index);
+		// Update that cart's bogey as well
+		with (_id) {
+			update_bogey_location();
+			cart_index = i
+		}
 		
 		// Add the width to the new caboose x
 		_cabooseX = _id.bbox_left;

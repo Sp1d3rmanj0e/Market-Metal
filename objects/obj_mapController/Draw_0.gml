@@ -5,7 +5,6 @@ draw_biomes(
 	camera_get_view_height(get_map_camera()), 
 	map_cam_x, map_cam_y);
 
-
 // Initialize variables
 var _startX, _startY, _startAngle; // Start locations for PreviousTrack
 var _trackMap, _list, _vectors, _endX, _endY, _endAngle;
