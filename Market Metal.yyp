@@ -157,6 +157,7 @@
     {"id":{"name":"obj_resourceTest","path":"objects/obj_resourceTest/obj_resourceTest.yy",},"order":7,},
     {"id":{"name":"spr_cloud3","path":"sprites/spr_cloud3/spr_cloud3.yy",},"order":7,},
     {"id":{"name":"spr_particleSand2","path":"sprites/spr_particleSand2/spr_particleSand2.yy",},"order":8,},
+    {"id":{"name":"rm_credits","path":"rooms/rm_credits/rm_credits.yy",},"order":5,},
     {"id":{"name":"spr_smoke_1","path":"sprites/spr_smoke_1/spr_smoke_1.yy",},"order":1,},
     {"id":{"name":"spr_pigeon","path":"sprites/spr_pigeon/spr_pigeon.yy",},"order":3,},
     {"id":{"name":"spr_defaultItem","path":"sprites/spr_defaultItem/spr_defaultItem.yy",},"order":0,},
@@ -301,6 +302,7 @@
     {"roomId":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},},
     {"roomId":{"name":"rm_measurements","path":"rooms/rm_measurements/rm_measurements.yy",},},
     {"roomId":{"name":"rm_playerDemo","path":"rooms/rm_playerDemo/rm_playerDemo.yy",},},
+    {"roomId":{"name":"rm_credits","path":"rooms/rm_credits/rm_credits.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Animation Curves","folderPath":"folders/Animation Curves.yy","order":8,},
