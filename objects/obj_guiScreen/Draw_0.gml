@@ -4,6 +4,13 @@
 switch(gui_screen_state) {
 	case GUI.UPGRADE:
 		gui_draw_cart_upgrade(argument_1, argument_2, argument_3);
+	break;
+	case GUI.INVENTORY:
+		gui_draw_passenger_exchange(x, y);
+	break;
+	case GUI.CRAFTING:
+		gui_draw_research_crafting(argument_1);
+	break;
 }
 
 //gui_draw_passenger_exchange(x, y);
