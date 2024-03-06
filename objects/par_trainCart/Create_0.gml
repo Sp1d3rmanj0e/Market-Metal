@@ -36,6 +36,11 @@ if (cart_enum != CARTS.ENGINE) {
 cart_health = 100;
 max_cart_health = cart_health;
 
+instance_create_layer(bbox_right - 20, bbox_top + sprite_height/2, "Cart_Interactables", obj_upgradeTerminal,
+					  {
+						  parent_id : id
+					  })
+
 function update_bogey_location() {
 	with(bogey_id) {
 		x = other.x;

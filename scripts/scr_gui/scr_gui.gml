@@ -195,7 +195,39 @@ function gui_draw_passenger_exchange(_startX, _startY) {
 					_buttonWidth, _buttonHeight, "Exchange");
 }
 
+function gui_draw_cart_upgrade(_cartInvId, _playerInvId, _cartId) {
+	
+	/*					|	+-----+
+			+-----+		|	|__|__|
+			|__|__|		|	|__|__|
+			|  |  |		|	|__|__|
+			+-----+		|	|  |  |
+						|	+-----+ <-- Player inv
+			Upgrade Inv /\
+						|| - Back of cart
+	
+	*/
+	
+	// Variables
+	var _buffer = 20;
+	var _invCellSize = 35;
+	
+	var _startX = camera_get_view_x(get_side_camera());
+	var _startY = camera_get_view_y(get_side_camera());
+	var _width = camera_get_view_width(get_side_camera());
+	var _height = camera_get_view_height(get_side_camera());
+	
+	// Cart Upgrade Inventory
+	draw_inventory(_cartInvId, _startX + _width - _buffer - _invCellSize*2, _startY + _height - _invCellSize*2 - _buffer,
+				   _invCellSize*2, _invCellSize * 2, _invCellSize, 2, 2, true);
+				   
+	// Player Inventory 
+	draw_inventory(_playerInvId, _startX + _buffer, _startY + _height - _invCellSize*2 - _buffer,
+				   _invCellSize*4, _invCellSize * 2, _invCellSize, 2, 4, true);
+}
+
 enum GUI {
 	NONE,
+	UPGRADE,
 	INVENTORY
 }
