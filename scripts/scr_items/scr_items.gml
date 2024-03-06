@@ -55,7 +55,7 @@ function spawn_item_qty(_name, _enum, _qty) {
 
 function spawn_item(_name, _enum) {
 	
-	var _itemMap = generate_item_map(_enum, _name, spr_itemError, 1, "item does not yet have a description");
+	var _itemMap = generate_item_map(_enum, _name, get_item_data_from_enum(_enum, "sprite"), 1, "item does not yet have a description");
 	
 	instance_create_layer(x, y, "Resources", obj_item,
 	{
@@ -63,53 +63,63 @@ function spawn_item(_name, _enum) {
 	});
 }
 
-function get_item_name_from_enum(_enum) {
+// "sprite" will return the sprite of the item
+// "name" will return the name of the item
+function get_item_data_from_enum(_enum, _dataRequested) {
+	
+	var _itemPackage = [];
+	
 	switch(_enum) {
-		case ITEM.NONE: return "None"; break;
+		case ITEM.NONE: _itemPackage = ["None", spr_itemError]; break;
 		
 		// BASIC RESOURCES
-		case ITEM.WOOD: return "Wood"; break;
-		case ITEM.STONE: return "Stone"; break;
-		case ITEM.COPPER: return "Copper"; break;
-		case ITEM.GOLD: return "Gold"; break;
-		case ITEM.IRON: return "Iron"; break;
-		case ITEM.TITANIUM: return "Titanium"; break;
-		case ITEM.DIAMOND: return "Diamond"; break;
-		
-		// GLASS RESOURCES
-		case ITEM.GLASS: return "Glass"; break;
-		case ITEM.PLEXIGLASS: return "Plexiglass"; break;
+		case ITEM.WOOD:		_itemPackage = ["Wood", spr_wood_item]; break;
+		case ITEM.STONE:	_itemPackage = ["Stone", spr_stone_item]; break;
+		case ITEM.COPPER:	_itemPackage = ["Copper", spr_copper_item]; break;
+		case ITEM.GOLD:		_itemPackage = ["Gold", spr_gold_item]; break;
+		case ITEM.IRON:		_itemPackage = ["Iron", spr_iron_item]; break;
+		case ITEM.TITANIUM: _itemPackage = ["Titanium", spr_titanium_item]; break;
+		case ITEM.DIAMOND:	_itemPackage = ["Diamond", spr_diamond_item]; break;
+										 
+		// GLASS RESOURCES				 
+		case ITEM.GLASS:	_itemPackage = ["Glass", spr_glass_item]; break;
+		case ITEM.PLEXIGLASS: _itemPackage = ["Plexiglass", spr_plexiglass_item]; break;
 		
 		// KEY CRAFTING
-		case ITEM.MECHANICAL_PARTS: return "Mechanical Parts"; break;
-		case ITEM.ELECTRICAL_PARTS: return "Electrical Parts"; break;
+		case ITEM.MECHANICAL_PARTS: _itemPackage = ["Mechanical Parts", spr_mechanical_parts]; break;
+		case ITEM.ELECTRICAL_PARTS: _itemPackage = ["Electrical Parts", spr_mechanical_parts]; break;
 		
 		// SURVIVAL
-		case ITEM.WATER: return "Water"; break;
-		case ITEM.VEGETABLES: return "Vegetables"; break;
-		case ITEM.MEAT: return "Meat"; break;
+		case ITEM.WATER: _itemPackage = ["Water", spr_itemError]; break;
+		case ITEM.VEGETABLES: _itemPackage = ["Vegetables", spr_food]; break;
+		case ITEM.MEAT: _itemPackage = ["Meat", spr_meat_item]; break;
 		
 		// HEAT/COLD MANAGEMENT
-		case ITEM.WOOL: return "Wool"; break;
-		case ITEM.AIR_CONDITIONING: return "Air Conditioning"; break;
+		case ITEM.WOOL: _itemPackage = ["Wool", spr_itemError]; break;
+		case ITEM.AIR_CONDITIONING: _itemPackage = ["Air Conditioning", spr_itemError]; break;
 
 		// FUEL
-		case ITEM.COAL: return "Coal"; break;
-		case ITEM.FOLIAGE: return "Foliage"; break;
+		case ITEM.COAL: _itemPackage = ["Coal", spr_coal_item]; break;
+		case ITEM.FOLIAGE: _itemPackage = ["Foliage", spr_itemError]; break;
 
 		// COMBAT
-		case ITEM.ARMOUR: return "Armour"; break;
-		case ITEM.HEALING_SALVE: return "Healing Salve"; break;
-		case ITEM.WEAPONS: return "Weapons"; break;
-		case ITEM.MAGNESIUM: return "Magnesium"; break;
-		case ITEM.FEATHERS: return "Feathers"; break;
-		case ITEM.BOWS: return "Bow"; break;
-		case ITEM.ARROWS: return "Arrows"; break;
+		case ITEM.ARMOUR: _itemPackage = ["Armour", spr_itemError]; break;
+		case ITEM.HEALING_SALVE: _itemPackage = ["Healing Salve", spr_itemError]; break;
+		case ITEM.WEAPONS: _itemPackage = ["Weapons", spr_itemError]; break;
+		case ITEM.MAGNESIUM: _itemPackage = ["Magnesium", spr_magnesium_item]; break;
+		case ITEM.FEATHERS: _itemPackage = ["Feathers", spr_feather_item]; break;
+		case ITEM.BOWS: _itemPackage = ["Bow", spr_itemError]; break;
+		case ITEM.ARROWS: _itemPackage = ["Arrows", spr_itemError]; break;
 
 		// CURRENCY
-		case ITEM.COINS: return "Coins"; break;
+		case ITEM.COINS: _itemPackage = ["Coins", spr_coin]; break;
+		
+		default: _itemPackage = ["Error", spr_itemError];
 	}
-	return "Error";
+	
+	if (_dataRequested == "name")
+		return _itemPackage[0];
+	else return _itemPackage[1];
 }
 
 // Creates a map with all necessary data so it can

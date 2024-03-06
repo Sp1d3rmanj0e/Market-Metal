@@ -5,7 +5,6 @@ draw_biomes(
 	camera_get_view_height(get_map_camera()), 
 	map_cam_x, map_cam_y);
 
-
 // Initialize variables
 var _startX, _startY, _startAngle; // Start locations for PreviousTrack
 var _trackMap, _list, _vectors, _endX, _endY, _endAngle;
@@ -125,8 +124,13 @@ draw_tracks(map_cam_x, map_cam_y, _list, _endX, _endY, _endAngle, false);
 #endregion Draw the Future Tracks
 
 // Draws the train based on the track vectors
-if (draw_train(_vectors, global.currentCarts, trainPos)) and (!train_reached_the_end) {
+// Result = false: not at the end; Result = "close": near the end; Result = true: at the end;
+var _trainResult = draw_train(_vectors, global.currentCarts, trainPos);
+
+if (_trainResult == true and !train_reached_the_end) {
 	train_reached_the_end = true;
+} else if (_trainResult < 30) {
+	slow_down_train = _trainResult;
 }
 
 // Reserve a frame to allow for the creation of a loading screen

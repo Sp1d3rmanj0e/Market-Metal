@@ -168,15 +168,17 @@ function draw_train_cart(_vectors = [[0,0,0]], _trainDistance = 0, _cartSprite =
 		//draw_text_transformed(_camX, _camY + 40, "Current Passengers: " + string(global.numPassengers), 10, 10, 0);
 	}
 	
-
+	
 	
 	// If the train has reached the end, return true
 	if (_ceilVectorLoc+1 == _vectorsLength) {
 		return true;	
+	} else {
+		return _vectorsLength - _ceilVectorLoc; // Returns the distance to the end
 	}
 }
 
-function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDistance = 0, _trackSize = 64) {
+function draw_train(_vectors = [[0,0,0]], _carts, _frontTrainDistance = 0, _trackSize = 64) {
 	
 	var _trainScale = 4;
 	
@@ -189,10 +191,10 @@ function draw_train(_vectors = [[0,0,0]], _carts = [CARTS.ENGINE], _frontTrainDi
 	var _trainReachedEnd = false;
 	
 	// Loop for every cart
-	for (var i = 0; i < array_length(_carts); i++) {
+	for (var i = 0; i < ds_list_size(_carts); i++) {
 		
 		// Get the cart sprite and width
-		var _cartData = get_top_cart_data(_carts[i]);
+		var _cartData = get_top_cart_data(ds_list_find_value(_carts, i));
 		
 		// Extract cart sprite and width
 		var _cartTopSprite = _cartData[0];

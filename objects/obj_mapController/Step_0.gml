@@ -24,9 +24,27 @@ if (train_cur_speed != train_target_speed) {
 		train_cur_speed = train_target_speed;
 }
 
-log(train_cur_speed);
-
-trainPos += train_cur_speed;
+// Keep moving unless told to slow down
+if (slow_down_train == false) {
+	
+	trainPos += train_cur_speed;
+	slow_down_speed = train_cur_speed; // save this speed so when the train needs 
+									   // to slow down, it has a starting point to 
+									   // decrease from;
+// If told to slow down, as long as the train is not at the end,
+// move at a constant speed toward the end
+} else if (!train_reached_the_end) {
+	
+	log("slowing down")
+	trainPos += slow_down_speed;
+	slow_down_speed = max(slow_down_speed - 0.3, 10);
+	
+    //var _deceleration = - (2 * initial_speed ** 2) / (2 * total_distance);
+    //slow_down_speed += _deceleration;
+	
+} else {
+	train_cur_speed = 0; // Reset speed after going through a train station
+}
 
 if (global.currentCamera == CAM.MAP) {
 	key_left	= keyboard_check(vk_left)	|| keyboard_check(ord("A"));
