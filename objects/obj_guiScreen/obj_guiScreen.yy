@@ -33,7 +33,7 @@
   ],
   "overriddenProperties": [],
   "parent": {
-    "name": "Inventory",
-    "path": "folders/Objects/GUI/Inventory.yy",
+    "name": "GUI",
+    "path": "folders/Objects/GUI.yy",
   },
 }
