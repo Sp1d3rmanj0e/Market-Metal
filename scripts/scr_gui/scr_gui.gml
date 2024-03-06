@@ -296,7 +296,7 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 	if (_crafting) {
 		
 		// Bottom panel vars
-		var _bottomStartY = _startY + _buttonHeight + _smallBuffer*2;
+		var _bottomStartY = _startY + _buttonHeight + _smallBuffer*2 + _buffer;
 		var _bottomPanelHeight = _height - (_bottomStartY - _startY) - _smallBuffer;
 		var _bottomPanelWidth = _rightSideWidth/2 - _smallBuffer*2;
 		
@@ -306,7 +306,18 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 		
 		draw_gui_sub_gui(_eX, _eY, _bottomPanelWidth, _bottomPanelHeight);
 		
-		// Draw the 
+		// Draw the "CRAFT!" button
+		_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
+		_eY = _bottomStartY;
+		
+		draw_gui_button(_eX, _eY, _bottomPanelWidth, _buttonHeight, "CRAFT!");
+		
+		// Draw the crafting menu!
+		_eY = _bottomStartY + _buttonHeight + _smallBuffer;
+		draw_gui_sub_gui(_eX,  _eY, _bottomPanelWidth, _bottomPanelHeight - _smallBuffer - _buttonHeight)
+	} else {
+		
+		
 	}
 	
 	
