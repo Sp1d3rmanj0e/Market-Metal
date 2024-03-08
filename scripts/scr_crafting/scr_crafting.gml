@@ -1,0 +1,2 @@
+
+global.craftable_item_recipes
