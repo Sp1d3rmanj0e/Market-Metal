@@ -195,7 +195,154 @@ function gui_draw_passenger_exchange(_startX, _startY) {
 					_buttonWidth, _buttonHeight, "Exchange");
 }
 
+function gui_draw_cart_upgrade(_cartInvId, _playerInvId, _cartId) {
+	
+	/*		
+			\/ Inventory
+		+-------+ +---+
+		|_|_|_|_| |_|_|
+		| | | | | | | |
+		+-------+ +---+
+					/\ - Upgrade panel
+	*/
+	
+	// Variables
+	var _buffer = 20;
+	var _invCellSize = 35;
+	
+	var _startX = camera_get_view_x(get_side_camera());
+	var _startY = camera_get_view_y(get_side_camera());
+	var _width = camera_get_view_width(get_side_camera());
+	var _height = camera_get_view_height(get_side_camera());
+	
+	// Cart Upgrade Inventory
+	draw_inventory(_cartInvId, _startX + _width - _buffer - _invCellSize*2, _startY + _height - _invCellSize*2 - _buffer,
+				   _invCellSize*2, _invCellSize * 2, _invCellSize, 2, 2, true);
+				   
+	// Player Inventory 
+	draw_inventory(_playerInvId, _startX + _buffer, _startY + _height - _invCellSize*2 - _buffer,
+				   _invCellSize*4, _invCellSize * 2, _invCellSize, 2, 4, true);
+}
+
+function gui_draw_research_crafting(_playerInvId, _crafting = true) {
+	
+	/*
+	
+		+-----+ +-------+
+		|__|__| |		|
+		|__|__| |		|
+		|__|__| |		|
+		|  |  | |		|
+		+-----+ +-------+
+		^ - Inventory ^
+					  | - Crafting/Research GUI
+	*/
+	
+	// Reusable variables (ElementX and ElementY, for cleaner code)
+	var _eX, _eY;
+
+	// Variables
+	var _buffer = 20;
+	var _invCellSize = 80;
+	
+	var _startX = camera_get_view_x(get_side_camera()) + _buffer;
+	var _startY = camera_get_view_y(get_side_camera()) + _buffer;
+	var _width = camera_get_view_width(get_side_camera())  - _buffer*2;
+	var _height = camera_get_view_height(get_side_camera())  - _buffer*2;
+	
+	// Draw the Inventory
+	draw_inventory(_playerInvId, _startX, _startY, 
+				   _invCellSize*2, _height,
+				   _invCellSize, 4, 2, true);
+	
+	// Simplify variables with more specific ones
+	var _rightSideWidth = _width - _invCellSize*2 - _buffer*2;
+	var _rightSideStartX = _startX + _invCellSize*2 + _buffer*2;
+	
+	/*
+				\/ _rightSideStartX
+				I-------I - _rightSideWidth
+		+-----+ +-------+
+		|__|__| |		|
+		|__|__| |		|
+		|__|__| |		|
+		|  |  | |		|
+		+-----+ +-------+
+		^ - Inventory ^
+					  | - Crafting/Research GUI
+	*/
+	
+	// Draw the right side background
+	draw_gui_background(_rightSideStartX, _startY, _rightSideWidth, _height);
+	
+	// Button Vars
+	var _smallBuffer = _buffer/4;
+	var _buttonOffset = 20;
+	var _buttonWidth = (_rightSideWidth - _smallBuffer*3)/2 - _buttonOffset*2; // x3 - 1 for left, right, and center buffers
+	var _buttonHeight = 32;
+	
+	
+	// Draw the tabs to switch between crafting and researching
+	_eX = _rightSideStartX + _rightSideWidth/2 - _smallBuffer - _buttonWidth;
+	_eY = _startY + _smallBuffer;
+	
+	draw_gui_button(_eX, _eY, _buttonWidth, _buttonHeight, "Crafting");
+	
+	_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
+	_eY = _startY + _smallBuffer;
+	
+	draw_gui_button(_eX, _eY, _buttonWidth, _buttonHeight, "Researching");
+				
+	if (_crafting) {
+		
+		// Bottom panel vars
+		var _bottomStartY = _startY + _buttonHeight + _smallBuffer*2 + _buffer;
+		var _bottomPanelHeight = _height - (_bottomStartY - _startY) - _smallBuffer;
+		var _bottomPanelWidth = _rightSideWidth/2 - _smallBuffer*2;
+		
+		// Draw the recipes panel to the bottom left of the button
+		_eX = _rightSideStartX + _rightSideWidth/2 - _bottomPanelWidth - _smallBuffer;
+		_eY = _bottomStartY;
+		
+		draw_gui_sub_gui(_eX, _eY, _bottomPanelWidth, _bottomPanelHeight);
+		
+		// Draw the "CRAFT!" button
+		_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
+		_eY = _bottomStartY;
+		
+		draw_gui_button(_eX, _eY, _bottomPanelWidth, _buttonHeight, "CRAFT!");
+		
+		// Draw the crafting menu!
+		_eY = _bottomStartY + _buttonHeight + _smallBuffer;
+		draw_gui_sub_gui(_eX,  _eY, _bottomPanelWidth, _bottomPanelHeight - _smallBuffer - _buttonHeight)
+	} else {
+		
+		
+	}
+	
+	
+}
+
+function gui_draw_person_profile(_personId) {
+	/*
+	+-----------------------+
+	| +---+  Stats:  +-----+|
+	| |   | O ---    |     ||
+	| +---+ O --     |Profi||
+	|       O ----   |leImg||
+	|[Stamp]O ---    +-----+|
+	|      {View Inv]  Name |
+	+-----------------------+
+	
+	The person targeted will be centered in the profile
+	Image slot in the top right
+	*/
+}
+
 enum GUI {
 	NONE,
-	INVENTORY
+	UPGRADE,
+	INVENTORY,
+	CRAFTING,
+	PROFILE
 }

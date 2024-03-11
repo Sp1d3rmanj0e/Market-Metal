@@ -17,9 +17,17 @@ is_sitting = false;
 command_queue = ds_list_create();
 
 inventory_id = create_inventory(2);
-show_inventory = false;
+//show_inventory = false;
+
+profile_ui_id = noone;
 
 inventory = ds_list_create();
+
+// Base stats
+stat_speed		= random_probability_curve(1, 10);
+stat_efficiency	= random_probability_curve(1, 10);
+stat_metabolism	= random_probability_curve(1, 10);
+stat_resilience	= random_probability_curve(1, 10);
 
 
 function add_item_to_inventory(_id) {

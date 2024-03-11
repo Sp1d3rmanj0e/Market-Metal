@@ -67,10 +67,10 @@
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"6a6e73b0-3288-4503-8d31-88cb95584fa5","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": {
-    "left": 11,
-    "top": 11,
-    "right": 11,
-    "bottom": 11,
+    "left": 36,
+    "top": 16,
+    "right": 36,
+    "bottom": 16,
     "guideColour": [
       4294902015,
       4294902015,

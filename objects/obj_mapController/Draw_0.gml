@@ -144,10 +144,11 @@ if (train_reached_the_end) {
 	// Generate tracks 1 frame after the loading screen is created
 	} else if (!tracks_generated){
 		generate_next_tracks(1);
-		tracks_generated = true;
 		
 		// Allow time for the loading screen to draw itself
 		// before it destroys itself
 		with(obj_loadingScreen) alarm[0] = 5;
+		
+		log("loading screen alr exists!");
 	}
 }

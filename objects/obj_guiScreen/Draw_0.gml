@@ -1,7 +1,22 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-gui_draw_passenger_exchange(x, y);
+switch(gui_screen_state) {
+	case GUI.UPGRADE:
+		gui_draw_cart_upgrade(argument_1, argument_2, argument_3);
+	break;
+	case GUI.INVENTORY:
+		gui_draw_passenger_exchange(x, y);
+	break;
+	case GUI.CRAFTING:
+		gui_draw_research_crafting(argument_1);
+	break;
+	case GUI.PROFILE:
+		gui_draw_person_profile(argument_1);
+	break;
+}
+
+//gui_draw_passenger_exchange(x, y);
 
 /*
 draw_gui_background(x, y, width, height);
