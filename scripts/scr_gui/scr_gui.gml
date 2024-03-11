@@ -323,9 +323,26 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 	
 }
 
+function gui_draw_person_profile(_personId) {
+	/*
+	+-----------------------+
+	| +---+  Stats:  +-----+|
+	| |   | O ---    |     ||
+	| +---+ O --     |Profi||
+	|       O ----   |leImg||
+	|[Stamp]O ---    +-----+|
+	|      {View Inv]  Name |
+	+-----------------------+
+	
+	The person targeted will be centered in the profile
+	Image slot in the top right
+	*/
+}
+
 enum GUI {
 	NONE,
 	UPGRADE,
 	INVENTORY,
-	CRAFTING
+	CRAFTING,
+	PROFILE
 }

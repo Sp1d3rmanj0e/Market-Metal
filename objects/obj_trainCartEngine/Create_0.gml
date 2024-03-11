@@ -11,5 +11,4 @@ instance_create_layer(x-250, TRAIN_FLOOR_Y, "Instances", obj_trainExit,
 	engine_id : id
 });
 
-crafting_research_gui_open = false;
 crafting_research_id = noone;

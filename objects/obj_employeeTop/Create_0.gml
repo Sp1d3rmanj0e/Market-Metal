@@ -17,7 +17,9 @@ is_sitting = false;
 command_queue = ds_list_create();
 
 inventory_id = create_inventory(2);
-show_inventory = false;
+//show_inventory = false;
+
+profile_ui_id = noone;
 
 inventory = ds_list_create();
 

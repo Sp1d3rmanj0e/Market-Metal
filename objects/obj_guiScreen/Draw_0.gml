@@ -11,6 +11,9 @@ switch(gui_screen_state) {
 	case GUI.CRAFTING:
 		gui_draw_research_crafting(argument_1);
 	break;
+	case GUI.PROFILE:
+		gui_draw_person_profile(argument_1);
+	break;
 }
 
 //gui_draw_passenger_exchange(x, y);
