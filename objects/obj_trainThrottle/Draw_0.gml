@@ -2,8 +2,9 @@
 // You can write your code in this editor
 
 
+image_alpha = alpha_fade;
 
-draw_sprite(spr_trainGUIHandle, 0, x, CONTROL_BOTTOM_Y - 5);
+draw_sprite_ext(spr_trainGUIHandle, 0, x, CONTROL_BOTTOM_Y - 5, 1, 1, 0, c_white, image_alpha);
 
 draw_set_color(c_dkgray);
 

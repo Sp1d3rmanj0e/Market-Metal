@@ -1,6 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+alpha_fade = 1;
+fade_speed = 0.05;
+
 throttle_grabbed = false;
 
 min_y = CONTROL_BOTTOM_Y - 10;
