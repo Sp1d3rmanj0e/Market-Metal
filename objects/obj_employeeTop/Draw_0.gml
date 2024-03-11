@@ -24,6 +24,7 @@ draw_set_color(c_aqua);
 draw_text(x, y+40, "is_outside: " + string(is_outdoors));
 draw_text(x, y+60, "profession: " + string(profession));
 draw_text(x, y-40, "(" + string(x) + "), (" + string(y) + ")");
+draw_text(x, y+80, string(stat_speed) + ", " + string(stat_resilience) + ", " + string(stat_metabolism) + ", " + string(stat_efficiency));
 
 
 //draw_text(x, y+80, string(ds_list_size(inventory)));
