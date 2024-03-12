@@ -26,6 +26,10 @@ function draw_gui_sub_gui(_startX, _startY, _width, _height) {
 // Draws a button that can be clicked
 function draw_gui_button(_startX, _startY, _width, _height, _text = "", _function = -1) {
 	
+	// Returns this value at the end of the function
+	// Will change to true if clicked
+	var _clicked = false;
+	
 	var _color = c_ltgray;
 	
 	// Check if mouse is within button
@@ -39,6 +43,8 @@ function draw_gui_button(_startX, _startY, _width, _height, _text = "", _functio
 			log("clicked");
 			
 			_color = c_gray;
+			
+			_clicked = true;
 			
 			// Activate the button script
 			if (_function != -1)
@@ -58,6 +64,8 @@ function draw_gui_button(_startX, _startY, _width, _height, _text = "", _functio
 	draw_set_halign(fa_top);
 	
 	draw_set_color(-1);
+	
+	return _clicked;
 }
 
 
@@ -283,22 +291,32 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 	
 	
 	// Draw the tabs to switch between crafting and researching
+	
+	// Crafting tab
 	_eX = _rightSideStartX + _rightSideWidth/2 - _smallBuffer - _buttonWidth;
 	_eY = _startY + _smallBuffer;
 	
-	draw_gui_button(_eX, _eY, _buttonWidth, _buttonHeight, "Crafting");
+	if(draw_gui_button(_eX, _eY, _buttonWidth, _buttonHeight, "Crafting")
+	and (_crafting == false)) {
+		argument_2 = true;
+	}
 	
+	// Researching Tab
 	_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
 	_eY = _startY + _smallBuffer;
 	
-	draw_gui_button(_eX, _eY, _buttonWidth, _buttonHeight, "Researching");
-				
+	if (draw_gui_button(_eX, _eY, _buttonWidth, _buttonHeight, "Researching"))
+	and (_crafting == true) {
+		argument_2 = false; // Swaps crafting to false, resulting in the research menu being shown
+	}
+	
+	// Bottom panel vars (moved outside the crafting section for reusability)
+	var _bottomStartY = _startY + _buttonHeight + _smallBuffer*2 + _buffer; // Start of GUI below the section tabs
+	var _bottomPanelHeight = _height - (_bottomStartY - _startY) - _smallBuffer; // The remaining height we can work with
+	
 	if (_crafting) {
 		
-		// Bottom panel vars
-		var _bottomStartY = _startY + _buttonHeight + _smallBuffer*2 + _buffer;
-		var _bottomPanelHeight = _height - (_bottomStartY - _startY) - _smallBuffer;
-		var _bottomPanelWidth = _rightSideWidth/2 - _smallBuffer*2;
+		var _bottomPanelWidth = _rightSideWidth/2 - _smallBuffer*2; // The width of a panel (there are 2 panels)
 		
 		// Draw the recipes panel to the bottom left of the button
 		_eX = _rightSideStartX + _rightSideWidth/2 - _bottomPanelWidth - _smallBuffer;
@@ -315,8 +333,66 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 		// Draw the crafting menu!
 		_eY = _bottomStartY + _buttonHeight + _smallBuffer;
 		draw_gui_sub_gui(_eX,  _eY, _bottomPanelWidth, _bottomPanelHeight - _smallBuffer - _buttonHeight)
-	} else {
+	} else { // Researching
 		
+		/*
+		+-----------------------+
+	    | Crafting  Researching |
+	    |            +-+        |
+	    | |Research| +-+        |
+	    | +-------------------+ |
+	    | | O... <-Item to get| |
+	    | | A  <              | |
+		| | B  <- Requirements| |
+		| | C  <              | |
+		| +-------------------+ |
+	    +-----------------------+
+		*/
+		
+		/* 
+		
+		Variables we can work with
+		
+		_startX				- start X of the entire GUI
+		_startY				- start Y of the entire GUI
+		_width				- width of the entire GUI
+		_height				- height of the entire GUI
+		_rightSideWidth		- width of the right section of the GUI
+		_rightSideStartX	- start X of the right section of the GUI
+		_buffer				- a standardized distance between elements and the GUI border
+		_smallBuffer		- a smaller distance between elements within the GUI border
+		_invCellSize		- a standard inventory size for the GUI
+		_bottomStartY		- start of GUI below the section tabs
+		_bottomPanelHeight  - the remaining height we can work with
+		
+		======================================
+		
+		Reusable variable names:
+		
+		_buttonWidth
+		_buttonHeight
+		_eX
+		_eY
+		
+		*/
+		
+		// Inventory vars
+		var _invStartX = _rightSideStartX + _rightSideWidth/2 - _invCellSize/2 + _buffer*3;
+		var _invStartY = _bottomStartY + _buffer;
+		
+		// Draw the inventory in the middle of the right section
+		draw_inventory(global.research_inventory, 
+					   _invStartX, _invStartY, 
+					   _invCellSize, _invCellSize, _invCellSize, 1, 1, true);
+		
+		// Button vars
+		_buttonWidth = 140;
+		_buttonHeight = 40;
+		
+		// Draw the button
+		draw_gui_button(_invStartX - _buttonWidth - _buffer*2, _invStartY + _invCellSize/2 - _buttonHeight/2, 
+						_buttonWidth, _buttonHeight, "Research!");
+						
 		
 	}
 	
