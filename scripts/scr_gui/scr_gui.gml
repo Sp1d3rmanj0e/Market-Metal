@@ -403,8 +403,25 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 		_buttonHeight = 40;
 		
 		// Draw the research button
-		draw_gui_button(_invStartX - _buttonWidth - _buffer*2, _invStartY + _invCellSize/2 - _buttonHeight/2, 
-						_buttonWidth, _buttonHeight, "Research!");
+		if (draw_gui_button(_invStartX - _buttonWidth - _buffer*2, _invStartY + _invCellSize/2 - _buttonHeight/2, 
+						_buttonWidth, _buttonHeight, "Research!")) {
+			
+			// Researches the item within the research inventory
+			// (given there is an item in it, you can pay the cost, and the item hasn't been researched yet)
+			
+			if (!inventory_is_empty(global.research_inventory)) { // Make sure there is an item in the inventory
+				
+				log("Inventory is not empty");
+				
+				var _invItem = inventory_get_item(global.research_inventory, 0)[$ "id"];
+				
+				if (!item_already_researched(_invItem)) {
+					log("Item: " + get_item_data_from_enum(_invItem, "name") + " wasn't already researched!");
+					research_item(_invItem);
+					inventory_remove_item(global.research_inventory, 0);
+				}
+			}
+		}
 						
 		// Recipe section vars
 		var _secondBottomStartY = _invStartY + _invCellSize + _buffer;
@@ -438,16 +455,22 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 				_recipe = ds_list_find_value(global.recipes_that_need_confirmation, i)
 				
 				// Draw the recipe
-				draw_recipe_requirements(_eX, _secondBottomStartY + _smallBuffer*2,
-									 _reqWidth, _recipe);
+				if(draw_recipe_requirements(_eX, _secondBottomStartY + _smallBuffer*2,
+									 _reqWidth, _recipe)) {
+					confirm_recipe(_recipe);
+					return
+				}
 			} else {
 				
 				// Get the recipe (subtracting the i value from the other array in order to index properly)
 				_recipe = ds_list_find_value(global.researchable_recipes, i-ds_list_size(global.recipes_that_need_confirmation));
 				
 				// Draw the recipe
-				draw_recipe_requirements(_eX, _secondBottomStartY + _smallBuffer*2,
-									 _reqWidth, _recipe);
+				if(draw_recipe_requirements(_eX, _secondBottomStartY + _smallBuffer*2,
+									 _reqWidth, _recipe)) {
+					confirm_recipe(_recipe);
+					return
+				}
 			}
 		}
 		
@@ -456,7 +479,20 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 	
 }
 
+// Moves a recipe from global.recipes_that_need_confirmation to global.crafting_recipes
+function confirm_recipe(_recipe) {
+	// Find the spot the recipe currently resides
+	var _index = ds_list_find_index(global.recipes_that_need_confirmation, _recipe);
+			
+	// Remove it from that list
+	ds_list_delete(global.recipes_that_need_confirmation, _index);
+			
+	// Add it to the new list
+	ds_list_add(global.crafting_recipes, _recipe);
+}
+
 // Used in gui_draw_research_crafting to draw the individual recipes that can be crafted
+/// @returns true if all requirements are met and the button to confirm the recipe is pressed
 function draw_recipe_requirements(_startX, _startY, _width, _recipe) {
 	
 	/*
@@ -484,6 +520,23 @@ function draw_recipe_requirements(_startX, _startY, _width, _recipe) {
 	
 	// Draw backdrop
 	draw_roundrect(_startX, _startY, _startX + _width, _startY + _width, false);
+	
+	if (_unlockable) {
+		if (point_in_rectangle(mouse_x, mouse_y, _startX - 2, _startY - 2, _startX + _width + 2, _startY + _width + 2)) {
+			
+			draw_set_color(c_white);
+		
+			// If clicked to confirm the recipe, move to the ds_list called global.crafting_recipes
+			if (mouse_check_button_pressed(mb_left)) {
+				return true;
+			}
+		
+		} else {
+			draw_set_color(c_lime);
+		}
+		
+		draw_roundrect(_startX - 2, _startY - 2, _startX + _width + 2, _startY + _width + 2, true);
+	}
 	
 	// Draw the item sprite
 	draw_set_color(-1);
@@ -515,6 +568,8 @@ function draw_recipe_requirements(_startX, _startY, _width, _recipe) {
 		_sprite = get_item_data_from_enum(_requirement, "sprite");
 		draw_sprite_stretched(_sprite, 0, _startX, _elementY, _width, _width);
 	}
+	
+	return false;
 }
 
 function gui_draw_person_profile(_personId) {

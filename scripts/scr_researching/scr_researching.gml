@@ -111,6 +111,8 @@ function item_already_researched(_itemEnum) {
 /// @param _itemEnum - the item enum to add to the recipe list
 function research_item(_itemEnum) {
 	
+	log("researching item");
+	
 	// Check to see if the item already is researched
 	if (!item_already_researched(_itemEnum)) {
 	
@@ -125,7 +127,9 @@ function research_item(_itemEnum) {
 		
 			// Tell the recipe that a new item got researched
 			_recipe.new_item_researched(_itemEnum);
-		
+			
+			log("Told recipe: " + string(_recipe) + " of the new research!");
+			
 			// Check to see if the recipe is now complete.  If so, move it
 			// to the recipes_that_need_confirmation array
 			if (_recipe.is_unlockable()) {
