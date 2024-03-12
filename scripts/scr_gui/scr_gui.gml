@@ -1,8 +1,10 @@
 
 
-function draw_gui_background(_startX, _startY, _width, _height) {
-
-	draw_sprite_stretched(spr_guiBackground, 0, _startX - 19, _startY - 19, _width + 38, _height + 38);
+function draw_gui_background(_startX, _startY, _width, _height, _subBackground = false) {
+	if (!_subBackground)
+		draw_sprite_stretched(spr_guiBackground, 0, _startX - 19, _startY - 19, _width + 38, _height + 38);
+	else
+		draw_sprite_stretched(spr_ui_border_2, 0, _startX - 19, _startY - 19, _width + 38, _height + 38);
 }
 
 // Draws a text box and text on said box
@@ -247,7 +249,7 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 	*/
 	
 	// Reusable variables (ElementX and ElementY, for cleaner code)
-	var _eX, _eY;
+	var _eX, _eY, _eW, _eH;
 
 	// Variables
 	var _buffer = 20;
@@ -309,6 +311,14 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 	and (_crafting == true) {
 		argument_2 = false; // Swaps crafting to false, resulting in the research menu being shown
 	}
+	
+	// Draw tab divider
+	_eX = _rightSideStartX + _buffer;
+	_eY = _startY + _smallBuffer*2 + _buttonHeight;
+	_eW = _rightSideWidth - _buffer*2;
+	_eH = 7;
+	
+	draw_sprite_stretched(spr_divider, 0, _eX, _eY, _eW, _eH);
 	
 	// Bottom panel vars (moved outside the crafting section for reusability)
 	var _bottomStartY = _startY + _buttonHeight + _smallBuffer*2 + _buffer; // Start of GUI below the section tabs
@@ -380,23 +390,131 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 		var _invStartX = _rightSideStartX + _rightSideWidth/2 - _invCellSize/2 + _buffer*3;
 		var _invStartY = _bottomStartY + _buffer;
 		
+		// Draw a different background for the inventory
+		draw_gui_background(_invStartX, _invStartY, _invCellSize, _invCellSize, true);
+		
 		// Draw the inventory in the middle of the right section
 		draw_inventory(global.research_inventory, 
 					   _invStartX, _invStartY, 
-					   _invCellSize, _invCellSize, _invCellSize, 1, 1, true);
+					   _invCellSize, _invCellSize, _invCellSize, 1, 1, false);
 		
 		// Button vars
 		_buttonWidth = 140;
 		_buttonHeight = 40;
 		
-		// Draw the button
+		// Draw the research button
 		draw_gui_button(_invStartX - _buttonWidth - _buffer*2, _invStartY + _invCellSize/2 - _buttonHeight/2, 
 						_buttonWidth, _buttonHeight, "Research!");
 						
+		// Recipe section vars
+		var _secondBottomStartY = _invStartY + _invCellSize + _buffer;
+		var _secondBottomHeight = _bottomPanelHeight - _buffer*2 - _invCellSize;
 		
+		// Draw the sub GUI for all the recipes
+		draw_gui_sub_gui(_rightSideStartX + _smallBuffer, _secondBottomStartY,
+						 _rightSideWidth - _smallBuffer * 2, _secondBottomHeight);
+						 
+		// Draw the recipes
+		#region draw the recipes 
+		
+		// Useful vars
+		var _reqWidth = 20;
+		var _recipe;
+		
+		// The total amount of recipes that haven't been confirmed yet
+		var _recipeLength = ds_list_size(global.recipes_that_need_confirmation) + ds_list_size(global.researchable_recipes);
+		
+		// Loop through every recipe
+		for (var i = 0; i < _recipeLength; i++) {
+			
+			// Calculate the position to draw the next recupe
+			_eX = _rightSideStartX + (_reqWidth + _smallBuffer)*i + _buffer;
+			
+			// Start by drawing the recipes that need confirmation, then draw
+			// the unfinished recipes
+			if (i < ds_list_size(global.recipes_that_need_confirmation)) {
+				
+				// Get the recipe
+				_recipe = ds_list_find_value(global.recipes_that_need_confirmation, i)
+				
+				// Draw the recipe
+				draw_recipe_requirements(_eX, _secondBottomStartY + _smallBuffer*2,
+									 _reqWidth, _recipe);
+			} else {
+				
+				// Get the recipe (subtracting the i value from the other array in order to index properly)
+				_recipe = ds_list_find_value(global.researchable_recipes, i-ds_list_size(global.recipes_that_need_confirmation));
+				
+				// Draw the recipe
+				draw_recipe_requirements(_eX, _secondBottomStartY + _smallBuffer*2,
+									 _reqWidth, _recipe);
+			}
+		}
+		
+		#endregion draw the recipes
 	}
 	
+}
+
+// Used in gui_draw_research_crafting to draw the individual recipes that can be crafted
+function draw_recipe_requirements(_startX, _startY, _width, _recipe) {
 	
+	/*
+	+-+
+	+-+ <-- Item to get
+	
+	+-+
+	+-+ <- Requirement
+	+-+
+	+-+ <- Requirement (Requirements that have been met have a green background)
+	
+	*/
+	
+	var _itemToGet = _recipe.get_item();
+	var _requirements = _recipe.get_requirements();
+	var _unlockable = _recipe.is_unlockable();
+	
+	// Draw the item to get on the top
+	
+	// Turn green if unlockable, otherwise gray
+	if (_unlockable)
+		draw_set_color(c_green);
+	else
+		draw_set_color(c_dkgray);
+	
+	// Draw backdrop
+	draw_roundrect(_startX, _startY, _startX + _width, _startY + _width, false);
+	
+	// Draw the item sprite
+	draw_set_color(-1);
+	var _sprite = get_item_data_from_enum(_itemToGet, "sprite");
+	draw_sprite_stretched(_sprite, 0, _startX, _startY, _width, _width);
+	
+	
+	var _buffer = 5;
+	
+	// Draw all the remaining item requirements
+	// Items that are already unlocked will be green, otherwise, they will be gray
+	for (var i = 0; i < array_length(_requirements); i++) {
+		var _requirement = _requirements[i];
+		
+		// Set color based on research status
+		if (item_already_researched(_requirement))
+			draw_set_color(c_green);
+		else
+			draw_set_color(c_dkgray);
+			
+		// Draw background
+		var _elementY = _startY + _width + _buffer + _width*i; // Adds a spacer between the item to get 
+															   // and the required items
+		draw_roundrect(_startX, _elementY,
+					   _startX + _width, _elementY + _width, false);
+		
+		// Draw the required item
+		draw_set_color(-1);
+		_sprite = get_item_data_from_enum(_requirement, "sprite");
+		draw_sprite_stretched(_sprite, 0, _startX, _elementY, _width, _width);
+	}
 }
 
 function gui_draw_person_profile(_personId) {

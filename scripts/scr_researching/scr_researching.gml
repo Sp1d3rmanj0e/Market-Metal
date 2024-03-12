@@ -4,6 +4,12 @@ global.recipes_that_need_confirmation = ds_list_create();
 global.crafting_recipes = ds_list_create();
 global.research_inventory = create_inventory(1);
 
+function load_recipes_into_game() {
+	create_recipe(ITEM.WEAPONS, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
+	create_recipe(ITEM.PLEXIGLASS, [ITEM.GLASS, ITEM.DIAMOND], [[],[],[]]);
+	create_recipe(ITEM.ARROWS, [ITEM.FEATHERS, ITEM.WOOD], [[],[],[]]);
+}
+
 function create_recipe(_item, _itemRequirements, _recipe) {
 	ds_list_add(global.researchable_recipes, new item_recipe(_item, _itemRequirements, _recipe));
 }

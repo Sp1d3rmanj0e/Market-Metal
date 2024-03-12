@@ -6,3 +6,5 @@
 
 slider_1_mouse = 0;
 slider_1_val = 0;
+
+view_set_visible(1, false);
