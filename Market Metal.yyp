@@ -299,6 +299,7 @@
     {"id":{"name":"spr_old_tree","path":"sprites/spr_old_tree/spr_old_tree.yy",},"order":6,},
     {"id":{"name":"spr_shallow_ocean","path":"sprites/spr_shallow_ocean/spr_shallow_ocean.yy",},"order":15,},
     {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},"order":0,},
+    {"id":{"name":"rm_titleScreen","path":"rooms/rm_titleScreen/rm_titleScreen.yy",},"order":5,},
   ],
   "Options": [
     {"name":"Linux","path":"options/linux/options_linux.yy",},
@@ -327,6 +328,7 @@
     {"roomId":{"name":"rm_measurements","path":"rooms/rm_measurements/rm_measurements.yy",},},
     {"roomId":{"name":"rm_playerDemo","path":"rooms/rm_playerDemo/rm_playerDemo.yy",},},
     {"roomId":{"name":"rm_credits","path":"rooms/rm_credits/rm_credits.yy",},},
+    {"roomId":{"name":"rm_titleScreen","path":"rooms/rm_titleScreen/rm_titleScreen.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Animation Curves","folderPath":"folders/Animation Curves.yy","order":9,},
