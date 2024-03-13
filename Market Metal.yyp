@@ -324,11 +324,11 @@
   },
   "RoomOrderNodes": [
     {"roomId":{"name":"rm_init","path":"rooms/rm_init/rm_init.yy",},},
+    {"roomId":{"name":"rm_titleScreen","path":"rooms/rm_titleScreen/rm_titleScreen.yy",},},
     {"roomId":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},},
     {"roomId":{"name":"rm_measurements","path":"rooms/rm_measurements/rm_measurements.yy",},},
     {"roomId":{"name":"rm_playerDemo","path":"rooms/rm_playerDemo/rm_playerDemo.yy",},},
     {"roomId":{"name":"rm_credits","path":"rooms/rm_credits/rm_credits.yy",},},
-    {"roomId":{"name":"rm_titleScreen","path":"rooms/rm_titleScreen/rm_titleScreen.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Animation Curves","folderPath":"folders/Animation Curves.yy","order":9,},
