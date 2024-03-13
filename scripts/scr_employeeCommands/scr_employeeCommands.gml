@@ -3,7 +3,11 @@
 
 // Returns true if the bot is within range of the target
 function too_far_from_target(_id) {
-	if (distance_to_object(_id) > walk_speed)
+	
+	var _dist = distance_to_object(_id);
+	//log("Distance to: " + string(_id) + " is" + string(_dist) + " and walk speed is: " + string(walk_speed));
+	
+	if (_dist >= walk_speed)
 		return true;
 	return false;
 }
@@ -228,7 +232,7 @@ function sit_down(_target) {
 // 2) If close to the target, complete the task.  Otherwise, continue
 //	  moving toward the target
 function move_to_object(_id) {
-
+	
 	// Unsit if sitting
 	if (is_sitting) {
 		is_sitting = false;
@@ -252,25 +256,26 @@ function move_to_object(_id) {
 	
 	
 	// Finish objective if close to target
-	if (!too_far_from_target(_id))
+	if (!too_far_from_target(_id)) {
 		return task_finished();
+	} else {
+	}
 	
 	// When outdoors, movement is 2d.  When indoors, movement is 1d
 	if (is_outdoors) {
 		
 		// Move towards target
 		var _directionToObject = point_direction(x, y, _id.x, _id.y);
-	
+		
 		var _moveX = lengthdir_x(1, _directionToObject);
 		var _moveY = lengthdir_y(1, _directionToObject);
-	
+		
 		x_off += _moveX * walk_speed;
 		y_off += _moveY * walk_speed;
-	
+		
 		return task_not_finished();
 	} else {
-		x += sign(_id.x - x) * walk_speed;
-		
+		x += sign(_id.x - x) * walk_speed;	
 		return task_not_finished();
 	}
 }

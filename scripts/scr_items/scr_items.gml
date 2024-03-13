@@ -90,26 +90,26 @@ function get_item_data_from_enum(_enum, _dataRequested) {
 		case ITEM.ELECTRICAL_PARTS: _itemPackage = ["Electrical Parts", spr_mechanical_parts]; break;
 		
 		// SURVIVAL
-		case ITEM.WATER: _itemPackage = ["Water", spr_itemError]; break;
-		case ITEM.VEGETABLES: _itemPackage = ["Vegetables", spr_food]; break;
+		case ITEM.WATER: _itemPackage = ["Water", spr_water_item]; break;
+		case ITEM.VEGETABLES: _itemPackage = ["Vegetables", spr_veggie_item]; break;
 		case ITEM.MEAT: _itemPackage = ["Meat", spr_meat_item]; break;
 		
 		// HEAT/COLD MANAGEMENT
 		case ITEM.WOOL: _itemPackage = ["Wool", spr_itemError]; break;
-		case ITEM.AIR_CONDITIONING: _itemPackage = ["Air Conditioning", spr_itemError]; break;
+		case ITEM.AIR_CONDITIONING: _itemPackage = ["Air Conditioning", spr_AC_item]; break;
 
 		// FUEL
 		case ITEM.COAL: _itemPackage = ["Coal", spr_coal_item]; break;
-		case ITEM.FOLIAGE: _itemPackage = ["Foliage", spr_itemError]; break;
+		case ITEM.FOLIAGE: _itemPackage = ["Foliage", spr_foliage_item]; break;
 
 		// COMBAT
 		case ITEM.ARMOUR: _itemPackage = ["Armour", spr_itemError]; break;
-		case ITEM.HEALING_SALVE: _itemPackage = ["Healing Salve", spr_itemError]; break;
+		case ITEM.HEALING_SALVE: _itemPackage = ["Healing Salve", spr_healing_salve_item]; break;
 		case ITEM.WEAPONS: _itemPackage = ["Weapons", spr_itemError]; break;
 		case ITEM.MAGNESIUM: _itemPackage = ["Magnesium", spr_magnesium_item]; break;
 		case ITEM.FEATHERS: _itemPackage = ["Feathers", spr_feather_item]; break;
-		case ITEM.BOWS: _itemPackage = ["Bow", spr_itemError]; break;
-		case ITEM.ARROWS: _itemPackage = ["Arrows", spr_itemError]; break;
+		case ITEM.BOWS: _itemPackage = ["Bow", spr_bow_item]; break;
+		case ITEM.ARROWS: _itemPackage = ["Arrows", spr_arrow_item]; break;
 
 		// CURRENCY
 		case ITEM.COINS: _itemPackage = ["Coins", spr_coin]; break;

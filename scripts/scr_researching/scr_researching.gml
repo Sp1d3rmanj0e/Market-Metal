@@ -4,6 +4,12 @@ global.recipes_that_need_confirmation = ds_list_create();
 global.crafting_recipes = ds_list_create();
 global.research_inventory = create_inventory(1);
 
+function load_recipes_into_game() {
+	create_recipe(ITEM.WEAPONS, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
+	create_recipe(ITEM.PLEXIGLASS, [ITEM.GLASS, ITEM.DIAMOND], [[],[],[]]);
+	create_recipe(ITEM.ARROWS, [ITEM.FEATHERS, ITEM.WOOD], [[],[],[]]);
+}
+
 function create_recipe(_item, _itemRequirements, _recipe) {
 	ds_list_add(global.researchable_recipes, new item_recipe(_item, _itemRequirements, _recipe));
 }
@@ -105,6 +111,8 @@ function item_already_researched(_itemEnum) {
 /// @param _itemEnum - the item enum to add to the recipe list
 function research_item(_itemEnum) {
 	
+	log("researching item");
+	
 	// Check to see if the item already is researched
 	if (!item_already_researched(_itemEnum)) {
 	
@@ -119,7 +127,9 @@ function research_item(_itemEnum) {
 		
 			// Tell the recipe that a new item got researched
 			_recipe.new_item_researched(_itemEnum);
-		
+			
+			log("Told recipe: " + string(_recipe) + " of the new research!");
+			
 			// Check to see if the recipe is now complete.  If so, move it
 			// to the recipes_that_need_confirmation array
 			if (_recipe.is_unlockable()) {
