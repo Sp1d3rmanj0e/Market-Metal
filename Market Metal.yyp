@@ -15,6 +15,7 @@
     {"id":{"name":"spr_gold_item","path":"sprites/spr_gold_item/spr_gold_item.yy",},"order":3,},
     {"id":{"name":"spr_burnt_tree","path":"sprites/spr_burnt_tree/spr_burnt_tree.yy",},"order":0,},
     {"id":{"name":"spr_arrow_item","path":"sprites/spr_arrow_item/spr_arrow_item.yy",},"order":19,},
+    {"id":{"name":"spr_id_card","path":"sprites/spr_id_card/spr_id_card.yy",},"order":11,},
     {"id":{"name":"spr_mid_ocean","path":"sprites/spr_mid_ocean/spr_mid_ocean.yy",},"order":10,},
     {"id":{"name":"spr_smoke_3","path":"sprites/spr_smoke_3/spr_smoke_3.yy",},"order":3,},
     {"id":{"name":"spr_maple_forest","path":"sprites/spr_maple_forest/spr_maple_forest.yy",},"order":8,},
