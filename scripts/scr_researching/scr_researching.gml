@@ -34,7 +34,15 @@ function item_recipe(_item, _itemRequirements, _recipe) constructor {
 	num_items_needed_to_unlock = array_length(item_reqs);
 	
 	focus = false;
+	selected = false;
 	unlockable = false;
+	
+	// Variables that get updated after every draw step
+	// (used for collisions)
+	x = 0;
+	y = 0;
+	width = 0;
+	height = 0;
 	
 	static get_item = function() {
 		return item_to_craft;
@@ -60,13 +68,52 @@ function item_recipe(_item, _itemRequirements, _recipe) constructor {
 		focus = false;
 	}
 	
+	static get_focus = function() {
+		return focus;
+	}
+	
+	static set_selected = function() {
+		selected = true;
+		focus = false;
+	}
+	
+	static reset_selected = function() {
+		selected = false;
+	}
+	
+	static get_selected = function() {
+		return selected;
+	}
+	
 	static draw = function(_x, _y, _width, _height) {
+		
+		// Update these variables when being drawn
+		// for collision purposes
+		x = _x;
+		y = _y;
+		width = _width;
+		height = _height;
 		
 		// Draw the recipe
 		draw_set_color(c_white);
+		
+		// Draw the sprite with the backdrop
 		draw_rectangle(_x, _y, _x + _width, _y + _height, false);
 		draw_sprite_stretched(get_item_data_from_enum(item_to_craft, "sprite"), 0, _x, _y, _width, _height);
 		draw_set_color(-1);
+		
+		// Check to see if the recipe should be focused
+		if (!focus) {
+			if (point_in_rectangle(mouse_x, mouse_y, _x, _y, _x + _width, _y + _width)
+			and mouse_check_button_pressed(mb_left)) {
+				set_focus();
+				mouse_clear(mb_left);
+			}
+			
+		// Check to see if the recipe should be unfocused
+		} else if (mouse_check_button_released(mb_left)) { 
+			reset_focus();
+		}
 	}
 	
 	/// @description - this function is called any time a new item is researched.  If
