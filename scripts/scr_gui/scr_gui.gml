@@ -234,7 +234,11 @@ function gui_draw_cart_upgrade(_cartInvId, _playerInvId, _cartId) {
 				   _invCellSize*4, _invCellSize * 2, _invCellSize, 2, 4, true);
 }
 
-function gui_draw_research_crafting(_playerInvId, _crafting = true) {
+/// @param _playerInvId - inventory id of the player
+/// @param _crafting - decides which tab to show, when true, shows the crafting inventory, when false, shows research
+/// @param _craftingInventoryId - a 15-slot inventory used for crafting inputs
+/// @param _craftingResultInventoryId - a 1-slot inventory used for crafting outputs
+function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInventoryId, _craftingResultId) {
 	
 	/*
 	
@@ -329,10 +333,10 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 		var _bottomPanelWidth = _rightSideWidth/2 - _smallBuffer*2; // The width of a panel (there are 2 panels)
 		
 		// Draw the recipes panel to the bottom left of the button
-		_eX = _rightSideStartX + _rightSideWidth/2 - _bottomPanelWidth - _smallBuffer;
-		_eY = _bottomStartY;
+		var _recipePanelX = _rightSideStartX + _rightSideWidth/2 - _bottomPanelWidth - _smallBuffer;
+		var _recipePanelY = _bottomStartY;
 		
-		draw_gui_sub_gui(_eX, _eY, _bottomPanelWidth, _bottomPanelHeight);
+		draw_gui_sub_gui(_recipePanelX, _recipePanelY, _bottomPanelWidth, _bottomPanelHeight);
 		
 		// Draw the "CRAFT!" button
 		_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
@@ -342,7 +346,130 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 		
 		// Draw the crafting menu!
 		_eY = _bottomStartY + _buttonHeight + _smallBuffer;
-		draw_gui_sub_gui(_eX,  _eY, _bottomPanelWidth, _bottomPanelHeight - _smallBuffer - _buttonHeight)
+		var _craftingMenuHeight =  _bottomPanelHeight - _smallBuffer - _buttonHeight;
+		draw_gui_sub_gui(_eX,  _eY, _bottomPanelWidth, _craftingMenuHeight);
+		
+		// Adjust _eX, _eY, and both widths to better suit the content inside the subGUI
+		_buffer = 5; // Width of the gui border
+		_eX += _buffer;
+		_eY += _buffer;
+		_bottomPanelWidth -= _buffer*2;
+		_craftingMenuHeight -= _buffer*2;
+		
+		// Draw a tooltip over the crafting menu telling the user to place the recipe there
+		// (only if a recipe is being focused)
+		var _focusedRecipeID = get_if_a_recipe_is_focused(); // Returns -1 if no recipe is being focused
+		
+		if (_focusedRecipeID != -1) {
+			
+			// Draw a gray cover over the crafting menu
+			draw_set_color(c_gray);
+			draw_set_alpha(0.5);
+			draw_rectangle(_eX, _eY, _eX + _bottomPanelWidth, _eY + _craftingMenuHeight, false);
+		
+			// Draw a black outline around the crafting menu if the recipe is not yet over it,
+			// Draw a white outline if the recipe is over the crafting menu
+			if (point_in_rectangle(_focusedRecipeID.x, _focusedRecipeID.y, 
+								   _eX, _eY, _eX + _bottomPanelWidth, _eY + _craftingMenuHeight)) {
+				draw_set_color(c_white);		
+				
+				// If the left mouse button is released while over the crafting menu, select it
+				// Selecting it means that it will no longer be drawn while selected and instead will
+				// have it's data extracted to form a recipe on the crafting table
+				if (mouse_check_button_released(mb_left)
+				and (inventory_is_empty(_craftingInventoryId))) {
+					set_new_selected(_focusedRecipeID);
+				}
+			} else {
+				draw_set_color(c_black);
+			}
+			
+			draw_rectangle(_eX, _eY, _eX + _bottomPanelWidth, _eY + _craftingMenuHeight, true);
+			
+			// Draw text to tell the player to drop the recipe there
+			draw_set_halign(fa_center);
+			draw_set_valign(fa_middle);
+			
+			draw_text(_eX + _bottomPanelWidth/2, _eY + _craftingMenuHeight/2, "Place Recipe Here!");
+			
+			draw_set_halign(fa_left);
+			draw_set_valign(fa_top);
+		
+			draw_set_alpha(1);
+			draw_set_color(-1);
+		}
+		
+		// Crafting table vars cont.
+		_invCellSize = min((_bottomPanelWidth)/3, (_craftingMenuHeight)/4);
+		
+		// If a recipe is selected, draw the recipe/inventory on the crafting table
+		var _selectedRecipeID = get_current_selected_recipe()
+		
+		if (_selectedRecipeID != -1) {
+			draw_inventory(_craftingInventoryId, _eX, _eY,
+						   _bottomPanelWidth, _craftingMenuHeight,
+						   _invCellSize, 4, 3, false);
+			
+			// Adjust vars for the cancel button
+			_eX += _bottomPanelWidth;
+			_eY += _craftingMenuHeight;
+			var _cancelButtonRadius = 25;
+		
+			// Give the player the ability to cancel crafting with a button
+			// Positioned in the bottom right
+			// Contains the sprite of the item that is currently being crafted
+			// When the mouse hovers over the icon, an x will appear
+			// When clicked, the recipe will be unselected (assuming the inventory is empty)
+			draw_set_color(c_black);
+			draw_circle(_eX, _eY, _cancelButtonRadius, false);
+		
+			// Coloristic flair by adding a second, white circle inside of the first black circle
+			draw_set_color(c_white);
+			draw_circle(_eX, _eY, _cancelButtonRadius-5, false);
+			
+			// Add vars for the content inside the circles
+			// we subtract the _cancelButtonRadius/2 from _eX and _eY because _eX and _eY were 
+			// the center points for the circle, but now we want them to the the top left and
+			// top right points for the circle
+			// _cBSX and _cBSY mean cancel button start x/y
+			var _cBSX = _eX - _cancelButtonRadius/2;
+			var _cBSY = _eY - _cancelButtonRadius/2;
+			
+			if (point_in_circle(mouse_x, mouse_y, _eX, _eY, _cancelButtonRadius)) {
+				
+				// Draw an X, telling the player they can cancel the craft
+				draw_set_color(c_red);
+				
+				// TL -> BR
+				draw_line_width(_cBSX, _cBSY, _cBSX + _cancelButtonRadius, _cBSY + _cancelButtonRadius, 5);
+				
+				// TR -> BL
+				draw_line_width(_cBSX + _cancelButtonRadius, _cBSY, _cBSX, _cBSY + _cancelButtonRadius, 5);
+				
+				// Deselect the current recipe if the cancel button is pressed
+				// (assuming the inventory is empty)
+				if (mouse_check_button_pressed(mb_left)) {
+				mouse_clear(mb_left);
+					if (inventory_is_empty(_craftingInventoryId)) {
+						_selectedRecipeID.reset_selected();
+					}
+				}
+				
+			} else {
+				
+				// Draw the item that you are actively crafting
+				var _selectedRecipeSprite = get_item_data_from_enum(_selectedRecipeID.get_item(), "sprite");
+				draw_sprite_stretched(_selectedRecipeSprite, 0, 
+									  _cBSX, _cBSY, _cancelButtonRadius, _cancelButtonRadius);
+			}
+				
+			draw_set_color(-1);
+
+		}
+		// Draw the recipes to to on top of the recipes panel
+		// (Done last so that the items will appear on top)
+		draw_all_recipes(_recipePanelX + 10, _recipePanelY+ 10, _bottomPanelWidth - 20, _bottomPanelHeight - 10, 50, 50, 3);
+	
 	} else { // Researching
 		
 		/*

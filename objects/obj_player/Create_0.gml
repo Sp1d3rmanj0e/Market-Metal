@@ -3,6 +3,8 @@
 
 walk_speed = 2;
 inventory_id = create_inventory(8);
+add_item(inventory_id, 0, ITEM.IRON, "Iron", spr_iron_item, 1, "it's just iron");
+add_item(inventory_id, 1, ITEM.WOOD, "Wood", spr_wood_item, 1, "it's just wood");
 focusing_camera = false;
 
 function focus_camera(_cartId) {
