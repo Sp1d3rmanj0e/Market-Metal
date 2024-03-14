@@ -8,6 +8,10 @@ function load_recipes_into_game() {
 	create_recipe(ITEM.WEAPONS, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
 	create_recipe(ITEM.PLEXIGLASS, [ITEM.GLASS, ITEM.DIAMOND], [[],[],[]]);
 	create_recipe(ITEM.ARROWS, [ITEM.FEATHERS, ITEM.WOOD], [[],[],[]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD], [[],[],[]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD], [[],[],[]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
 }
 
 function create_recipe(_item, _itemRequirements, _recipe) {
@@ -29,6 +33,7 @@ function item_recipe(_item, _itemRequirements, _recipe) constructor {
 	
 	num_items_needed_to_unlock = array_length(item_reqs);
 	
+	focus = false;
 	unlockable = false;
 	
 	static get_item = function() {
@@ -45,6 +50,23 @@ function item_recipe(_item, _itemRequirements, _recipe) constructor {
 	
 	static is_unlockable = function() {
 		return unlockable;
+	}
+	
+	static set_focus = function() {
+		focus = true;
+	}
+	
+	static reset_focus = function() {
+		focus = false;
+	}
+	
+	static draw = function(_x, _y, _width, _height) {
+		
+		// Draw the recipe
+		draw_set_color(c_white);
+		draw_rectangle(_x, _y, _x + _width, _y + _height, false);
+		draw_sprite_stretched(get_item_data_from_enum(item_to_craft, "sprite"), 0, _x, _y, _width, _height);
+		draw_set_color(-1);
 	}
 	
 	/// @description - this function is called any time a new item is researched.  If
@@ -133,10 +155,13 @@ function research_item(_itemEnum) {
 			// Check to see if the recipe is now complete.  If so, move it
 			// to the recipes_that_need_confirmation array
 			if (_recipe.is_unlockable()) {
-			
+				
+				log("recipe is unlockable!");
+				
 				// Remove the recipe from the old ds_list
 				var _index = ds_list_find_index(global.researchable_recipes, _recipe);
 				ds_list_delete(global.researchable_recipes, _index);
+				i--;
 			
 				// Add the recipe to the new ds_list
 				ds_list_add(global.recipes_that_need_confirmation, _recipe);

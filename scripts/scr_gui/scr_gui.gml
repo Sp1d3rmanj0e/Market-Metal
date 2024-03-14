@@ -334,6 +334,9 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true) {
 		
 		draw_gui_sub_gui(_eX, _eY, _bottomPanelWidth, _bottomPanelHeight);
 		
+		// Draw the recipes to to on top of the recipes panel
+		draw_all_recipes(_eX + 10, _eY + 10, _bottomPanelWidth - 20, _bottomPanelHeight - 10, 50, 50, 3);
+		
 		// Draw the "CRAFT!" button
 		_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
 		_eY = _bottomStartY;
