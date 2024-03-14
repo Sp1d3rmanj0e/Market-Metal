@@ -29,8 +29,18 @@ function inventory_return_picked_up_item(_packetId) {
 	}
 }
 
-// Draws the inventory to the screen
-function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns, _drawBack) {
+/// @description - Draws a given inventory to the screen
+/// @param _inventoryId - the id of the inventory to draw.  An inventory can be created with create_inventory()
+/// @param _startX, _startY - the top left origin point where the inventory will start (excluding border width if _drawBack is true)
+/// @param _width, _height - the bounding box for the inventory
+/// @param _boxSize - how big each inventory box is
+/// @param _numRows - the number of rows the inventory has
+/// @param _numColumns - the number of columns the inventory has
+/// @param _drawBack - whether to draw the default GUI background behind the inventory or not
+/// @param _expectedContents - organized by [row][column], stores a replica of the expected values within the inventory.  If unfilled, won't do anything
+/// @returns true if the inventory perfectly matches the expected contents, false if not, if _expectedContents is -1, it will always return true
+function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns, _drawBack, 
+						_expectedContents = -1) {
 		
 	if (_drawBack)
 		draw_gui_background(_startX, _startY, _width, _height);
@@ -47,15 +57,28 @@ function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSiz
 	_startX = _midX - _halfBoxesWidth;
 	_startY = _midY - _halfBoxesHeight;
 	
+	// Stores whether the inventory is complete or not.  If at any point, a box does not have the correct
+	// value, then this should be false by the end of the for loop
+	var _allValuesAreCorrect = true;
+	
 	for (var _column = 0; _column < _numColumns; _column++) {
 	for (var _row = 0; _row < _numRows; _row++) {
 		
+		var _expectedItem = -1;
+		
+		if (_expectedContents != -1) {
+			_expectedItem = _expectedContents[_row][_column];
+		}
+		
 		// Draw a slot in the inventory
-		draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum);
+		if(!draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem))
+			_allValuesAreCorrect = false;
 		// Increase this number to tell the box which slot in the inventory it represents
 		_inventorySlotNum++;
 	}}
 	
+	// returns if all expected inventory values are correct
+	return _allValuesAreCorrect;
 }
 
 /// @returns A map containing the item's information
@@ -149,7 +172,13 @@ function pick_up_item(_inventoryId, _inventorySlotNum, _itemMap) {
 	log("packet collected! (made global var)");
 }
 
-function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum) {
+function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem = -1) {
+	
+	// Draw the expected item if there is one
+	if (_expectedItem != ITEM.NONE) and (_expectedItem != -1) {
+		var _itemSprite = get_item_data_from_enum(_expectedItem, "sprite");
+		draw_sprite_stretched_ext(_itemSprite, 0, _topLeftX, _topLeftY, _boxSize, _boxSize, c_gray, 0.5);
+	}
 	
 	var _mouseInBox = mouse_in_box(_topLeftX, _topLeftY, _boxSize);
 	
@@ -219,6 +248,17 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 	
 		draw_set_halign(fa_left);
 		draw_set_valign(fa_top);
+		
+		// If the item  that is currently in the inventory is not the _expectedItem, then
+		// inform the user that the item is in the incorrect spot by making the item red
+		
+		// This is where the box returns true or false
+		if (_expectedItem != -1) and (_itemId != _expectedItem){
+			draw_sprite_stretched_ext(_itemSprite, 0, _topLeftX, _topLeftY, _boxSize, _boxSize, c_red, 0.75);
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
 

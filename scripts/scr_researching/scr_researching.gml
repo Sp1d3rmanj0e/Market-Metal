@@ -5,13 +5,41 @@ global.crafting_recipes = ds_list_create();
 global.research_inventory = create_inventory(1);
 
 function load_recipes_into_game() {
-	create_recipe(ITEM.WEAPONS, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
-	create_recipe(ITEM.PLEXIGLASS, [ITEM.GLASS, ITEM.DIAMOND], [[],[],[]]);
-	create_recipe(ITEM.ARROWS, [ITEM.FEATHERS, ITEM.WOOD], [[],[],[]]);
-	create_recipe(ITEM.STONE, [ITEM.WOOD], [[],[],[]]);
-	create_recipe(ITEM.STONE, [ITEM.WOOD], [[],[],[]]);
-	create_recipe(ITEM.STONE, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
-	create_recipe(ITEM.STONE, [ITEM.WOOD, ITEM.IRON], [[],[],[]]);
+	create_recipe(ITEM.WEAPONS, [ITEM.WOOD, ITEM.IRON], 
+		[[ITEM.FOLIAGE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.FOLIAGE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+	     [ITEM.NONE, ITEM.NONE, ITEM.NONE]]);
+	create_recipe(ITEM.PLEXIGLASS, [ITEM.GLASS, ITEM.DIAMOND], 
+		[[ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+	     [ITEM.NONE, ITEM.NONE, ITEM.NONE]]);
+	create_recipe(ITEM.ARROWS, [ITEM.FEATHERS, ITEM.WOOD], 
+		[[ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+	     [ITEM.NONE, ITEM.NONE, ITEM.NONE]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD], 
+		[[ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.IRON, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+	     [ITEM.NONE, ITEM.NONE, ITEM.NONE]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD], 
+		[[ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+	     [ITEM.NONE, ITEM.NONE, ITEM.NONE]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD, ITEM.IRON], 
+		[[ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+	     [ITEM.NONE, ITEM.NONE, ITEM.NONE]]);
+	create_recipe(ITEM.STONE, [ITEM.WOOD, ITEM.IRON], 
+		[[ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+		 [ITEM.NONE, ITEM.NONE, ITEM.NONE],
+	     [ITEM.NONE, ITEM.NONE, ITEM.NONE]]);
 }
 
 function create_recipe(_item, _itemRequirements, _recipe) {
@@ -23,8 +51,9 @@ function create_recipe(_item, _itemRequirements, _recipe) {
 /// @param _item - the item enum that can be crafted as a result of this recipe
 /// @param _itemRequirements - an array of item enums that must all be researched
 ///							   before the recipe becomes unlocked
-/// @param _recipe - a 2d array consisting of 5 rows and 3 columns, containing the 
+/// @param _recipe - a 2d array consisting of 4 rows and 3 columns, containing the 
 ///					 items in their respective slots on how to craft the given item
+///					 organized like so [row][column]
 function item_recipe(_item, _itemRequirements, _recipe) constructor {
 	
 	item_to_craft  = _item;

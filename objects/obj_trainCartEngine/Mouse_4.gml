@@ -8,6 +8,7 @@ if (!instance_exists(crafting_research_id)) {
 			argument_1 : obj_player.inventory_id,
 			argument_2 : true,
 			argument_3 : crafting_inventory_id,
-			argument_4 : crafting_result_inventory_id
+			argument_4 : crafting_result_inventory_id,
+			argument_5 : false
 		});
 }

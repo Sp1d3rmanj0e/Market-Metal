@@ -238,8 +238,9 @@ function gui_draw_cart_upgrade(_cartInvId, _playerInvId, _cartId) {
 /// @param _crafting - decides which tab to show, when true, shows the crafting inventory, when false, shows research
 /// @param _craftingInventoryId - a 15-slot inventory used for crafting inputs
 /// @param _craftingResultInventoryId - a 1-slot inventory used for crafting outputs
-function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInventoryId, _craftingResultId) {
+function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInventoryId, _craftingResultInventoryId, _showCraftingResult) {
 	
+	#region diagram
 	/*
 	
 		+-----+ +-------+
@@ -251,6 +252,9 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 		^ - Inventory ^
 					  | - Crafting/Research GUI
 	*/
+	#endregion diagram
+	
+	#region initial variables
 	
 	// Reusable variables (ElementX and ElementY, for cleaner code)
 	var _eX, _eY, _eW, _eH;
@@ -264,10 +268,14 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 	var _width = camera_get_view_width(get_side_camera())  - _buffer*2;
 	var _height = camera_get_view_height(get_side_camera())  - _buffer*2;
 	
-	// Draw the Inventory
+	#endregion initial variables
+	
+	// Draw the Player Inventory
 	draw_inventory(_playerInvId, _startX, _startY, 
 				   _invCellSize*2, _height,
 				   _invCellSize, 4, 2, true);
+	
+	#region right side background
 	
 	// Simplify variables with more specific ones
 	var _rightSideWidth = _width - _invCellSize*2 - _buffer*2;
@@ -289,6 +297,10 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 	// Draw the right side background
 	draw_gui_background(_rightSideStartX, _startY, _rightSideWidth, _height);
 	
+	#endregion right side background
+	
+	#region transitioing tabs/buttons
+	
 	// Button Vars
 	var _smallBuffer = _buffer/4;
 	var _buttonOffset = 20;
@@ -298,7 +310,7 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 	
 	// Draw the tabs to switch between crafting and researching
 	
-	// Crafting tab
+	// Crafting tab button
 	_eX = _rightSideStartX + _rightSideWidth/2 - _smallBuffer - _buttonWidth;
 	_eY = _startY + _smallBuffer;
 	
@@ -307,7 +319,7 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 		argument_2 = true;
 	}
 	
-	// Researching Tab
+	// Researching Tab button
 	_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
 	_eY = _startY + _smallBuffer;
 	
@@ -324,27 +336,24 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 	
 	draw_sprite_stretched(spr_divider, 0, _eX, _eY, _eW, _eH);
 	
+	#endregion transtitioning tabs/buttons
+	
 	// Bottom panel vars (moved outside the crafting section for reusability)
 	var _bottomStartY = _startY + _buttonHeight + _smallBuffer*2 + _buffer; // Start of GUI below the section tabs
 	var _bottomPanelHeight = _height - (_bottomStartY - _startY) - _smallBuffer; // The remaining height we can work with
 	
 	if (_crafting) {
 		
+		// Vars
 		var _bottomPanelWidth = _rightSideWidth/2 - _smallBuffer*2; // The width of a panel (there are 2 panels)
 		
 		// Draw the recipes panel to the bottom left of the button
 		var _recipePanelX = _rightSideStartX + _rightSideWidth/2 - _bottomPanelWidth - _smallBuffer;
 		var _recipePanelY = _bottomStartY;
-		
 		draw_gui_sub_gui(_recipePanelX, _recipePanelY, _bottomPanelWidth, _bottomPanelHeight);
 		
-		// Draw the "CRAFT!" button
-		_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
-		_eY = _bottomStartY;
-		
-		draw_gui_button(_eX, _eY, _bottomPanelWidth, _buttonHeight, "CRAFT!");
-		
 		// Draw the crafting menu!
+		_eX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
 		_eY = _bottomStartY + _buttonHeight + _smallBuffer;
 		var _craftingMenuHeight =  _bottomPanelHeight - _smallBuffer - _buttonHeight;
 		draw_gui_sub_gui(_eX,  _eY, _bottomPanelWidth, _craftingMenuHeight);
@@ -360,6 +369,7 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 		// (only if a recipe is being focused)
 		var _focusedRecipeID = get_if_a_recipe_is_focused(); // Returns -1 if no recipe is being focused
 		
+		// Recipe Selection
 		if (_focusedRecipeID != -1) {
 			
 			// Draw a gray cover over the crafting menu
@@ -402,13 +412,42 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 		// Crafting table vars cont.
 		_invCellSize = min((_bottomPanelWidth)/3, (_craftingMenuHeight)/4);
 		
-		// If a recipe is selected, draw the recipe/inventory on the crafting table
-		var _selectedRecipeID = get_current_selected_recipe()
+		#region draw recipe/inventory on the crafting table
 		
+		// If a recipe is selected, draw the recipe/inventory on the crafting table
+		var _selectedRecipeID = get_current_selected_recipe();
+		
+		// Stores whether the inventory has all the needed components and no unneeded components
+		// initialized here because if the inventory is actively showing the result and not the inventory,
+		// or a crafting recipe isn't selected at all,
+		// you shouldn't be able to craft anything
+		var _inventoryIsComplete = false;
+		
+		// Only do this section if there is a selected recipe
+		// Draws the crafting inventory
 		if (_selectedRecipeID != -1) {
-			draw_inventory(_craftingInventoryId, _eX, _eY,
-						   _bottomPanelWidth, _craftingMenuHeight,
-						   _invCellSize, 4, 3, false);
+			
+			// Extract the recipe instructions from the recipe
+			var _selectedRecipeExpectedContents = _selectedRecipeID.get_recipe();
+			
+			// Draw the crafting table with the expected contents within
+			// Returns true if the inventory has all required items and no extra items exist either
+			if (!_showCraftingResult) {
+				_inventoryIsComplete = draw_inventory(_craftingInventoryId, _eX, _eY,
+							   _bottomPanelWidth, _craftingMenuHeight,
+							   _invCellSize, 4, 3, false, _selectedRecipeExpectedContents);
+			} else {
+				
+				// Draw the crafting result
+				draw_inventory(_craftingResultInventoryId, _eX, _eY, _bottomPanelWidth, _craftingMenuHeight,
+							   _invCellSize, 1, 1, false, -1);
+							   
+				// If the crafting result is empty, then switch back to the normal crafting menu
+				if (inventory_is_empty(_craftingResultInventoryId))
+					argument_5 = false; // Go back to crafting table instead of crafting result
+			}
+			
+			#region cancel button
 			
 			// Adjust vars for the cancel button
 			_eX += _bottomPanelWidth;
@@ -464,8 +503,38 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 			}
 				
 			draw_set_color(-1);
+			
+			#endregion cancel button
 
 		}
+		
+		#endregion draw recipe/inventory on the crafting table
+		
+		#region "CRAFT!" button
+		
+		// Draw the "CRAFT!" button
+		var _craftButtonX = _rightSideStartX + _rightSideWidth/2 + _smallBuffer;
+		var _craftButtonY = _bottomStartY;
+		var _craftButtonWidth = _bottomPanelWidth + _buffer*2;
+		if (draw_gui_button(_craftButtonX, _craftButtonY, _craftButtonWidth, _buttonHeight, "CRAFT!")) {
+			
+			// If the button is pressed and the inventory has all the correct items, create the item
+			// and switch to the crafting result screen
+			if (_inventoryIsComplete) {
+				
+				var _craftedItemEnum = _selectedRecipeID.get_item();
+				var _craftedItemSprite = get_item_data_from_enum(_craftedItemEnum, "sprite");
+				var _craftedItemName = get_item_data_from_enum(_craftedItemEnum, "name");
+				
+				// Add the crafted item to the inventory result screen
+				add_item(_craftingResultInventoryId, 0, _selectedRecipeID.get_item(), _craftedItemName, _craftedItemSprite, 1, "dfdfsdf");
+				
+				argument_5 = true; // Switch to crafting result screen
+			}
+		}
+		
+		#endregion "CRAFT!" button
+		
 		// Draw the recipes to to on top of the recipes panel
 		// (Done last so that the items will appear on top)
 		draw_all_recipes(_recipePanelX + 10, _recipePanelY+ 10, _bottomPanelWidth - 20, _bottomPanelHeight - 10, 50, 50, 3);
