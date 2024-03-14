@@ -522,6 +522,7 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 			// and switch to the crafting result screen
 			if (_inventoryIsComplete) {
 				
+				// Extract craftable item details
 				var _craftedItemEnum = _selectedRecipeID.get_item();
 				var _craftedItemSprite = get_item_data_from_enum(_craftedItemEnum, "sprite");
 				var _craftedItemName = get_item_data_from_enum(_craftedItemEnum, "name");
@@ -530,6 +531,9 @@ function gui_draw_research_crafting(_playerInvId, _crafting = true, _craftingInv
 				add_item(_craftingResultInventoryId, 0, _selectedRecipeID.get_item(), _craftedItemName, _craftedItemSprite, 1, "dfdfsdf");
 				
 				argument_5 = true; // Switch to crafting result screen
+				
+				// Delete all current inventory items (as they are consumed in the crafting
+				inventory_clear(_craftingInventoryId);
 			}
 		}
 		

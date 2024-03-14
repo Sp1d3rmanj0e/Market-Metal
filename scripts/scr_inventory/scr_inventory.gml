@@ -71,8 +71,9 @@ function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSiz
 		}
 		
 		// Draw a slot in the inventory
-		if(!draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem))
-			_allValuesAreCorrect = false;
+		if(!draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem)) {
+			_allValuesAreCorrect = false; // Tell the system that the inventory is not perfectly filled yet
+		}
 		// Increase this number to tell the box which slot in the inventory it represents
 		_inventorySlotNum++;
 	}}
@@ -249,15 +250,29 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 		draw_set_halign(fa_left);
 		draw_set_valign(fa_top);
 		
-		// If the item  that is currently in the inventory is not the _expectedItem, then
-		// inform the user that the item is in the incorrect spot by making the item red
+		// Returns true if the box is holding the correct (expected) item (even if that expected = empty)
+		// Returns false if there is either no item when there should be or the wrong item in this slot
 		
-		// This is where the box returns true or false
-		if (_expectedItem != -1) and (_itemId != _expectedItem){
+		if (_expectedItem == -1)
+			return true;
+		else if (_itemId == _expectedItem)
+			return true;
+		else {
+			
+			// Draw an error sprite to tell the user the item is incorrect
 			draw_sprite_stretched_ext(_itemSprite, 0, _topLeftX, _topLeftY, _boxSize, _boxSize, c_red, 0.75);
 			return false;
-		} else {
+		}
+		
+	} else { // There is no item in the box currently
+		
+		// There is no item and there shouldn't be an item
+		if (_expectedItem == -1) or (_expectedItem == ITEM.NONE)
 			return true;
+		
+		// There is no item, but there should be an item
+		else {
+			return false;
 		}
 	}
 }
@@ -270,6 +285,12 @@ function mouse_in_box(_topLeftX, _topLeftY, _boxSize) {
 		_topLeftX, _topLeftY,
 		_topLeftX + _boxSize, 
 		_topLeftY + _boxSize);
+}
+
+function inventory_clear(_inventoryId) {
+	for (var i = 0; i < ds_grid_height(_inventoryId); i++) {
+		inventory_remove_item(_inventoryId, i);
+	}
 }
 
 // Default value for an unoccupied cell is 0, so if it is not 0, return True
