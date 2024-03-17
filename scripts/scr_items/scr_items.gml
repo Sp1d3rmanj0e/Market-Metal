@@ -45,7 +45,12 @@ enum ITEM {
 	ARROWS,
 	
 	// CURRENCY
-	COINS
+	COINS,
+	
+	// UPGRADES
+	UPG_HEALTH,
+	UPG_EFFICIENCY,
+	UPG_CAPACITY
 }
 
 function spawn_item_qty(_name, _enum, _qty) {
@@ -114,6 +119,11 @@ function get_item_data_from_enum(_enum, _dataRequested) {
 
 		// CURRENCY
 		case ITEM.COINS: _itemPackage = ["Coins", spr_coin]; break;
+		
+		// UPGRADES
+		case ITEM.UPG_HEALTH: _itemPackage = ["Health Upgrade", spr_itemError]; break;
+		case ITEM.UPG_EFFICIENCY: _itemPackage = ["Efficiency Upgrade", spr_itemError]; break;
+		case ITEM.UPG_CAPACITY: _itemPackage = ["Capacity Upgrade", spr_itemError]; break;
 		
 		default: _itemPackage = ["Error", spr_itemError];
 	}

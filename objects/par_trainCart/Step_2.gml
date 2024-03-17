@@ -1,4 +1,4 @@
-/// @description Moving the cart
+/// @description Moving the cart + upgrades
 
 
 // Detect if mouse is dragging it

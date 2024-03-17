@@ -786,6 +786,17 @@ function gui_draw_person_profile(_personId) {
 	The person targeted will be centered in the profile
 	Image slot in the top right
 	*/
+	
+	// Vars to signal the details of the card
+	var _startX = _personId.x;
+	var _startY = _personId.y;
+	var _width = sprite_get_width(spr_id_card);
+	var _height = sprite_get_height(spr_id_card);
+	
+	// Other vars
+	var _buffer = 10;
+	
+	draw_sprite(spr_id_card, 0, _startX, _startX);
 }
 
 enum GUI {

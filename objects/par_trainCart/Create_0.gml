@@ -4,6 +4,13 @@
 // side_cart_sprites - an array in the format [interior sprite, exterior sprite] for this specific cart
 // cart_index - an integer telling the cart which place along the ds_list it is
 
+#region upgradable stats
+
+// Health
+base_cart_health = cart_health;
+max_cart_health = cart_health;
+
+#endregion upgradable stats
 
 bogey_id = noone; // Stores the ids of the train bogey
 
@@ -32,9 +39,6 @@ if (cart_enum != CARTS.ENGINE) {
 		sprite_index : get_bogey_size(cart_enum)
 	});
 }
-
-cart_health = 100;
-max_cart_health = cart_health;
 
 instance_create_layer(bbox_right - 20, bbox_top + sprite_height/2, "Cart_Interactables", obj_upgradeTerminal,
 					  {
@@ -85,4 +89,9 @@ function find_valid_cart_insert(_x = mouse_x) {
 		return _cartIndex+1;
 	}
 	
+}
+
+function update_upgrades(_upgradePacket) {
+	
+	log(string(_upgradePacket));
 }

@@ -244,6 +244,7 @@
     {"id":{"name":"obj_trainThrottle","path":"objects/obj_trainThrottle/obj_trainThrottle.yy",},"order":5,},
     {"id":{"name":"spr_mechanical_parts_item","path":"sprites/spr_mechanical_parts_item/spr_mechanical_parts_item.yy",},"order":15,},
     {"id":{"name":"spr_cloud1","path":"sprites/spr_cloud1/spr_cloud1.yy",},"order":5,},
+    {"id":{"name":"scr_cartUpgrades","path":"scripts/scr_cartUpgrades/scr_cartUpgrades.yy",},"order":13,},
     {"id":{"name":"spr_palm_tree","path":"sprites/spr_palm_tree/spr_palm_tree.yy",},"order":5,},
     {"id":{"name":"Sprite146","path":"sprites/Sprite146/Sprite146.yy",},"order":31,},
     {"id":{"name":"spr_maple_tree","path":"sprites/spr_maple_tree/spr_maple_tree.yy",},"order":1,},

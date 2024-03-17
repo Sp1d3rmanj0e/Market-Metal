@@ -13,12 +13,9 @@ if (showing_upgrade_gui) {
 		argument_3 : parent_id
 	});
 	
-	with(obj_player) focus_camera(other.parent_id);
+	//with(obj_player) focus_camera(other.parent_id);
 	
 	//gui_draw_cart_upgrade(inventory_id, obj_player.inventory_id);
 } else {
-	if (instance_exists(gui_id))
-		instance_destroy(gui_id);
-	
-	with(obj_player) unfocus_camera();
+	//with(obj_player) unfocus_camera();
 }

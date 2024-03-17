@@ -1,8 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-var _healthPercent = cart_health/max_cart_health * 100;
-
 
 
 // Add tooltip to show player that their location is a valid spot
@@ -32,3 +30,6 @@ if (global.editingTrain and (clicked)) { // If editing the train
 		
 	}
 }
+
+draw_healthbar(bbox_left, bbox_bottom+5, bbox_right, bbox_bottom + 15, 
+	(cart_health/max_cart_health)*100, c_ltgray, c_red, c_green, 0, true, true);
