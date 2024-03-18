@@ -39,7 +39,11 @@ function update_upgrade_packet(_upgradePacket, _upgradeEnum) {
 	var _upgradeKey = upgrade_enum_to_string(_upgradeEnum);
 	var _upgradeBenefit = get_upgrade_benefit(_upgradeEnum);
 	
-	_upgradePacket[$ _upgradeKey] += _upgradeBenefit;
+	try {
+		_upgradePacket[$ _upgradeKey] += _upgradeBenefit;
+	} catch(e) {
+		log("invalid item in upgrade slot");
+	}
 	
 	return _upgradePacket;
 }
