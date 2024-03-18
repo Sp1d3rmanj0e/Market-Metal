@@ -15,7 +15,8 @@ if (is_outdoors) {
 
 
 if ((y > MAP_VIEW_Y) and (is_outdoors)) or ((y < MAP_VIEW_Y) and (!is_outdoors))
-	draw_self();
+	if (!global.activelyMovingCart)
+		draw_self();
 
 draw_set_color(c_aqua);
 //draw_line_width(x, y, mouse_x, mouse_y, 5);

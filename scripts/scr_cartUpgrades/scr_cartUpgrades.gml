@@ -22,7 +22,7 @@ function get_upgrade_benefit(_upgradeEnum) {
 	switch(_upgradeEnum) {
 		case ITEM.UPG_HEALTH: return 50;
 		case ITEM.UPG_EFFICIENCY: return 25;
-		case ITEM.UPG_CAPACITY: return 1;
+		case ITEM.UPG_CAPACITY: return 4;
 	}
 }
 
@@ -30,7 +30,7 @@ function generate_default_upgrade_packet() {
 	return {
 		"health" : 100,
 		"efficiency" : 100,
-		"capacity" : 1
+		"capacity" : 6
 	}
 }
 
@@ -46,4 +46,21 @@ function update_upgrade_packet(_upgradePacket, _upgradeEnum) {
 	}
 	
 	return _upgradePacket;
+}
+
+function upgrade_cart(_compatability, _upgradePacket) {
+	
+	var _newVal = _upgradePacket[_compatability]; // Get the current value for that upgrade
+	
+	switch(_compatability) {
+		case "health":		max_cart_health = _newVal; break;
+		case "efficiency":	cart_efficiency = _newVal; break;
+		case "capacity":	
+			cart_capacity	= _newVal; 
+		break;
+	}
+}
+
+function upgrade_cart_capacity(_newCartCapacity) {
+	
 }

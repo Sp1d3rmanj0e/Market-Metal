@@ -31,5 +31,5 @@ if (global.editingTrain and (clicked)) { // If editing the train
 	}
 }
 
-draw_healthbar(bbox_left, bbox_bottom+5, bbox_right, bbox_bottom + 15, 
-	(cart_health/max_cart_health)*100, c_ltgray, c_red, c_green, 0, true, true);
+//draw_healthbar(bbox_left, bbox_bottom+5, bbox_right, bbox_bottom + 15, 
+//	(cart_health/max_cart_health)*100, c_ltgray, c_red, c_green, 0, true, true);

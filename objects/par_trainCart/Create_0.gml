@@ -91,7 +91,19 @@ function find_valid_cart_insert(_x = mouse_x) {
 	
 }
 
+// Get the most up-to-date train stats based on its compatabilities
+
+// Only traits specified in the compatabilities array in variable definitions will
+// be considered for change
 function update_upgrades(_upgradePacket) {
 	
 	log(string(_upgradePacket));
+	
+	// Loop through every compatability
+	for (var i = 0; i < array_length(compatabilities); i++) {
+		
+		var _compatability = compatabilities[i];
+		
+		upgrade_cart(_compatability, _upgradePacket);
+	}
 }
