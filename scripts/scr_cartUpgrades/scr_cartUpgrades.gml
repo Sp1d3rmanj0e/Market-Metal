@@ -38,17 +38,26 @@
 // Keys are the object index, inside the array, organized like this:
 // [["upgradeName", max quantity], [...], ...]
 global.upgradeCompatabilities = {
-	obj_trainCartPassenger : ["health", "capacity"]
+	obj_trainCartPassenger : ["health", "capacity"],
+	obj_trainCartCoal : ["health"]
 };
 
 function get_cart_upgrade_compatabilities(_objectIndex) {
 	return global.upgradeCompatabilities[$ object_get_name(_objectIndex)];
 }
 
+function generate_base_upgrade_packet() {
+	return {
+		"health" : 100,
+		"efficiency" : 100,
+		"capacity" : 1
+	}
+}
+
 // Given a valid item enum, returns a string key for said item
 // the string key can then be used to access the corresponding upgrade
 // in the upgrade packet
-function get_upgrade_enum_class(_upgradeEnum) {
+function get_upgrade_class(_upgradeEnum) {
 	switch(_upgradeEnum) {
 		case ITEM.UPG_HEALTH: return "health";
 		case ITEM.UPG_EFFICIENCY: return "efficiency";
@@ -71,14 +80,27 @@ function get_upgrade_benefit(_upgradeEnum) {
 
 // Modifies cart values and calls functions based on the upgrade packet values 
 // and the compatability given
-function upgrade_cart(_upgradeEnum) {
+function upgrade_cart(_upgradePacket) {
 	
-	log("got upgrade enum: " + string(_upgradeEnum))
+	log("got upgrade packet: " + string(_upgradePacket))
 	
-	var _upgradeVal = get_upgrade_benefit(_upgradeEnum)
-	var _upgradeClass = get_upgrade_enum_class(_upgradeEnum);
+	// Loop through all compatible upgrades and set the cart's values according to the
+	// upgrade packet
 	
-	switch(_upgradeClass) {
+	// Get all compatibilities
+	var _compatibilities = get_cart_upgrade_compatabilities(object_index);
+	
+	log("Compatibilities: " + string(_compatibilities));
+	
+	for (var i = 0; i < array_length(_compatibilities); i++) {
+		var _compatibility = _compatibilities[i];
+	}
+	
+	// Extract the new value based on the upgrade packet
+	var _upgradeVal = _upgradePacket[$ _compatibility];
+	
+	// Modify the train numbers directly
+	switch(_compatibility) {
 		case "health":		max_cart_health		= _upgradeVal; break;
 		case "efficiency":	cart_efficiency		= _upgradeVal; break;
 		case "capacity":	cart_capacity_level	= _upgradeVal; 

@@ -4,29 +4,81 @@
 // Variables given upon creation
 // parent_id - the id of the cart that owns this terminal
 
-inventory_id = create_inventory(4);
+num_upgrade_slots = 4;
+
+inventory_id = create_inventory(num_upgrade_slots);
 
 showing_upgrade_gui = false;
 
 gui_id = noone;
 
-previous_contents = [];
+prev_upgrade_inv = array_create(num_upgrade_slots, ITEM.NONE);
 
-// Updates previous contents and the cart properties based on 
-// the new contents in the upgrade inventory
-function inventory_was_updated() {
-	log("Upgrading cart!");
+/// @desc compares the prev_upgrade_inv with the current upgrade inventory
+///		  If the values are different, the inventory has changed
+/// @returns true if inventory has changed, false if not
+function upg_inventory_has_changed() {
 	
-	// Update previous contents so that we can check in the future
-	// if the inventory was changed again or not
-	update_prev_contents();
+	// Loop through every slot in the inventory
+		// If there is an item, it will give the item
+		// If there is no item, it will give ITEM.NONE
+			// NOTE: Getting an empty cell from the inventory will return 0, not ITEM.NONE
 	
-	// Check to see if the new inventory is valid.
-	// If it is, update the cart's values.  Otherwise,
-	if (confirm_upgrades_are_valid())
-		update_cart();
-	else
-		log("not all items in the inventory are valid!");
+	for (var i = 0; i < num_upgrade_slots; i++) {
+		
+		// Get the current inventory value
+		var _curInvSlotPacket = inventory_get_item(inventory_id, i);
+		
+		// Overwrite 0 with ITEM.NONE if that exists
+		var _curItemId;
+		if (_curInvSlotPacket == 0) _curItemId = ITEM.NONE;
+		else _curItemId = _curInvSlotPacket[$ "id"];
+		
+		var _prevInvSlotVal = prev_upgrade_inv[i];
+		
+		// Compare the two.  If the values are different, return true.
+		// Otherwise, continue
+		if (_curItemId != _prevInvSlotVal) {
+			update_prev_upgrade_inv(); // Copy the new inventory over the old inventory
+									   // so that this isn't called every single frame
+			log("INVENTORY HAS CHANGED!");
+			return true;
+		}
+	}
+	
+	// No differences found, return false
+	return false;
+}
+
+// This function copies over all inventory contents into a 4-slot array.  We store this here
+// to check if the inventory has changed since the last frame
+// Empty slots are filled with ITEM.NONE
+// Non-empty slots are filled with the corresponding item enum
+function update_prev_upgrade_inv() {
+	
+	log("UPDATING PREV UPGRDE INV");
+	
+	// Update previous_contents with the new inventory contents 
+	// (Using item_enum as the value to keep things simple)
+	for (var i = 0; i < num_upgrade_slots; i++) {
+		
+		// Get the item packet from that inventory slot
+		var _itemPacket = inventory_get_item(inventory_id, i);
+		
+		// Overwrite 0 with ITEM.NONE if that exists
+		var _itemId;
+		if (_itemPacket == 0) _itemId = ITEM.NONE;
+		else _itemId = _itemPacket[$ "id"];
+		
+		prev_upgrade_inv[i] = _itemId;
+		log("Updated slot: " + string(i) + " with item id: " + string(_itemId));
+	}
+}
+
+
+// This is called whenever the inventory has an update
+function upg_inventory_was_updated() {
+	update_cart();
 }
 
 /// @desc - looks at all currently equipped upgrades as well as the cart's compatabilities
@@ -44,7 +96,7 @@ function confirm_upgrades_are_valid() {
 	// added twice, we have a duplicate, which is not allowed
 	var _currentUpgradeDict = ds_map_create();
 	
-	for (var i = 0; i < array_length(previous_contents); i++) {
+	for (var i = 0; i < num_upgrade_slots; i++) {
 		
 		// Get an item from the upgrade contents
 		var _upgradeEnum = previous_contents[i];
@@ -100,43 +152,43 @@ function class_is_valid(_compatabilityArr, _upgradeClass) {
 	return false;
 }
 
+// Searches through the equipped upgrades and gives back a dictionary containing the new stats
+// of the train
+function generate_upgrade_packet() {
+	// Create a base level of cart upgrades to change based on the upgrades equipped
+	var _upgradePacket = generate_base_upgrade_packet();
+	
+	// Loop through all equipped upgrades and alter the upgrade packet accordingly
+	for (var i = 0; i < num_upgrade_slots; i++) {
+		
+		// Get an item from the array
+		var _itemEnum = prev_upgrade_inv[i];
+		
+		// If the item is not empty, add its value to the upgrade packet
+		if (_itemEnum != ITEM.NONE) {
+			
+			// Get the key and benefit from the item
+			// Ex. Class: "health" Benefit: 125
+			var _itemClass = get_upgrade_class(_itemEnum);
+			var _itemValue = get_upgrade_benefit(_itemEnum);
+			
+			// Alter the upgrade packet
+			_upgradePacket[$ _itemClass] = _itemValue;
+		}
+	}
+	
+	// Return the modified upgrade packet
+	return _upgradePacket;
+}
+
+// Get the new upgrade packet generated based on the upgrade items in the inventory
+// Then send that packet to the cart to upgrade itself
 function update_cart() {
 	
-	log("previous contents: " + string(previous_contents));
-
-	for (var i = 0; i < array_length(previous_contents); i++) {
-		
-		// Get the item enum from the list of upgrades
-		var _upgradeEnum = previous_contents[i];
-		
-		log("upgrade enum to upgrade cart with: " + string(_upgradeEnum));
-		
-		with(parent_id) {upgrade_cart(_upgradeEnum);}
-	}
+	// Get the updated upgrade packet
+	var _upgradePacket = generate_upgrade_packet();
+	
+	// Tell the cart we are in control of to change its values based on this new upgrade packet
+	with(parent_id) {upgrade_cart(_upgradePacket)};
 }
 
-// This function looks at the current upgrade inventory and adds all non-ITEM.NONE items
-// into the previous_contents array
-function update_prev_contents() {
-	
-	var _newContents = [];
-	var _numInvSlots = ds_grid_height(inventory_id);
-	
-	// Update previous_contents with the new inventory contents 
-	// (Using item_enum as the value to keep things simple)
-	for (var i = 0; i < _numInvSlots; i++) {
-		
-		// Get the item id from that inventory slot
-		var _invItem = inventory_get_item(inventory_id, i)[$ "id"];
-		
-		log("got inventory item: " + string(_invItem));
-		log("health item is: " + string(ITEM.UPG_HEALTH));
-		log("capacity item is: " + string(ITEM.UPG_CAPACITY));
-		
-		if (_invItem[$ "id"] != ITEM.NONE)
-			array_push(_newContents, _invItem);
-	}
-	
-	// Update previous contents with the new contents array
-	previous_contents = _newContents;
-}
