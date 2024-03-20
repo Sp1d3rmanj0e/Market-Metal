@@ -31,22 +31,26 @@ function update_cart() {
 	}
 	
 	// Tell the cart that their upgrades have changed
-	with(parent_id) {update_upgrades(_upgradePacket);}
+	with(parent_id) {update_upgrades(_upgradePacket);
+		log("UPDAGITING UPGRADES X4");}
 }
 
+// This function looks at the current upgrade inventory and adds all non-ITEM.NONE items
+// into the previous_contents array
 function update_prev_contents() {
 	
 	var _newContents = [];
-	var _numInvItems = 4-inventory_get_number_open_slots(inventory_id);
+	var _numInvSlots = ds_grid_height(inventory_id);
 	
 	// Update previous_contents with the new inventory contents 
 	// (Using item_enum as the value to keep things simple)
-	for (var i = 0; i < _numInvItems; i++) {
+	for (var i = 0; i < _numInvSlots; i++) {
 		
 		// Get the item id from that inventory slot
 		var _invItem = inventory_get_item(inventory_id, i)[$ "id"];
 		
-		array_push(_newContents, _invItem);
+		if (_invItem[$ "id"] != ITEM.NONE)
+			array_push(_newContents, _invItem);
 	}
 	
 	// Update previous contents with the new contents array
