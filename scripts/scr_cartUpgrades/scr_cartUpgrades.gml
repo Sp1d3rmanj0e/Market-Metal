@@ -1,71 +1,88 @@
 
+#region upgrade explanation
+/* Upgrade Pathway
+
+(Starts in obj_upgradeTerminal)
+1) Item gets put in or removed from upgrade inventory
+
+2) call update(), which calls update_cart()
+	a) Creates a default upgrade dictionary
+	
+	b) Loops through every equipped upgrade in the inventory
+	
+	c) Call update_upgrade_packet()
+		i) Translates the item enum to a string that can act as a key (upgrade_enum_to_string())
+		
+		ii) Using the item enum, it finds the resulting stat bonus with get_upgrade_benefit()
+		
+		iii) Using the key found in step i, update the corresponding trait based on the stat bonus found
+		
+		iv) Return the updated upgrade packet
+		
+	d) Call the update_upgrades() function in par_trainCart, targeting the modified train.  We insert the
+		_upgradePacket into the update_upgrades paramater.
+		i) The called train cart will then call global.upgradeCompatabilities[$ object_get_name(object_index)]
+			to find the cart's applicable upgrades.
+			
+		ii) It then loops through all applicable upgrades within the upgrade packet and calls upgrade_cart()
+			for each one, giving the compatability (upgrade like "health" or "capacity") and the upgrade packet
+			as paramaters
+			1) upgrade_cart() then finds the upgrade packet value (for instance upgradePacket[$ "health"] = 150)
+				and modifies the cart's variables from there
+				
+			1*) For some upgrades like "capacity", a number change won't always suffice, in which, you can also
+				call functions within the switch statement within the upgrade_cart() function
+*/
+#endregion upgrade explanation
+
 // Keys are the object index, inside the array, organized like this:
 // [["upgradeName", max quantity], [...], ...]
 global.upgradeCompatabilities = {
-	obj_trainCartPassenger : [["health", 4], ["capacity", 3]]
+	obj_trainCartPassenger : ["health", "capacity"]
 };
 
-function upgrade_enum_to_string(_upgradeEnum) {
+function get_cart_upgrade_compatabilities(_objectIndex) {
+	return global.upgradeCompatabilities[$ object_get_name(_objectIndex)];
+}
+
+// Given a valid item enum, returns a string key for said item
+// the string key can then be used to access the corresponding upgrade
+// in the upgrade packet
+function get_upgrade_enum_class(_upgradeEnum) {
 	switch(_upgradeEnum) {
 		case ITEM.UPG_HEALTH: return "health";
 		case ITEM.UPG_EFFICIENCY: return "efficiency";
 		case ITEM.UPG_CAPACITY: return "capacity";
+		default: 
+			log("ERROR: Converting item enum to string, item is not valid!  Got: " + string(_upgradeEnum));
+			return -1;
 	}
 }
 
-function upgrade_is_compatible(_compatabilityArr, _upgradeEnum) {
-	for (var i = 0; i < array_length(_compatabilityArr); i++) {
-		var _compatability = _compatabilityArr[i];
-		
-		if (_compatability == _upgradeEnum)
-			return true;
-	}
-	
-	return false;
-}
-
-
+// Given an upgrade item, returns the number benefit from having that item as an upgrade
+// For instance, a health upgrade item will benefit the train with 50 health
 function get_upgrade_benefit(_upgradeEnum) {
 	switch(_upgradeEnum) {
-		case ITEM.UPG_HEALTH: return 50;
-		case ITEM.UPG_EFFICIENCY: return 25;
-		case ITEM.UPG_CAPACITY: return 1;
+		case ITEM.UPG_HEALTH: return 150;
+		case ITEM.UPG_EFFICIENCY: return 125;
+		case ITEM.UPG_CAPACITY: return 2;
 	}
 }
 
-function generate_default_upgrade_packet() {
-	return {
-		"health" : 100,
-		"efficiency" : 100,
-		"capacity" : 1
-	}
-}
-
-// Takes the current iteration of an upgrade packet, and decodes
-// another upgrade item.  If the item is applicable, it will add
-// its benefits to the upgrade packet and send it back
-function update_upgrade_packet(_upgradePacket, _upgradeEnum) {
+// Modifies cart values and calls functions based on the upgrade packet values 
+// and the compatability given
+function upgrade_cart(_upgradeEnum) {
 	
-	var _upgradeKey = upgrade_enum_to_string(_upgradeEnum);
-	var _upgradeBenefit = get_upgrade_benefit(_upgradeEnum);
+	log("got upgrade enum: " + string(_upgradeEnum))
 	
-	try {
-		_upgradePacket[$ _upgradeKey] += _upgradeBenefit;
-	} catch(e) {
-		log("invalid item in upgrade slot");
-	}
+	var _upgradeVal = get_upgrade_benefit(_upgradeEnum)
+	var _upgradeClass = get_upgrade_enum_class(_upgradeEnum);
 	
-	return _upgradePacket;
-}
-
-function upgrade_cart(_compatability, _upgradePacket) {
-	
-	var _newVal = _upgradePacket[$ _compatability]; // Get the current value for that upgrade
-	
-	switch(_compatability) {
-		case "health":		max_cart_health		= _newVal; break;
-		case "efficiency":	cart_efficiency		= _newVal; break;
-		case "capacity":	cart_capacity_level	= _newVal; 
+	switch(_upgradeClass) {
+		case "health":		max_cart_health		= _upgradeVal; break;
+		case "efficiency":	cart_efficiency		= _upgradeVal; break;
+		case "capacity":	cart_capacity_level	= _upgradeVal; 
 							update_seats();				   break;
+		default: log("ERROR: upgrade_cart() called with invalid _upgradeEnum");
 	}
 }

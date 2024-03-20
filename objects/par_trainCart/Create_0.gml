@@ -90,29 +90,3 @@ function find_valid_cart_insert(_x = mouse_x) {
 	}
 	
 }
-
-// Get the most up-to-date train stats based on its compatabilities
-
-// Only traits specified in the compatabilities array in variable definitions will
-// be considered for change
-function update_upgrades(_upgradePacket) {
-	
-	log(string(_upgradePacket));
-	log("CALLING IT X3");
-	var _objectCompatabilities = global.upgradeCompatabilities[$ object_get_name(object_index)];
-	
-	log("object_index: " + string(object_index));
-	log("object_index name: " + string(object_get_name(object_index)));
-	log("object compatabilities: " + string(_objectCompatabilities));
-	log("length of object compatabilities: " + string(array_length(_objectCompatabilities)));
-	
-	// Loop through every compatability
-	// global.upgradeCompatabilities organized like so:
-	// object_key -> [["compatability key", max quantity], [...], ...]
-	for (var i = 0; i < array_length(_objectCompatabilities); i++) {
-		
-		var _compatability = _objectCompatabilities[i][0];
-		
-		upgrade_cart(_compatability, _upgradePacket);
-	}
-}

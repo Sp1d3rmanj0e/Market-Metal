@@ -38,9 +38,10 @@ function inventory_return_picked_up_item(_packetId) {
 /// @param _numColumns - the number of columns the inventory has
 /// @param _drawBack - whether to draw the default GUI background behind the inventory or not
 /// @param _expectedContents - organized by [row][column], stores a replica of the expected values within the inventory.  If unfilled, won't do anything
+/// @param _whitelistContents - only allows items in this array to be put into the slots
 /// @returns true if the inventory perfectly matches the expected contents, false if not, if _expectedContents is -1, it will always return true
 function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSize, _numRows, _numColumns, _drawBack, 
-						_expectedContents = -1) {
+						_expectedContents = -1, _whitelistContents = -1) {
 		
 	if (_drawBack)
 		draw_gui_background(_startX, _startY, _width, _height);
@@ -71,7 +72,7 @@ function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSiz
 		}
 		
 		// Draw a slot in the inventory
-		if(!draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem)) {
+		if(!draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem, _whitelistContents)) {
 			_allValuesAreCorrect = false; // Tell the system that the inventory is not perfectly filled yet
 		}
 		// Increase this number to tell the box which slot in the inventory it represents
@@ -173,7 +174,7 @@ function pick_up_item(_inventoryId, _inventorySlotNum, _itemMap) {
 	log("packet collected! (made global var)");
 }
 
-function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem = -1) {
+function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem = -1, _whitelistContents = -1) {
 	
 	// Draw the expected item if there is one
 	if (_expectedItem != ITEM.NONE) and (_expectedItem != -1) {
@@ -208,10 +209,21 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 			// And the hand is not empty
 			if (global.current_packet != noone) {
 				
+				// Assuming there are no whitelist contents, we will want this to default to true
+				var _itemIsAllowed = true;
+				if (_whitelistContents != -1) {
+					
+					// Check to see if the attempted item is valid or not
+					var _packetItemId = global.current_packet[$ "id"];
+					
+					_itemIsAllowed = item_is_whitelisted(_whitelistContents, _packetItemId);
+				}
+				
 				log("hand has an item");
 				
 				// Put the hand item into the cell
-				inventory_put_item(_inventoryId, _inventorySlotNum, global.current_packet);
+				if (_itemIsAllowed)
+					inventory_put_item(_inventoryId, _inventorySlotNum, global.current_packet);
 			}
 		// The cell is not empty
 		} else {
@@ -275,6 +287,19 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 			return false;
 		}
 	}
+}
+
+/// @ returns true if the item is in the whitelist, otherwise, returns false
+function item_is_whitelisted(_whitelist, _item) {
+					
+	for (var i = 0; i < array_length(_whitelist); i++) {
+		var _whitelistItem = _whitelist[i];
+		if (_item == _whitelistItem)
+			return true;
+	}
+	
+	// No items matched, so the item must not be whitelisted
+	return false;
 }
 
 // Returns if the mouse is in a box's square

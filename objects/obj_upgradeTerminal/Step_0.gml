@@ -16,7 +16,7 @@ if (instance_exists(gui_id)) {
 	if (_numInvItems != _prevNumInvItems) {
 		log("sizes were different! Inventory had: " + string(_numInvItems) 
 			+ " items, while prevContents had: " + string(_prevNumInvItems));
-		update();
+		inventory_was_updated();
 	} else {
 	
 		// There's still a chance the inventory got updated without changing
@@ -31,7 +31,7 @@ if (instance_exists(gui_id)) {
 		
 			// If a value doesn't match, end the for loop and update the cart
 			if (_invValue != _prevContValue) {
-				update();
+				inventory_was_updated();
 				break;
 			}
 		}
