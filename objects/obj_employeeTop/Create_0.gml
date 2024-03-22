@@ -33,6 +33,12 @@ stat_resilience	= random_probability_curve(1, 10);
 // Traits
 randomize();
 
+// Assign Skin Tone
+skin_tone_color = choose(#E9C7AE, #E1B397, #D2A383, #C29170, 
+						 #C0796D, #BA7D69, #B77E61, #B27F5E, 
+						 #AE805B, #AC8559, #A16F4E, #8E5E3E, 
+						 #7A4F32, #623F27, #4B3320);
+
 // Assign gender
 gender = choose("male", "female");
 

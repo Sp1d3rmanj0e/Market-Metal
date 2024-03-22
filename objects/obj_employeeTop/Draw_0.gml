@@ -15,8 +15,12 @@ if (is_outdoors) {
 
 
 if ((y > MAP_VIEW_Y) and (is_outdoors)) or ((y < MAP_VIEW_Y) and (!is_outdoors))
-	if (!global.activelyMovingCart)
+	if (!global.activelyMovingCart) {
+		image_blend = skin_tone_color;
 		draw_self();
+		image_blend = c_white;
+		
+	}
 
 if (!is_outdoors) {
 	draw_hat();
