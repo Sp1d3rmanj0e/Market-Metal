@@ -124,6 +124,8 @@ function queue_command_top(_command, _target) {
 
 function queue_command(_command, _target, _priority, _professionRestriction) {
 	
+	if (!ds_exists(command_queue, ds_type_list)) {return; }
+	
 	var _mapId = ds_map_create();
 	ds_map_add(_mapId, "command", _command);
 	ds_map_add(_mapId, "target", _target);
@@ -275,7 +277,15 @@ function move_to_object(_id) {
 		
 		return task_not_finished();
 	} else {
-		x += sign(_id.x - x) * walk_speed;	
+		
+		// Change direction facing based on direction of motion
+		var _moveX = sign(_id.x - x) * walk_speed;
+		if (_moveX != 0) image_xscale = sign(_moveX);
+		
+		// Move the passenger
+		x += _moveX;
+		
+		// Continue moving
 		return task_not_finished();
 	}
 }

@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_employeeTop",
   "spriteId": {
-    "name": "spr_error",
-    "path": "sprites/spr_error/spr_error.yy",
+    "name": "spr_passengerCurvyWalk",
+    "path": "sprites/spr_passengerCurvyWalk/spr_passengerCurvyWalk.yy",
   },
   "solid": false,
   "visible": true,

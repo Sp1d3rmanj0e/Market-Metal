@@ -30,6 +30,139 @@ stat_metabolism	= random_probability_curve(1, 10);
 stat_resilience	= random_probability_curve(1, 10);
 
 
+// Traits
+randomize();
+
+// Assign gender
+gender = choose("male", "female");
+
+// Get a hat sprite (includes hair)
+hat = choose(noone, 
+			 spr_blue_bb_cap, spr_green_bb_cap, spr_red_bb_cap,
+			 spr_gray_beanie, spr_orange_beanie, spr_red_beanie,
+			 spr_propeller_hat, 
+			 spr_black_bucket_hat, spr_lime_bucket_hat, spr_tan_bucket_hat, 
+			 spr_brown_millitary_hat, spr_green_millitary_hat, spr_tan_millitary_hat,
+			 spr_blue_winter_hat, spr_red_winter_hat, spr_yellow_winter_hat,
+			 spr_blonde_long_hair, spr_brown_long_hair, spr_dark_long_hair,
+			 spr_blonde_medium_hair, spr_brown_medium_hair, spr_dark_medium_hair,
+			 spr_blonde_short_hair, spr_brown_short_hair, spr_dark_short_hair,
+			 spr_blonde_very_long_hair, spr_brown_very_long_hair, spr_dark_very_long_hair);
+	
+// Get a shirt sprite
+shirt = noone;
+if (gender == "female") {
+	
+	shirt = choose(spr_blue_heavy_coat_female, spr_grey_heavy_coat_female,
+				   spr_long_sleeve_blue_shirt_female, spr_long_sleeve_BnW_shirt_female,
+				   spr_long_sleeve_gray_shirt_female, spr_short_sleeve_brown_camo_female,
+				   spr_short_sleeve_green_camo_female, spr_short_sleeve_tan_camo_female,
+				   spr_short_sleeve_blue_flowers_female, spr_short_sleeve_yellow_flowers_female,
+				   spr_short_sleeve_generic_black_female, spr_short_sleeve_generic_dark_blue_female,
+				   spr_short_sleeve_generic_maroon_female);
+	
+} else {
+	shirt = choose(spr_blue_heavy_coat_male, spr_grey_heavy_coat_male,
+				   spr_long_sleeve_blue_shirt_male, spr_long_sleeve_BnW_shirt_male,
+				   spr_long_sleeve_gray_shirt_male, spr_short_sleeve_brown_camo_male,
+				   spr_short_sleeve_green_camo_male, spr_short_sleeve_tan_camo_male,
+				   spr_short_sleeve_blue_flowers_male, spr_short_sleeve_yellow_flowers_male,
+				   spr_short_sleeve_generic_black_male, spr_short_sleeve_generic_dark_blue_male,
+				   spr_short_sleeve_generic_maroon_male);
+				   
+}
+
+
+shoes = choose(spr_boot_brown_camo, spr_boot_green_camo, spr_boot_tan_camo,
+			   spr_black_dress_shoe, spr_brown_dress_shoe,
+			   spr_blue_slippers, spr_green_slippers, spr_pink_slippers,
+			   spr_blue_tennis_shoes, spr_red_tennis_shoes, spr_white_tennis_shoes)
+// Returns the correct sit sprite based on gender
+function get_sit_sprite(_gender = gender) {
+	if (_gender == "male") return spr_passengerFlatSit;
+	else return spr_passengerCurvySit;
+}
+
+// Returns the correct walk sprite based on gender
+function get_walk_sprite(_gender = gender) {
+	if (_gender == "male") return spr_passengerFlatWalk;
+	else return spr_passengerCurvyWalk;
+}
+
+// Returns the correct use sprite based on gender
+function get_use_sprite(_gender = gender) {
+	if (_gender == "male") return spr_passengerFlatUse;
+	else return spr_passengerCurvyUse;
+}
+
+function draw_hat(_spriteIndex = hat) {
+	
+	if (_spriteIndex == noone) {return;}
+	
+	var _x, _y;
+	
+	if (!is_sitting) {
+		
+		// We add origin offsets because the 
+		// person and clothing are off by 3 pixels (while walking)
+		_x = x + (3 * image_xscale);
+		_y = y + 3;
+		
+	} else {
+		
+		_x = x;
+		_y = y + 14;
+		image_index = 1;
+	}
+	
+	draw_sprite_ext(_spriteIndex, image_index, 
+					_x, _y, image_xscale, 1, 0, c_white, 1);
+}
+
+function draw_shirt(_spriteIndex = shirt) {
+	
+	var _x, _y;
+	
+	if (!is_sitting) {
+		
+		// We add origin offsets because the 
+		// person and clothing are off by 3 pixels (while walking)
+		_x = x + (3 * image_xscale);
+		_y = y + 3;
+		
+	} else {
+		
+		_x = x;
+		_y = y + 14;
+		image_index = 1;
+	}
+	
+	draw_sprite_ext(_spriteIndex, image_index, 
+					_x, _y, image_xscale, 1, 0, c_white, 1);
+}
+
+function draw_shoes(_spriteIndex = shoes) {
+	
+	var _x, _y;
+	
+	if (!is_sitting) {
+		
+		// We add origin offsets because the 
+		// person and clothing are off by 3 pixels (while walking)
+		_x = x + (3 * image_xscale);
+		_y = y + 3;
+		
+	} else {
+		
+		_x = x + (10 * image_xscale);
+		_y = y + 10;
+		image_index = 1;
+	}
+	
+	draw_sprite_ext(_spriteIndex, image_index, 
+					_x, _y, image_xscale, 1, 0, c_white, 1);
+	
+}
 function add_item_to_inventory(_id) {
 	
 	inventory_add_item_next_slot(inventory_id, _id);

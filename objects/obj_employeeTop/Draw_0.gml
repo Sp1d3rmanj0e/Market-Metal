@@ -6,9 +6,9 @@ if (is_outdoors) {
 	sprite_index = spr_player_top;
 } else {
 	if (!is_sitting) {
-		sprite_index = spr_passengerCurvyWalk;
+		sprite_index = get_walk_sprite();
 	} else {
-		sprite_index = spr_passengerCurvySit;
+		sprite_index = get_sit_sprite();
 	}
 }
 
@@ -17,6 +17,12 @@ if (is_outdoors) {
 if ((y > MAP_VIEW_Y) and (is_outdoors)) or ((y < MAP_VIEW_Y) and (!is_outdoors))
 	if (!global.activelyMovingCart)
 		draw_self();
+
+if (!is_outdoors) {
+	draw_hat();
+	draw_shirt();
+	draw_shoes();
+}
 
 draw_set_color(c_aqua);
 //draw_line_width(x, y, mouse_x, mouse_y, 5);

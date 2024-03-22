@@ -19,7 +19,7 @@ function seat_unassign_passenger() {
 	// Make the passenger depart because the seat is no longer viable
 	if (instance_exists(current_passenger_id)) {
 		with(current_passenger_id) {
-			queue_command(depart, id, 10);
+			queue_command(depart, id, 10, PROF.NONE);
 		}
 	
 		current_passenger_id.depth -= depth_modifier;
