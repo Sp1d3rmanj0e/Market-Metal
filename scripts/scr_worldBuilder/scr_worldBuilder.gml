@@ -98,7 +98,7 @@ function draw_tracks(_xCamPos, _yCamPos, _list, _startX = 0, _startY = 0, curAng
 				random_set_seed((X + map_cam_x)*0.867 + (Y+map_cam_y) * 1.54);
 				
 				// Draw the tracks
-				draw_sprite_ext(_trackSprite, irandom_range(2, 9), X,Y, trackScale, 1, curAngle + 90, c_white, 1);
+				draw_sprite_ext(_trackSprite, irandom_range(2, 8), X,Y, trackScale, 1, curAngle + 90, c_white, 1);
 				//draw_text_transformed(X + 10, Y + 10, "(" + string(map_cam_x + X) + ", " + string(map_cam_y + Y) + ")", 5, 5, 0);
 			}
 			

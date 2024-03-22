@@ -79,10 +79,17 @@ if (gender == "female") {
 }
 
 
-shoes = choose(spr_boot_brown_camo, spr_boot_green_camo, spr_boot_tan_camo,
-			   spr_black_dress_shoe, spr_brown_dress_shoe,
-			   spr_blue_slippers, spr_green_slippers, spr_pink_slippers,
-			   spr_blue_tennis_shoes, spr_red_tennis_shoes, spr_white_tennis_shoes)
+shoes = choose([spr_boot_brown_camo, spr_sit_boot_brown_camo], 
+			   [spr_boot_green_camo, spr_sit_boot_green_camo], 
+			   [spr_boot_tan_camo, spr_sit_boot_tan_camo],
+			   [spr_black_dress_shoe, spr_sit_black_dress_shoe], 
+			   [spr_brown_dress_shoe, spr_sit_brown_dress_shoe],
+			   [spr_blue_slippers, spr_sit_blue_slippers], 
+			   [spr_green_slippers, spr_sit_green_slippers], 
+			   [spr_pink_slippers, spr_sit_pink_slippers],
+			   [spr_blue_tennis_shoes, spr_sit_blue_tennis_shoes], 
+			   [spr_red_tennis_shoes, spr_sit_red_tennis_shoes], 
+			   [spr_white_tennis_shoes, spr_sit_white_tennis_shoes]);
 // Returns the correct sit sprite based on gender
 function get_sit_sprite(_gender = gender) {
 	if (_gender == "male") return spr_passengerFlatSit;
@@ -147,11 +154,15 @@ function draw_shirt(_spriteIndex = shirt) {
 					_x, _y, image_xscale, 1, 0, c_white, 1);
 }
 
+/// @desc draws the shoes of the player in sitting and moving positions
+/// @param _spriteIndex - [walkingSprite, sittingSprite]
 function draw_shoes(_spriteIndex = shoes) {
 	
-	var _x, _y;
+	var _x, _y, _shoeSprite;
 	
 	if (!is_sitting) {
+		
+		_shoeSprite = _spriteIndex[0];
 		
 		// We add origin offsets because the 
 		// person and clothing are off by 3 pixels (while walking)
@@ -160,12 +171,13 @@ function draw_shoes(_spriteIndex = shoes) {
 		
 	} else {
 		
-		_x = x + (10 * image_xscale);
-		_y = y + 10;
-		image_index = 1;
+		_shoeSprite = _spriteIndex[1];
+		
+		_x = x + (13 * image_xscale);
+		_y = y + 2;
 	}
 	
-	draw_sprite_ext(_spriteIndex, image_index, 
+	draw_sprite_ext(_shoeSprite, image_index, 
 					_x, _y, image_xscale, 1, 0, c_white, 1);
 	
 }
