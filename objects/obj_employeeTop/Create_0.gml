@@ -29,8 +29,7 @@ stat_efficiency	= random_probability_curve(1, 10);
 stat_metabolism	= random_probability_curve(1, 10);
 stat_resilience	= random_probability_curve(1, 10);
 
-
-// Traits
+#region Get Visual Traits
 randomize();
 
 // Assign Skin Tone
@@ -90,6 +89,11 @@ shoes = choose([spr_boot_brown_camo, spr_sit_boot_brown_camo],
 			   [spr_blue_tennis_shoes, spr_sit_blue_tennis_shoes], 
 			   [spr_red_tennis_shoes, spr_sit_red_tennis_shoes], 
 			   [spr_white_tennis_shoes, spr_sit_white_tennis_shoes]);
+
+#endregion Get Visual Traits
+
+#region Draw Visual Trait Functions
+
 // Returns the correct sit sprite based on gender
 function get_sit_sprite(_gender = gender) {
 	if (_gender == "male") return spr_passengerFlatSit;
@@ -181,6 +185,9 @@ function draw_shoes(_spriteIndex = shoes) {
 					_x, _y, image_xscale, 1, 0, c_white, 1);
 	
 }
+
+#endregion Draw Visual Trait Functions
+
 function add_item_to_inventory(_id) {
 	
 	inventory_add_item_next_slot(inventory_id, _id);

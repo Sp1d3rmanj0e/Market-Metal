@@ -774,29 +774,45 @@ function draw_recipe_requirements(_startX, _startY, _width, _recipe) {
 
 function gui_draw_person_profile(_personId) {
 	/*
-	+-----------------------+
-	| +---+  Stats:  +-----+|
-	| |   | O ---    |     ||
-	| +---+ O --     |Profi||
-	|       O ----   |leImg||
-	|[Stamp]O ---    +-----+|
-	|      {View Inv]  Name |
-	+-----------------------+
-	
 	The person targeted will be centered in the profile
 	Image slot in the top right
+	
+	\/ Origin
+	
+	X------------------------+
+	|   [PassSklz]    +-----+|
+	|                 |     || <- Image of passenger
+	| O =========     |     ||
+	| O =========     +--X--+| <- X is focused passenger origin
+	| O =========     [Name-]|
+	| O =========            |
+	| +--+            {Stamp}|
+	| |  |            [DistX]| <- Distance travelled on train
+	| +--+  [View Inventory] |
+	+------------------------+
+		 /\
+	      L Profession slot
+	
 	*/
 	
 	// Vars to signal the details of the card
-	var _startX = _personId.x;
-	var _startY = _personId.y;
+	
+	// The distance between the id card sprite's origin and the passenger origin
+	// is 219 X, and 89 Y
+	var _startX = _personId.x - 219;
+	var _startY = _personId.y - 89;
+	
+	
+	
 	var _width = sprite_get_width(spr_id_card);
 	var _height = sprite_get_height(spr_id_card);
 	
 	// Other vars
 	var _buffer = 10;
+
+	draw_sprite(spr_id_card, 0, _startX, _startY);
 	
-	draw_sprite(spr_id_card, 0, _startX, _startX);
+	
 }
 
 enum GUI {
