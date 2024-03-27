@@ -50,7 +50,13 @@ enum ITEM {
 	// UPGRADES
 	UPG_HEALTH,
 	UPG_EFFICIENCY,
-	UPG_CAPACITY
+	UPG_CAPACITY,
+	
+	// PROMOTIONS
+	PRO_ATTENDANT,
+	PRO_FARMER,
+	PRO_FIGHTER,
+	PRO_WORKER
 }
 
 function spawn_item_qty(_name, _enum, _qty) {
@@ -124,6 +130,12 @@ function get_item_data_from_enum(_enum, _dataRequested) {
 		case ITEM.UPG_HEALTH: _itemPackage = ["Health Upgrade", spr_itemError]; break;
 		case ITEM.UPG_EFFICIENCY: _itemPackage = ["Efficiency Upgrade", spr_itemError]; break;
 		case ITEM.UPG_CAPACITY: _itemPackage = ["Capacity Upgrade", spr_itemError]; break;
+		
+		// PROMOTIONS
+		case ITEM.PRO_ATTENDANT: _itemPackage = ["Attendant Promotion", spr_itemError]; break;
+		case ITEM.PRO_FARMER: _itemPackage = ["Farmer Promotion", spr_itemError]; break;
+		case ITEM.PRO_FIGHTER: _itemPackage = ["Fighter Promotion", spr_itemError]; break;
+		case ITEM.PRO_WORKER: _itemPackage = ["Worker Promotion", spr_itemError]; break;
 		
 		default: _itemPackage = ["Error", spr_itemError];
 	}

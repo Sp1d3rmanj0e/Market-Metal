@@ -196,3 +196,14 @@ function add_item_to_inventory(_id) {
 	inventory_add_item_next_slot(inventory_id, _id);
 	
 }
+
+/// @desc - updates the passenger's profession based on the item in their profession inventory
+function update_profession(_profItemEnum) {
+	switch(_profItemEnum) {
+		case ITEM.PRO_ATTENDANT: profession = PROF.ATTENDANT; break;
+		case ITEM.PRO_FARMER:	 profession = PROF.FARMER;	  break;
+		case ITEM.PRO_FIGHTER:	 profession = PROF.FIGHTER;	  break;
+		case ITEM.PRO_WORKER:    profession = PROF.WORKER;	  break;
+		default: profession = PROF.NONE;
+	}
+}

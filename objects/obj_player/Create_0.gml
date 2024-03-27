@@ -7,6 +7,7 @@ add_item(inventory_id, 0, ITEM.IRON, "Iron", spr_iron_item, 1, "it's just iron")
 add_item(inventory_id, 1, ITEM.WOOD, "Wood", spr_wood_item, 1, "it's just wood");
 add_item(inventory_id, 2, ITEM.UPG_HEALTH, "Health Upgrade", spr_itemError, 1, "balls");
 add_item(inventory_id, 3, ITEM.UPG_CAPACITY, "Capacity Upgrade", spr_itemError, 1, "balls");
+add_item(inventory_id, 4, ITEM.PRO_WORKER, "Worker Upgrade", spr_itemError, 1, "Pro worker");
 focusing_camera = false;
 
 function focus_camera(_cartId) {

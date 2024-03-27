@@ -72,7 +72,8 @@ function draw_inventory(_inventoryId, _startX, _startY, _width, _height, _boxSiz
 		}
 		
 		// Draw a slot in the inventory
-		if(!draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, _inventoryId, _inventorySlotNum, _expectedItem, _whitelistContents)) {
+		if(!draw_box(_startX + _boxSize * _column, _startY + _boxSize * _row, _boxSize, 
+					 _inventoryId, _inventorySlotNum, _expectedItem, _whitelistContents)) {
 			_allValuesAreCorrect = false; // Tell the system that the inventory is not perfectly filled yet
 		}
 		// Increase this number to tell the box which slot in the inventory it represents
@@ -201,6 +202,26 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 		mouse_clear(mb_left);
 		log("slot " + string(_inventorySlotNum) + " was clicked!");
 		
+		// Assuming there are no whitelist contents, we will want this to default to true
+		var _itemIsAllowed = true;
+		if (_whitelistContents != -1) {
+					
+			// Check to see if the attempted item is valid or not
+			
+			// Get the current item the player is holding
+			var _packet = global.current_packet;
+			
+			// Only check if the item exists
+			if (instance_exists(_packet)) {
+				
+				// Get the id of the item the player is holding
+				var _packetItemId = _packet.item_map[$ "id"];
+				
+				// Return whether or not the item is whitelisted
+				_itemIsAllowed = item_is_whitelisted(_whitelistContents, _packetItemId);
+			}
+		}
+		
 		// If the cell is empty
 		if (_itemMap == 0) {
 			
@@ -208,16 +229,6 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 			
 			// And the hand is not empty
 			if (global.current_packet != noone) {
-				
-				// Assuming there are no whitelist contents, we will want this to default to true
-				var _itemIsAllowed = true;
-				if (_whitelistContents != -1) {
-					
-					// Check to see if the attempted item is valid or not
-					var _packetItemId = global.current_packet[$ "id"];
-					
-					_itemIsAllowed = item_is_whitelisted(_whitelistContents, _packetItemId);
-				}
 				
 				log("hand has an item");
 				
@@ -231,7 +242,8 @@ function draw_box(_topLeftX, _topLeftY, _boxSize, _inventoryId, _inventorySlotNu
 			log("was not empty!")
 			
 			// Handles both empty and non-empty hands
-			pick_up_item(_inventoryId, _inventorySlotNum, _itemMap);
+			if (_itemIsAllowed)
+				pick_up_item(_inventoryId, _inventorySlotNum, _itemMap);
 			
 			log("ending command");
 			return;

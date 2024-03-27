@@ -924,9 +924,21 @@ function gui_draw_person_profile(_personId) {
 	// Get the inventory from the passenger
 	var _professionInventory = _personId.profession_inventory_id;
 	
-	// TODO: Add item whitelist
+	// Draw the profession inventory
 	var _invSize = _s3Height;
-	draw_inventory(_professionInventory, _s3StartX, _s3StartY, _invSize, _invSize, _invSize, 1, 1, false, -1, -1);
+	var _prevInvItem = inventory_get_item(_professionInventory, 0); // Store the previous item to check for changes
+	if (_prevInvItem != -1) _prevInvItem = _prevInvItem[$ "id"];
+	
+	draw_inventory(_professionInventory, _s3StartX, _s3StartY, _invSize, _invSize, _invSize, 
+				   1, 1, false, -1, [ITEM.PRO_ATTENDANT, ITEM.PRO_FARMER, ITEM.PRO_FIGHTER, ITEM.PRO_WORKER]);
+				   
+	var _newInvItem = inventory_get_item(_professionInventory, 0);
+	if (_newInvItem != -1) _newInvItem = _newInvItem[$ "id"];
+	
+	if (_prevInvItem != _newInvItem)
+		with (_personId) {update_profession(_newInvItem);}
+	
+	
 	
 	// Draw the view inventory button
 	var _buttonWidth = _s1Width - _invSize - _buffer;
@@ -939,6 +951,7 @@ function gui_draw_person_profile(_personId) {
 		_personId.show_inventory = !_personId.show_inventory;
 	}
 	
+	// Draw the stamp
 	var _stampSize = _s2Width;
 	
 	draw_sprite_stretched(spr_stamp, 0, _s2StartX, _profileBottomY + _buffer*2 + 10, _stampSize, _stampSize);
@@ -956,6 +969,12 @@ function gui_draw_person_profile(_personId) {
 	draw_set_color(-1);
 	draw_set_halign(fa_left);
 	draw_set_valign(fa_top);
+	
+	// Draw the player's inventory
+	var _inventoryId = obj_player.inventory_id;
+	var _cellSize = _height/4;
+	draw_inventory(_inventoryId, _startX - _cellSize*2 - _buffer*2, _startY, 
+				   _cellSize*2, _cellSize*4, _cellSize, 4, 2, true, -1, -1);
 	
 }
 
