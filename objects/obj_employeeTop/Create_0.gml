@@ -17,11 +17,14 @@ is_sitting = false;
 command_queue = ds_list_create();
 
 inventory_id = create_inventory(2);
+profession_inventory_id = create_inventory(1);
 show_inventory = false;
 
 profile_ui_id = noone;
 
 inventory = ds_list_create();
+
+dist_traveled = 0;
 
 // Base stats
 stat_speed		= random_probability_curve(1, 10);

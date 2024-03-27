@@ -8,6 +8,9 @@ map_cam_move_speed = 43;
 centered_camera = true;
 
 trainPos = 0;
+furthest_train_pos = trainPos; // Keeps track of the max distance the train has travelled
+							   // to prevent exploits where the player moves the train back
+							   // and forth to farm distance
 
 train_cur_speed = 0;
 train_target_speed = 0;
@@ -24,7 +27,7 @@ slow_down_train = false;
 
 loading_screen_id = noone;
 
-max_gen_dist = 200;
+//max_gen_dist = 200;
 
 #region generate the first tracks
 track_order = ds_map_create();
@@ -89,6 +92,7 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	ds_map_add(_dataMap, "startAngle", _startAngle);
 	
 	trainPos = 0;
+	furthest_train_pos = trainPos;
 	
 	// PreviousTrack >>> Trash
 	// CurrentTrack >>> PreviousTrack
@@ -128,6 +132,7 @@ function generate_next_tracks(_whichTrackWasSelected) {
 	train_reached_the_end = false;
 	slow_down_train = false;
 	tracks_generated = false;
+	train_cur_speed = 0;
 	
 	// 2 Future Tracks >>> Generated
 	generate_next_track_options(track_order);

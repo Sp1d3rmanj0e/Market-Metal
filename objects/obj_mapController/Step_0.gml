@@ -46,6 +46,17 @@ if (slow_down_train == false) {
 	train_cur_speed = 0; // Reset speed after going through a train station
 }
 
+// If the distance traveled hasn't been touched by the train yet, add
+// the distance to all passengers so that the player earns more money for carrying them
+if (trainPos > furthest_train_pos) {
+	furthest_train_pos = trainPos;
+	
+	if (!slow_down_train)
+		with(obj_employeeTop) dist_traveled += other.train_cur_speed;
+	else
+		with(obj_employeeTop) dist_traveled += other.slow_down_speed;
+}
+
 if (global.currentCamera == CAM.MAP) {
 	key_left	= keyboard_check(vk_left)	|| keyboard_check(ord("A"));
 	key_right	= keyboard_check(vk_right)	|| keyboard_check(ord("D"));

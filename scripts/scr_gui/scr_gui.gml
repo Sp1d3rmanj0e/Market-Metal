@@ -802,16 +802,160 @@ function gui_draw_person_profile(_personId) {
 	var _startX = _personId.x - 219;
 	var _startY = _personId.y - 89;
 	
-	
-	
+	// Size vars
 	var _width = sprite_get_width(spr_id_card);
 	var _height = sprite_get_height(spr_id_card);
 	
-	// Other vars
+	/*
+	    2/3 Width     1/3 W
+	I--------------I---------I
+	X------------------------+
+	|              |         | ~
+	|              |         | |
+	|              |         | |
+	| Section 1    |Section 2| | 4/5 H
+	|              |         | |
+	|              |         | | 
+	|--------------+         | ~
+	|  Section 3   |         | |
+	|              |         | | 1/5 H
+	+--------------+---------+ ~
+	*/
+	
+	// Vars
 	var _buffer = 10;
+	var _subElementBuffer = 5;
+	var _leftSectWidth = _width*(2/3);
+	var _topSectHeight = _height*(7/10);
+	
+	// Section 1
+	var _s1Width  = _leftSectWidth - _buffer*2;
+	var _s1Height = _topSectHeight - _buffer*2;
+	var _s1StartX = _startX + _buffer;
+	var _s1StartY = _startY + _buffer;
+	
+	// Section 2
+	var _s2Width  = _width*(1/3) - _buffer*2;
+	var _s2Height = _height - _buffer*2;
+	var _s2StartX = _startX + _s1Width + _buffer*2;
+	var _s2StartY = _startY + _buffer;
+	
+	// Section 2 Profile vars
+	var _profileStartX = _startX + 180;
+	var _profileStartY = _startY + 16;
+	var _profileHeight = 73;
+	var _profileWidth  = 74;
+	var _profileMiddleX = _profileStartX + _profileWidth/2;
+	var _profileBottomY = _profileStartY + _profileHeight;
+	
+	
+	// Section 3
+	var _s3Width = _leftSectWidth - _buffer*2;
+	var _s3Height = _height*(3/10) - _buffer*2;
+	var _s3StartX = _startX + _buffer;
+	var _s3StartY = _startY + _topSectHeight + _buffer;
+	
+	
 
 	draw_sprite(spr_id_card, 0, _startX, _startY);
 	
+	// Draw the passenger stats (Section 1)
+	/*
+	 - 5 evenly spaced sections
+	 - 1 Title, 4 stats
+	 - The title says "Passenger Skills"
+	 - Each stat has an icon and a bar showing the passenger's skill in that stat
+	 - All elements have a buffer border.  
+	 - Including buffer border, all elements will stretch to Section 1's borders
+	 - (Buffer already included in calculations)
+	*/
+	
+	var _numElements = 5;
+	
+	// Calculate element height
+	var _elementHeight = _s1Height;
+	_elementHeight -= (_numElements-1)*_subElementBuffer; // Subtract the space between elements
+	_elementHeight /= _numElements; // Divide the remaining room among all 5 elements
+		
+	var _elementY; // Keeps code clean when operating on multiple Y levels
+	
+	for (var i = 0; i < 5; i++) {
+		
+		if (i == 0) {
+			draw_gui_text_box(_s1StartX, _s1StartY, _s1Width, _elementHeight, "Passenger Skills");
+			continue;
+		}
+		
+		// Calculate the operating Y for the next element
+		_elementY = _s1StartY + (_elementHeight + _subElementBuffer)*i;
+		
+		draw_rectangle(_s1StartX, _elementY, _s1StartX + _s1Width, _elementY + _elementHeight, true);
+	}
+
+	// Draw Passenger Profile + Name (Section 2)
+	/*
+	 - A replica image of the passenger we want to create in the profile image slot (same clothes and skin tone)
+	 - A nameplate under the profile image
+	*/
+
+	// Draw replica passenger image
+
+	var _bodySprite;
+
+	if (_personId.gender == "male")
+		_bodySprite = spr_passengerFlatWalk;
+	else
+		_bodySprite = spr_passengerCurvyWalk;
+
+	draw_sprite_ext(_bodySprite, 0, 
+					_profileMiddleX, _profileBottomY, 
+					1, 1, 0, _personId.skin_tone_color, 1);
+	
+	// Draw passenger name
+	draw_gui_text_box(_profileStartX, _profileBottomY + _buffer, _profileWidth, 20, "John Doe");
+	
+	// Draw Profession Slot + View Inventory + Stamp
+	/*
+	- Draw an inventory slot, owned by the passenger that can be used to hire the passenger
+	- Draw a button that allows the player to open the passenger's inventory
+	- Draw a stamp on the bottom right, with red text underneath showing how long they have travelled
+	*/
+	
+	// Get the inventory from the passenger
+	var _professionInventory = _personId.profession_inventory_id;
+	
+	// TODO: Add item whitelist
+	var _invSize = _s3Height;
+	draw_inventory(_professionInventory, _s3StartX, _s3StartY, _invSize, _invSize, _invSize, 1, 1, false, -1, -1);
+	
+	// Draw the view inventory button
+	var _buttonWidth = _s1Width - _invSize - _buffer;
+	
+	// Button to open passenger inventory
+	var _invButtonStartX = _s3StartX + _invSize + _buffer
+	if (draw_gui_button(_invButtonStartX, _s3StartY, 
+					_buttonWidth, _s3Height, "View Inventory")) {
+		
+		_personId.show_inventory = !_personId.show_inventory;
+	}
+	
+	var _stampSize = _s2Width;
+	
+	draw_sprite_stretched(spr_stamp, 0, _s2StartX, _profileBottomY + _buffer*2 + 10, _stampSize, _stampSize);
+	
+	draw_set_color(c_red);
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_bottom)
+	
+	var _distTraveled = _personId.dist_traveled/100;
+	_distTraveled = round(_distTraveled)/100;
+	_distTraveled = string(_distTraveled) + " Km."
+	
+	draw_text(_s2StartX + _s2Width/2, _s2StartY + _s2Height, _distTraveled);
+	
+	draw_set_color(-1);
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
 	
 }
 
